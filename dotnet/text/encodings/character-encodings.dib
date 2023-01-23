@@ -1,0 +1,950 @@
+#!meta
+
+{"kernelInfo":{"defaultKernelName":null,"items":[{"name":"csharp","languageName":"C#","aliases":["c#","cs"]},{"name":"fsharp","languageName":"F#","aliases":["f#","fs"]},{"name":"pwsh","languageName":"PowerShell","aliases":["powershell"]},{"name":"javascript","languageName":"JavaScript","aliases":["js"]},{"name":"html","languageName":"HTML"},{"name":"sql","languageName":"SQL"},{"name":"kql","languageName":"KQL"},{"name":"mermaid","languageName":"Mermaid"},{"name":"httpRequest","languageName":"http"},{"name":"value"}]}}
+
+#!markdown
+
+# Character Encodings
+
+## Problem Definition
+
+Computers process, exchange and store bytes, not text. So there has to be some way to map bytes to text and vice versa.
+
+## ASCII
+
+ASCII, abbreviated from __American Standard Code for Information Interchange__, is a character encoding standard for electronic communication. ASCII codes represent text in computers. Because of technical limitations of computer systems at the time it was invented, ASCII has just 128 codes, of which only 95 are printable characters. The first edition of the standard was published in 1963.
+
+![ASCII Table](images/ascii-table.png)
+
+#!csharp
+
+private string FormatBytes(byte[] bytes, int? length = null)
+{
+  string result = string.Empty;
+  length ??= bytes.Length;
+  for (int i = 0; i < length; i++)
+  {
+    result += String.Format("{0:X2} ", bytes[i]);
+  }
+  return result;
+}
+
+#!csharp
+
+var initialString = "Hello, ASCII!";
+Console.WriteLine($"Initial string: {initialString}");
+
+var bytes = Encoding.ASCII.GetBytes(initialString);
+Console.WriteLine($"Bytes: {FormatBytes(bytes)}");
+
+var decodedString = Encoding.ASCII.GetString(bytes);
+Console.WriteLine($"Decoded string: {decodedString}");
+
+#!csharp
+
+var initialString = "Привет, ASCII!";
+Console.WriteLine($"Initial string: {initialString}");
+
+var bytes = Encoding.ASCII.GetBytes(initialString);
+Console.WriteLine($"Bytes: {FormatBytes(bytes)}");
+
+var decodedString = Encoding.ASCII.GetString(bytes);
+Console.WriteLine($"Decoded string: {decodedString}");
+
+#!markdown
+
+## Code Pages
+
+### Windows-1251
+
+![Windows-1251](images/windows-1251-table.gif)
+
+### Windows-1252
+
+![Windows-1252](images/windows-1252-table.gif)
+
+#!csharp
+
+#r "nuget:System.Text.Encoding.CodePages"
+
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+var encodingWindows1251 = Encoding.GetEncoding("windows-1251");
+
+var initialString = "Привет, ASCII!";
+Console.WriteLine($"Initial string: {initialString}");
+
+var bytes = encodingWindows1251.GetBytes(initialString);
+Console.WriteLine($"Bytes: {FormatBytes(bytes)}");
+
+var decodedString = encodingWindows1251.GetString(bytes);
+Console.WriteLine($"Decoded string: {decodedString}");
+
+#!csharp
+
+#r "nuget:System.Text.Encoding.CodePages"
+
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+var encodingWindows1252 = Encoding.GetEncoding("windows-1252");
+
+var initialString = "Comment ça va?";
+Console.WriteLine($"Initial string: {initialString}");
+
+var bytes = encodingWindows1252.GetBytes(initialString);
+Console.WriteLine($"Bytes: {FormatBytes(bytes)}");
+
+var decodedString = encodingWindows1252.GetString(bytes);
+Console.WriteLine($"Decoded string: {decodedString}");
+
+#!csharp
+
+#r "nuget:System.Text.Encoding.CodePages"
+
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+
+var encodingWindows1251 = Encoding.GetEncoding("windows-1251");
+var encodingWindows1252 = Encoding.GetEncoding("windows-1252");
+
+var initialString = "Привет, code pages!";
+Console.WriteLine($"Initial string: {initialString}");
+
+var bytes = encodingWindows1251.GetBytes(initialString);
+Console.WriteLine($"Bytes: {FormatBytes(bytes)}");
+
+var decodedString = encodingWindows1252.GetString(bytes);
+Console.WriteLine($"Decoded string: {decodedString}");
+
+#!markdown
+
+### Code Pages Mess
+
+There are many codepages even for single alphabets. For example, Cyrillic code pages include CP1125, KOI8-U, CP1251, CP866, etc.
+
+Here is the situation with code pages in Japan:
+
+![Japan encodings](images/japanese-code-pages.png)
+
+Things got too complicated and had to be sorted out.
+
+![Standards comics](images/standards-xkcd.png)
+
+__This time it suceeded. Meet Unicode.__
+
+#!markdown
+
+## Unicode
+
+_"Everyone in the world should be able to use their own language on phones and computers."_
+
+Unicode, formally __The Unicode Standard__, is an information technology standard for the consistent encoding, representation, and handling of text expressed in most of the world's writing systems. The standard, which is maintained by the Unicode Consortium, defines as of the current version (15.0) 149,186 characters covering 161 modern and historic scripts, as well as symbols, emoji (including in colors), and non-visual control and formatting codes.
+
+The Unicode Consortium was incorporated in California on 3 January 1991, and in October 1991, the first volume of the Unicode standard was published. The second volume, covering Han ideographs, was published in June 1992.
+
+[Unicode Site](https://home.unicode.org/)
+
+### Code Points
+
+__Unicode does not state how to present characters in bytes, it just assigns each character a unique abstract [code point](https://www.unicode.org/glossary/#code_point)__.
+
+The Unicode Standard defines over 1.1 million code points. A code point is an integer value that can range from 0 to U+10FFFF (decimal 1,114,111). Some code points are assigned to letters, symbols, or emoji. Others are assigned to actions that control how text or characters are displayed, such as advance to a new line. Many code points are not yet assigned.
+
+#### Sample String
+
+Let's explore string __"Hello привет 𐱃 🙂🇰🇿!"__.
+
+Character | Code Point | Name                               | Plane               | Properties Page
+----------|------------|------------------------------------|---------------------|-----------------
+H         | U+0048     | LATIN CAPITAL LETTER H             | https://util.unicode.org/UnicodeJsps/character.jsp?a=0048
+e         | U+0065     | LATIN SMALL LETTER E               | https://util.unicode.org/UnicodeJsps/character.jsp?a=0065
+l         | U+006C     | LATIN SMALL LETTER L               | https://util.unicode.org/UnicodeJsps/character.jsp?a=006C
+o         | U+006F     | LATIN SMALL LETTER O               | https://util.unicode.org/UnicodeJsps/character.jsp?a=006F
+' '       | U+0020     | SPACE                              | https://util.unicode.org/UnicodeJsps/character.jsp?a=0020
+п         | U+043F     | CYRILLIC SMALL LETTER PE           | https://util.unicode.org/UnicodeJsps/character.jsp?a=043F
+р         | U+0440     | CYRILLIC SMALL LETTER ER           | https://util.unicode.org/UnicodeJsps/character.jsp?a=0440
+и         | U+0438     | CYRILLIC SMALL LETTER I            | https://util.unicode.org/UnicodeJsps/character.jsp?a=0438
+в         | U+0432     | CYRILLIC SMALL LETTER VE           | https://util.unicode.org/UnicodeJsps/character.jsp?a=0432
+е         | U+0435     | CYRILLIC SMALL LETTER IE           | https://util.unicode.org/UnicodeJsps/character.jsp?a=0435
+т         | U+0442     | CYRILLIC SMALL LETTER TE           | https://util.unicode.org/UnicodeJsps/character.jsp?a=0442
+𐱃         | U+10C43    | OLD TURKIC LETTER ORKHON AT        | https://util.unicode.org/UnicodeJsps/character.jsp?a=10C43
+🙂        | U+1F642    | SLIGHTLY SMILING FACE              | https://util.unicode.org/UnicodeJsps/character.jsp?a=1F642
+🇰         | U+1F1F0    | REGIONAL INDICATOR SYMBOL LETTER K | https://util.unicode.org/UnicodeJsps/character.jsp?a=1F1F0
+🇿         | U+1F1FF    | REGIONAL INDICATOR SYMBOL LETTER Z | https://util.unicode.org/UnicodeJsps/character.jsp?a=1F1FF
+!         | U+0021     | EXCLAMATION MARK                   | https://util.unicode.org/UnicodeJsps/character.jsp?a=0021
+
+Code point are grouped. You can find the groups at [Unicode Character Code Charts](https://www.unicode.org/charts/)
+
+### Basic Multilingual Plane and Surrogate Pairs
+
+Within the full range of code points there are two subranges:
+
+The Basic Multilingual Plane (BMP) in the range `U+0000..U+FFFF`. This 16-bit range provides 65,536 code points, enough to cover the majority of the world's writing systems.
+Supplementary code points in the range `U+10000..U+10FFFF`. This 21-bit range provides more than a million additional code points that can be used for less well-known languages and other purposes such as emojis.
+
+<img src="images/bmp-and-surrogate.svg" alt="BMP and surrogate" width="1000"/>
+
+### Scalar Values
+
+The term Unicode scalar value refers to all code points other than the surrogate code points. In other words, a scalar value is any code point that is assigned a character or can be assigned a character in the future.
+
+<img src="images/scalar-values.svg" alt="Scalar values" width="1000"/>
+
+#!markdown
+
+## UTF-16
+
+UTF-16 (16-bit Unicode Transformation Format) is a character encoding capable of encoding all 1,112,064 valid code points of Unicode (in fact this number of code points is dictated by the design of UTF-16). The encoding is _variable-length_, as code points are encoded with one or two 16-bit code units.
+
+__All code points in BMP are encoded with one 16-bit code unit__.
+
+__All code points in the supplementary range are encoded with two 16-bit code units using surrogate pairs__.
+
+First code point | Last code point | Byte 1   | Byte 2   | Byte 3   | Byte 4   | Code points
+-----------------|-----------------|----------|----------|----------|----------|-------------
+U+0000           | U+FFFF          | xxxxxxxx | xxxxxxxx |          |          | 65536
+U+10000          | U+10FFFF        | 110110xx | xxxxxxxx | 110111xx | xxxxxxxx | 1048576
+
+### Endianness
+
+In .NET, the UTF-16 code units of a string are stored in contiguous memory as a sequence of 16-bit integers (`char` instances). The bits of individual code units are laid out according to the _endianness_ of the current architecture.
+
+On a little-endian architecture, the string consisting of the UTF-16 code points `[ D801 DCCC ]` would be laid out in memory as the bytes `[ 0x01, 0xD8, 0xCC, 0xDC ]`. On a big-endian architecture that same string would be laid out in memory as the bytes `[ 0xD8, 0x01, 0xDC, 0xCC ]`.
+
+### Surrogate Pairs
+
+#### Encoding
+
+In hexadecimal notation:
+
+```
+high surrogate code point = (code point - 0x10000) / 0x0400 + 0xD800
+
+low surrogate code point = (code point - 0x10000 - (high surrogate code point - 0xD800) * 0x0400)  + 0xDC00
+```
+
+In decimal notation:
+
+```
+high surrogate code point = (code point - 65536) / 1024 + 55296
+
+low surrogate code point = (code point - 65536 - (high surrogate code point - 55296) * 1024) + 56320
+```
+
+Let's encode 🙂 (U+1F642).
+
+In hexadecimal notation:
+
+```
+high surrogate code point = (0x1F642 - 0x10000) / 0x0400 + 0xD800
+                          =             0xF642  / 0x0400 + 0xDB00
+                          =                       0x003D + 0xD800
+                          =                                0xD83D
+
+low surrogate code point = (0x1F642 - 0x10000 - (0xD83D - 0xD800) * 0x0400) + 0xDC00
+                         =             0XF642 -           0x003D  * 0x0400  + 0xDC00
+                         =             0xF642 -                     0xF400  + 0xDC00
+                         =                                          0x0242  + 0xDC00
+                         =                                                    0xDE42
+```
+
+In decimal notation:
+
+```
+high surrogate code point = (128578 - 65536) / 1024 + 55296
+                          =           63042  / 1024 + 55296
+                          =                      61 + 55296
+                          =                           55357
+
+low surrogate code point = (128578 - 65536 - (55357 - 55296) * 1024) + 56320
+                         =           63042 -             61  * 1024  + 56320
+                         =           63042 -                  62464  + 56320
+                         =                                      578  + 56320
+                         =                                             56898
+```
+
+#### Decoding
+
+In hexadecimal notation:
+
+```
+code point = 0x10000 +
+  ((high surrogate code point - 0xD800) * 0x0400) +
+  (low surrogate code point - 0xDC00)
+```
+
+In decimal notation:
+
+```
+code point = 65,536 +
+  ((high surrogate code point - 55,296) * 1,024) +
+  (low surrogate code point - 56,320)
+```
+
+Let's decode [ D83D, DE42 ].
+
+In hexadecimal notation:
+
+```
+code point = 0x10000 + ((0xD83D - 0xD800) * 0x0400) + (0xDE42 - 0xDC00)
+           = 0x10000 + (          0x003D  * 0x0400) +           0x0242
+           = 0x10000 +                      0xF400  +           0x0242
+           = 0x1F642
+```
+
+In decimal notation:
+
+```
+code point = 65536 + ((55357 - 55296) * 1024) + (56898 - 56320)
+           = 65536 + (             61 * 1024) +           578
+           = 65536 +                    62464 +           578
+           = 128578
+```
+
+### Pros
+
+* Shorter byte sequences for CJK texts
+* Windows uses UTF-16 for strings
+
+### Cons
+
+* Can have zero bytes
+* Endianness-dependent
+
+#!csharp
+
+var bytes = Encoding.Unicode.GetBytes("Hello привет 𐱃 🙂🇰🇿!");
+Console.WriteLine($"UTF-16 bytes: {FormatBytes(bytes)}");
+
+#!markdown
+
+## UTF-32
+
+UTF-32 (32-bit Unicode Transformation Format) is a _fixed-length_ encoding used to encode Unicode code points that uses exactly 32 bits (four bytes) per code point (but a number of leading bits must be zero as there are far fewer than 2^32 Unicode code points, needing actually only 21 bits). UTF-32 is a fixed-length encoding, in contrast to all other Unicode transformation formats, which are variable-length encodings. Each 32-bit value in UTF-32 represents one Unicode code point and is exactly equal to that code point's numerical value.
+
+First code point | Last code point | Byte 1   | Byte 2   | Byte 3   | Byte 4   | Code points
+-----------------|-----------------|----------|----------|----------|----------|-------------
+U+0000           | U+10FFFF        | xxxxxxxx | xxxxxxxx | xxxxxxxx | xxxxxxxx | 1114112
+
+### Pros
+
+* Simple
+* Fast
+* Great for search and indexing
+
+### Cons
+
+* Consumes a lot of memory
+* Can have zero bytes
+* Endianness-dependent
+
+#!csharp
+
+var bytes = Encoding.UTF32.GetBytes("Hello привет 𐱃 🙂🇰🇿!");
+Console.WriteLine($"UTF-32 bytes: {FormatBytes(bytes)}");
+
+#!markdown
+
+## UTF-8
+
+UTF-8 is a _variable-length_ character encoding used for electronic communication. Defined by the Unicode Standard, the name is derived from Unicode Transformation Format – 8-bit.
+
+First code point | Last code point | Byte 1   | Byte 2   | Byte 3   | Byte 4   | Code points
+-----------------|-----------------|----------|----------|----------|----------|-------------
+U+0000           | U+007F          | 0xxxxxxx |          |          |          | 128
+U+0080           | U+07FF          | 110xxxxx | 10xxxxxx |          |          | 1920
+U+0800           | U+FFFF          | 1110xxxx | 10xxxxxx | 10xxxxxx |          | 61440
+U+10000          | U+10FFFF        | 11110xxx | 10xxxxxx | 10xxxxxx | 10xxxxxx | 1048576
+
+### Pros
+
+* Can handle any Unicode code point
+* Cannot have zero bytes
+* Backward compatibility with ASCII
+* Fallback and auto-detection. Only a small subset of possible byte strings are a valid UTF-8 string
+* Prefix code. The first byte indicates the number of bytes in the sequence
+* Self-synchronization. The leading bytes and the continuation bytes do not share values
+* Efficient to encode using simple bitwise operations
+* Shorter byte sequences for non-CJK texts
+* Endianness-independent, as UTF-8 is a byte-oriented encoding
+
+### Cons
+
+* Longer byte sequences for CJK texts
+
+### Popularity
+
+[Encodings Ranking](https://w3techs.com/technologies/cross/character_encoding/ranking)
+
+![Encodings Ranking](images/ranking.png)
+
+#!csharp
+
+var bytes = Encoding.ASCII.GetBytes("Hello привет 𐱃 🙂🇰🇿!");
+Console.WriteLine($"ASCII bytes: {FormatBytes(bytes)}");
+
+#!csharp
+
+var bytes = Encoding.UTF8.GetBytes("Hello привет 𐱃 🙂🇰🇿!");
+Console.WriteLine($"UTF-8 bytes: {FormatBytes(bytes)}");
+
+#!markdown
+
+## Grapheme Clusters
+
+A _grapheme cluster_ is a sequence of one of more Unicode code points that are to be treated as a single unit by various processes:
+
+* Text-editing software should generally allow placement of the cursor only at grapheme cluster boundaries: Clicking the mouse on a piece of text should place the insertion point at the nearest grapheme cluster boundary, and the arrow keys should move forward and back one grapheme cluster at a time.
+* Text-rendering software should never put a line break in the middle of a grapheme cluster (since the individual characters in a grapheme cluster generally interact typographically in ways that make it difficult to separate out the pieces, you generally couldn’t put a line break in the middle of a grapheme cluster without deforming it visually in some way.
+* Sort orders for different languages generally give a relative ordering for grapheme clusters, not necessarily individual characters. For instance, in Spanish, the sequence ch is treated as a separate letter that sorts between c and d. Therefore, in Spanish, ch would generally be considered a grapheme cluster.
+* Search algorithms should only count a matching sequence in the text being searched as a hit if it begins and ends on a grapheme cluster boundary. 
+
+🇰🇿 in our sample string is a grapheme cluster (as well as every other single code point :)). Another examples:
+
+```
+a   U+0061 LATIN SMALL LETTER A
+á   U+00E1 LATIN SMALL LETTER A WITH ACUTE
+á   U+0061 LATIN SMALL LETTER A
+    U+0301 COMBINING ACUTE ACCENT
+👩🏽‍🚒  U+1F469 WOMAN
+    U+1F3FD EMOJI MODIFIER FITZPATRICK TYPE-4
+    U+200D ZERO WIDTH JOINER
+    U+1F692 FIRE ENGINE
+```
+
+#!markdown
+
+## Unicode in .NET
+
+### Primitive Types
+
+`byte` - represents a byte (8 bit) with range _0 to 255_ or _0x00 to 0xFF_.
+
+`char` - represents a Unicode UTF-16 character (16 bit) with range _U+0000 to U+FFFF_.
+
+`string` - represents a Unicode text. A string is logically a sequence of 16-bit values, each of which is an instance of the `char` struct
+
+### `string` Representation
+
+[String contents on Sharplab.io](https://sharplab.io/#v2:C4LgTgrgdgPgAgJgAwFgBQiCM70EkoDOADgKYDGwAdABIkCGRAFAES0A2bA9gASD8IIAIggDhBATCCBWEEBCIN0DAG4GEd7oF4NwEJ7gHg3AD7vLA/7sBCZgEoA3EA==)
+
+```csharp
+Inspect.Heap("Hello привет 𐱃 🙂🇰🇿!");
+```
+
+```
+header  
+000 000 000 000 000 000 000 000
+
+type handle
+000 253 151 097 251 127 000 000
+
+_stringLength
+023 000 000 000
+
+_firstChar
+072 000
+
+101 000 108 000 108 000 111 000 032 000 063 004 064 004 056 004 050 004 053 004 066 004 032 000 003 216 067 220 032 000 061 216 066 222 060 216 240 221 060 216 255 221 033 000 000 000
+```
+
+#!mermaid
+
+classDiagram
+    class Encoding
+    Encoding <|-- ASCIIEncoding
+    Encoding <|-- BaseCodePageEncoding
+    Encoding <|-- UnicodeEncoding
+    Encoding <|-- UTF7Encoding
+    Encoding <|-- UTF8Encoding
+    Encoding <|-- UTF32Encoding
+    Encoding : byte[] GetBytes(char[] chars)
+    Encoding : byte[] GetBytes(string s)
+    Encoding : int GetBytes(ReadOnlySpan~char~ chars, Span~byte~ bytes)
+    Encoding : int GetByteCount(char[] chars)
+    Encoding : int GetByteCount(string s)
+    Encoding : int GetByteCount(ReadOnlySpan~char~ chars)
+    Encoding : char[] GetChars(byte[] bytes)
+    Encoding : int GetChars(ReadOnlySpan~byte~ bytes, Span~char~ chars)
+    Encoding : string GetString(byte[] bytes)
+    Encoding : string GetString(ReadOnlySpan~byte~ bytes)
+    Encoding : int GetCharCount(byte[] bytes)
+    Encoding : int GetCharCount(ReadOnlySpan~byte~ bytes)
+    Encoding : Encoder GetEncoder()
+    Encoding : Decoder GetDecoder()
+
+#!markdown
+
+### Buffered Encoding/Decoding
+
+#### Encoding
+
+Method                                                     | Description                                                                 | Notes
+-----------------------------------------------------------|-----------------------------------------------------------------------------|---------------
+`byte[] GetBytes(char[] chars)`                            | Creates a byte array and populates it with bytes encoded from a char array  | Stateless, allocates an array
+`byte[] GetBytes(string s)`                                | Creates a byte array and populates it with bytes encoded from a string      | Stateless, allocates an array
+`int GetBytes(ReadOnlySpan<char> chars, Span<byte> bytes)` | Populates the provided span with bytes encoded from the read-only char span | Stateless, allocation-free
+`int GetByteCount(char[] chars)`                           | Returns a count of bytes needed to encode a char array                      | Stateless
+`byte[] GetBytes(string s)`                                | Returns a count of bytes needed to encode a string                          | Stateless
+`int GetByteCount(ReadOnlySpan<char> chars)`               | Returns a count of bytes needed to encode a char span                       | Stateless
+
+#### Decoding
+
+Method                                                     | Description                                                                       | Notes
+-----------------------------------------------------------|-----------------------------------------------------------------------------------|---------------
+`char[] GetChars(byte[] bytes)`                            | Creates a char array and populates it with chars decoded from a byte array        | Stateless, allocates an array
+`int GetChars(ReadOnlySpan<byte> bytes, Span<char> chars)` | Populates the provided span with chars decoded from the read-only byte span       | Stateless, allocation-free
+`string GetString(byte[] bytes)`                           | Creates a string and populates it with chars decoded from a byte array            | Stateless, allocates a string
+`string GetString(ReadOnlySpan<byte> bytes)`               | Creates a string and populates it with chars decoded from the read-only byte span | Stateless, allocates a string
+`int GetCharCount(byte[] bytes)`                           | Returns a count of chars needed to decode a byte array                            | Stateless
+`int GetCharCount(ReadOnlySpan<byte> bytes)`               | Returns a count of chars needed to decode a byte span                             | Stateless
+
+#!csharp
+
+// Straightforward encoding/decoding
+var bytes = Encoding.UTF8.GetBytes("Hello привет 𐱃 🙂🇰🇿!");
+Console.WriteLine($"UTF-8 bytes: {FormatBytes(bytes)}");
+var decodedString = Encoding.UTF8.GetString(bytes);
+Console.WriteLine($"Decoded string: {decodedString}");
+
+#!csharp
+
+// Optimized encoding/decoding with array pooling
+using System.Buffers;
+
+var initialString = "Hello привет 𐱃 🙂🇰🇿!";
+var byteCount = Encoding.UTF8.GetByteCount(initialString);
+var bytes = ArrayPool<byte>.Shared.Rent(byteCount);
+int charCount;
+try
+{
+  Encoding.UTF8.GetBytes(initialString, bytes);
+  Console.WriteLine($"UTF-8 bytes: {FormatBytes(bytes, byteCount)}");
+
+  charCount = Encoding.UTF8.GetCharCount(bytes, 0, byteCount);
+}
+finally
+{
+  ArrayPool<byte>.Shared.Return(bytes);
+}
+
+var chars = ArrayPool<char>.Shared.Rent(charCount);
+try
+{
+  Encoding.UTF8.GetChars(bytes, 0, byteCount, chars, 0);
+  Console.WriteLine($"Decoded string: {new string(chars)}");
+}
+finally
+{
+  ArrayPool<char>.Shared.Return(chars);
+}
+
+#!csharp
+
+// Streamed decoding
+var bytes = Encoding.UTF8.GetBytes("Hello привет 𐱃 🙂🇰🇿!");
+
+var buffer = new byte[10];
+var sb = new StringBuilder();
+
+for (int i = 0; i < bytes.Length; i += 10)
+{
+  var count = (bytes.Length - i) < 10 ? (bytes.Length - i) : 10;
+  Array.Copy(bytes, i, buffer, 0, count);
+  sb.Append(Encoding.UTF8.GetString(buffer, 0, count));
+}
+
+Console.WriteLine($"Decoded string: {sb.ToString()}");
+
+#!markdown
+
+### Streamed Encoding/Decoding
+
+#### Encoding
+
+Method                                                                         | Description                                                                 | Notes
+-------------------------------------------------------------------------------|-----------------------------------------------------------------------------|---------------
+`Encoder Encoding.GetEncoder()`                                                | Returns a stateful encoder                                                  |
+`int Encoder.GetBytes(ReadOnlySpan<char> chars, Span<byte> bytes, bool flush)` | Encodes chars from the read-only char span to the byte span, `flush` indicates where to clean the internal state | Stateful
+`int Encoder.GetBytes(char[] chars, int charIndex, int charCount, byte[] bytes, int byteIndex, bool flush)` | Encodes chars from the char array to the byte array, `flush` indicates where to clean the internal state | Stateful
+`int Encoder.GetByteCount(ReadOnlySpan<char> chars, bool flush)`               | Returns a count of bytes needed to encode chars from the read-only char span | Stateful
+`int Encoder.GetByteCount(char[] chars, int charIndex, int charCount)`          | Returns a count of bytes needed to encode chars from the char array | Stateful
+
+#### Decoding
+
+Method                                                     | Description                                                                 | Notes
+-----------------------------------------------------------|-----------------------------------------------------------------------------|---------------
+`Decoder Encoding.GetDecoder()`                            | Returns a stateful encoder                                                  |
+`int Decoder.GetChars(ReadOnlySpan<byte> bytes, Span<char> chars, bool flush)` | Decodes bytes from the read-only byte span, `flush` indicates where to clean the internal state | Stateful
+`int Decoder.GetChars(byte[] bytes, int byteIndex, int byteCount, char[] chars, int charIndex, bool flush)` | Decodes bytes from the byte array to the char array, `flush` indicates where to clean the internal state | Stateful
+`int Decoder.GetCharCount(ReadOnlySpan<byte> bytes, bool flush)`               | Returns a count of chars needed to decode bytes from the read-only byte span | Stateful
+`int Decoder.GetCharCount(byte[] bytes, int byteIndex, int byteCount)`          | Returns a count of chares needed to decode bytes from the byte array | Stateful
+
+#!csharp
+
+var bytes = Encoding.UTF8.GetBytes("Hello привет 𐱃 🙂🇰🇿!");
+
+var buffer = new byte[10];
+var sb = new StringBuilder();
+var decoder = Encoding.UTF8.GetDecoder();
+
+var chars = new char[10];
+for (int i = 0; i < bytes.Length; i += 10)
+{
+  var count = (bytes.Length - i) < 10 ? (bytes.Length - i) : 10;
+  Array.Copy(bytes, i, buffer, 0, count);
+  var charCount = decoder.GetChars(buffer, 0, count, chars, 0);
+  sb.Append(chars, 0, charCount);
+}
+
+Console.WriteLine($"Decoded string: {sb.ToString()}");
+
+#!markdown
+
+### Fallback Strategies
+
+The most common problems in encoding operations occur when a Unicode character cannot be mapped to a particular encoding. The most common problems in decoding operations occur when invalid byte sequences cannot be translated into valid Unicode characters. For these reasons, you should know which fallback strategy a particular encoding object uses. Whenever possible, you should specify the fallback strategy used by an encoding object when you instantiate the object.
+
+See more at https://learn.microsoft.com/en-us/dotnet/standard/base-types/character-encoding#choosing-a-fallback-strategy
+
+#!markdown
+
+### Character-Oriented API
+
+#### `Rune`
+
+A `Rune` instance represents a Unicode scalar value, which means any code point excluding the surrogate range (U+D800..U+DFFF).
+
+`string.EnumerateRunes()` allows enumerating runes of the given string.
+
+##### When to use the Rune type
+Consider using the Rune type if your code:
+
+* Calls APIs that require Unicode scalar values
+* Explicitly handles surrogate pairs
+
+##### APIs that require Unicode scalar values
+
+If your code iterates through the char instances in a string or a ReadOnlySpan<char>, some of the char methods won't work correctly on char instances that are in the surrogate range. For example, the following APIs require a scalar value char to work correctly:
+
+* `Char.GetNumericValue`
+* `Char.GetUnicodeCategory`
+* `Char.IsDigit`
+* `Char.IsLetter`
+* `Char.IsLetterOrDigit`
+* `Char.IsLower`
+* `Char.IsNumber`
+* `Char.IsPunctuation`
+* `Char.IsSymbol`
+* `Char.IsUpper`
+
+##### Code that explicitly handles surrogate pairs
+
+Consider using the `Rune` type if your code calls APIs that explicitly operate on surrogate code points, such as the following methods:
+
+* `Char.IsSurrogate`
+* `Char.IsSurrogatePair`
+* `Char.IsHighSurrogate`
+* `Char.IsLowSurrogate`
+* `Char.ConvertFromUtf32`
+* `Char.ConvertToUtf32`
+
+#### `StringInfo`
+
+`StringInfo` provides functionality to split a string into text elements and to iterate through those text elements. .NET defines a text element as a unit of text that is displayed as a single character, that is, a grapheme. A text element can be a base character, a surrogate pair, or a combining character sequence.
+
+#!csharp
+
+// String lengths
+
+using System.Globalization;
+
+var str = "Hello привет 𐱃 🙂🇰🇿!";
+
+Console.WriteLine($"Char length: {str.Length}");
+
+int runeLength;
+foreach (var rune in str.EnumerateRunes())
+{
+  runeLength++;
+}
+Console.WriteLine($"Rune length: {runeLength}");
+
+int textElementLength;
+var textElementEnumerator = StringInfo.GetTextElementEnumerator(str);
+while (textElementEnumerator.MoveNext())
+{
+  textElementLength++;
+}
+Console.WriteLine($"Text element length: {textElementLength}");
+
+#!csharp
+
+// Count letters
+
+var str = "Hello привет 𐱃 🙂🇰🇿!";
+
+int count;
+
+foreach (var ch in str)
+{
+  if (char.IsLetter(ch))
+  {
+    count++;
+  }
+}
+Console.WriteLine($"Letter count with chars: {count}");
+
+count = 0;
+foreach (var rune in str.EnumerateRunes())
+{
+  if (Rune.IsLetter(rune))
+  {
+    count++;
+  }
+}
+Console.WriteLine($"Letter count with runes: {count}");
+
+#!csharp
+
+// Checking if string is well-formed
+
+var str = "Hello привет 𐱃 🙂🇰🇿!";
+
+for (int i = 0; i < str.Length;)
+{
+  if (!Rune.TryGetRuneAt(str, i, out Rune rune))
+  {
+    throw new Exception("String was not well-formed UTF-16.");
+  }
+
+  i += rune.Utf16SequenceLength;
+}
+
+Console.WriteLine("The string is well-formed");
+
+#!markdown
+
+### UTF-8 Literals
+
+[UTF-8 string contents on Sharplab.io](https://sharplab.io/#v2:C4LgTgrgdgPgAgJgAwFgBQiCM70CUCmAhgCYDyUANgJ4DKADoVADwBGVw+AfAAQTABmADhrAwASygBzbgF5uAIgAS+ChQD23QPwggARBAHCCAmEECsIICEQboGANwMI73QLwbgIT3APBuAH3fuB/3YCE8iIIDcONAEkoAGc6fABjYAA6ZUI6AAo+IRFxKUiAFTUAQTAwQio4gEoC7yA=)
+
+```csharp
+ReadOnlySpan<byte> utf8String = "Hello привет 𐱃 🙂🇰🇿!"u8;
+
+Inspect.Heap(utf8String.ToArray());
+```
+
+```
+header
+000 000 000 000 000 000 000 000
+
+type handle
+176 141 185 097 251 127 000 000
+
+length
+037 000 000 000 000 000 000 000
+
+072 101 108 108 111 032 208 191 209 128 208 184 208 178 208 181 209 130 032 240 144 177 131 032 240 159 153 130 240 159 135 176 240 159 135 191 033
+```
+
+#!markdown
+
+### Encodings Performance
+
+```csharp
+[MemoryDiagnoser]
+public class EncodingsBenchmark
+{
+    private string _string = string.Empty;
+
+    [GlobalSetup]
+    public void Setup()
+    {
+        for (int i = 0; i < 1000; i++)
+        {
+            _string += "Hello привет 𐱃 🙂🇰🇿!";
+        }
+    }
+
+    [Benchmark]
+    public byte[] Utf8() => Encoding.UTF8.GetBytes(_string);
+
+    [Benchmark]
+    public byte[] Utf16() => Encoding.Unicode.GetBytes(_string);
+
+    [Benchmark]
+    public byte[] Utf32() => Encoding.UTF32.GetBytes(_string);
+}
+```
+
+| Method |      Mean |    Error |    StdDev |    Gen0 |   Gen1 | Allocated |
+|------- |----------:|---------:|----------:|--------:|-------:|----------:|
+|   Utf8 |  42.67 us | 0.953 us |  2.751 us |  8.7280 | 0.0610 |  36.16 KB |
+|  Utf16 |  94.82 us | 2.782 us |  7.936 us | 10.8643 | 0.1221 |  44.95 KB |
+|  Utf32 | 245.02 us | 8.792 us | 25.506 us | 18.0664 | 3.4180 |  74.46 KB |
+
+#!markdown
+
+## Encoding Usage Examples
+
+### HTTP Server
+
+#!csharp
+
+// HTTP Processing Sample
+
+using System.Net;
+using System.Net.Sockets;
+
+const string responseString = @"
+HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Length: 37
+Server: drim-utf16
+
+Hello привет 𐱃 🙂🇰🇿!";
+
+IPEndPoint ipEndPoint = new(IPAddress.Any, 11_000);
+
+using (var listener = new Socket(ipEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp))
+{
+    listener.Bind(ipEndPoint);
+    listener.Listen(100);
+
+    Console.WriteLine("Listening for connection...\n");
+
+    using (var handler = await listener.AcceptAsync())
+    {
+        var buffer = new byte[1_024];
+        var received = await handler.ReceiveAsync(buffer, SocketFlags.None);
+
+        var request = Encoding.UTF8.GetString(buffer, 0, received);
+
+        Console.WriteLine($"Received:\n\n{request}");
+
+        var response = Encoding.UTF8.GetBytes(responseString);
+
+        await handler.SendAsync(response, SocketFlags.None);
+        Console.WriteLine("Response sent");
+
+        await handler.DisconnectAsync(false);
+        Console.WriteLine("Disconnected");
+    }
+}
+
+#!markdown
+
+### File I/O
+
+#!csharp
+
+// Files I/O using default encoding
+
+using System.IO;
+
+File.WriteAllText("files/file.txt", "Hello привет 𐱃 🙂🇰🇿!");
+var resultString = File.ReadAllText("files/file.txt");
+
+Console.WriteLine($"Result string: {resultString}");
+
+#!csharp
+
+// Files I/O using UTF-16 encoding
+
+using System.IO;
+
+File.WriteAllText("files/file.txt", "Hello привет 𐱃 🙂🇰🇿!", Encoding.Unicode);
+var resultString = File.ReadAllText("files/file.txt", Encoding.Unicode);
+
+Console.WriteLine($"Result string: {resultString}");
+
+#!markdown
+
+#### Byte Order Mark
+
+The byte order mark (BOM) is a particular usage of the special Unicode character, U+FEFF BYTE ORDER MARK, whose appearance as a magic number at the start of a text stream can signal several things to a program reading the text:
+
+* The byte order, or endianness, of the text stream in the cases of 16-bit and 32-bit encodings;
+* The fact that the text stream's encoding is Unicode, to a high level of confidence;
+* Which Unicode character encoding is used.
+
+BOM use is optional. Its presence interferes with the use of UTF-8 by software that does not expect non-ASCII bytes at the start of a file but that could otherwise handle the text stream.
+
+##### UTF-8
+
+The Unicode Standard permits the BOM in UTF-8, but does not require or recommend its use. Byte order has no meaning in UTF-8, so its only use in UTF-8 is to signal at the start that the text stream is encoded in UTF-8.
+
+##### UTF-16
+
+In UTF-16, a BOM (U+FEFF) may be placed as the first character of a file or character stream to indicate the endianness (byte order) of all the 16-bit code unit of the file or stream.
+
+* If the 16-bit units are represented in big-endian byte order ("UTF-16BE"), the BOM is the (hexadecimal) byte sequence `FE FF`
+* If the 16-bit units use little-endian order ("UTF-16LE"), the BOM is the (hexadecimal) byte sequence `FF FE`
+
+##### UTF-32
+
+Although a BOM could be used with UTF-32, this encoding is rarely used for transmission. Otherwise the same rules as for UTF-16 are applicable.
+
+#!markdown
+
+### Serialization Protocols
+
+#### MessagePack
+
+MessagePack is cross-platform and uses UTF-8 to encode string.
+
+#### MemoryPack
+
+MemoryPack is not cross-platform and tries to be as fast as possible. So it uses UTF-16 to encode strings in order to avoid UTF-8 encoding.
+
+#### Benchmark
+
+```csharp
+[MessagePackObject]
+public class MessagePackClass
+{
+    [Key(0)]
+    public string? Text { get; set; }
+}
+
+[MemoryPackable]
+public partial class MemoryPackClass
+{
+    public string? Text { get; set; }
+}
+
+[MemoryDiagnoser]
+public class EncodingsBenchmark
+{
+    private MessagePackClass _messagePackObject;
+    private MemoryPackClass _memoryPackObject;
+
+    [GlobalSetup]
+    public void Setup()
+    {
+        _messagePackObject = new() { Text = "Hello привет 𐱃 🙂🇰🇿!" };
+        _memoryPackObject = new() { Text = "Hello привет 𐱃 🙂🇰🇿!" };
+    }
+
+    [Benchmark]
+    public byte[] MessagePack() => MessagePackSerializer.Serialize(_messagePackObject);
+
+    [Benchmark]
+    public byte[] MemoryPack() => MemoryPackSerializer.Serialize(_memoryPackObject);
+}
+```
+
+|      Method |     Mean |   Error |   StdDev |   Median |   Gen0 | Allocated |
+|------------ |---------:|--------:|---------:|---------:|-------:|----------:|
+| MessagePack | 199.4 ns | 4.68 ns | 13.58 ns | 195.9 ns | 0.0153 |      64 B |
+|  MemoryPack | 174.6 ns | 3.81 ns | 11.06 ns | 171.3 ns | 0.0172 |      72 B |
+
+#!markdown
+
+## Links
+
+* http://bit.ly/3Gv1z4z The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)
+
+* http://bit.ly/3Z1n30b Introduction to character encoding in .NET | Microsoft Learn
+
+* http://bit.ly/3WPcPy2 How to use character encoding classes in .NET | Microsoft Learn
