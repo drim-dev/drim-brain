@@ -63,6 +63,10 @@ Console.WriteLine($"Decoded string: {decodedString}");
 
 ![Windows-1252](images/windows-1252-table.gif)
 
+### CP866
+
+![CP866](images/cp866.jpg)
+
 #!csharp
 
 #r "nuget:System.Text.Encoding.CodePages"
@@ -798,7 +802,7 @@ using System.Net.Sockets;
 
 const string responseString = @"
 HTTP/1.1 200 OK
-Content-Type: text/plain
+Content-Type: text/plain; charset=utf-8
 Content-Length: 37
 Server: drim-utf16
 
@@ -831,6 +835,9 @@ using (var listener = new Socket(ipEndPoint.AddressFamily, SocketType.Stream, Pr
         Console.WriteLine("Disconnected");
     }
 }
+
+// Hello Ð¿Ñ€Ð¸Ð²ÐµÑ‚ ð±ƒ ðŸ™‚ðŸ‡°ðŸ‡¿!
+// Hello привет 𐱃 🙂🇰🇿!
 
 #!markdown
 
