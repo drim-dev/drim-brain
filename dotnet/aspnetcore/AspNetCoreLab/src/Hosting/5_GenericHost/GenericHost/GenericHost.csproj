@@ -12,13 +12,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Services.Configuration\Services.Configuration.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Update="appsettings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\4_NoHost_Configuration\Services.Configuration\Services.Configuration.csproj" />
+      <ProjectReference Include="..\..\Domain\Domain.csproj" />
     </ItemGroup>
 
 </Project>

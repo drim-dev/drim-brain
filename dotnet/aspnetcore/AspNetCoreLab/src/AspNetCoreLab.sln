@@ -1,18 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoHost.Raw", "NoHost.Raw\NoHost.Raw.csproj", "{900C91D9-20AC-45F2-B487-F884653713DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoHost.Raw", "Hosting\1_NoHost_Raw\NoHost.Raw\NoHost.Raw.csproj", "{900C91D9-20AC-45F2-B487-F884653713DB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Raw", "Services.Raw\Services.Raw.csproj", "{F12F532C-B35E-4EA5-8202-F8804A4AC75A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Raw", "Hosting\1_NoHost_Raw\Services.Raw\Services.Raw.csproj", "{F12F532C-B35E-4EA5-8202-F8804A4AC75A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.DependencyInjection", "Services.DependencyInjection\Services.DependencyInjection.csproj", "{AABD4F98-08EF-4CF3-B5C1-3A9F06ABF4FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.DependencyInjection", "Hosting\2_NoHost_DependencyInjection\Services.DependencyInjection\Services.DependencyInjection.csproj", "{AABD4F98-08EF-4CF3-B5C1-3A9F06ABF4FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{6D5B0460-7344-4593-AED4-CC8F4633E899}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Hosting\Domain\Domain.csproj", "{6D5B0460-7344-4593-AED4-CC8F4633E899}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Logging", "Services.Logging\Services.Logging.csproj", "{73EF4A0A-F163-460F-BC2C-ECF1E1EB4B1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Logging", "Hosting\3_NoHost_Logging\Services.Logging\Services.Logging.csproj", "{73EF4A0A-F163-460F-BC2C-ECF1E1EB4B1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoHost.DependencyInjection", "NoHost.DependencyInjection\NoHost.DependencyInjection.csproj", "{F88C4EFE-BBFB-46F1-B1C5-5F6AAE9AA4F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoHost.DependencyInjection", "Hosting\2_NoHost_DependencyInjection\NoHost.DependencyInjection\NoHost.DependencyInjection.csproj", "{F88C4EFE-BBFB-46F1-B1C5-5F6AAE9AA4F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoHost.Logging", "NoHost.Logging\NoHost.Logging.csproj", "{B618955D-B873-4A40-8600-80D06C2F618E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoHost.Logging", "Hosting\3_NoHost_Logging\NoHost.Logging\NoHost.Logging.csproj", "{B618955D-B873-4A40-8600-80D06C2F618E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_NoHost_Raw", "1_NoHost_Raw", "{D7CD3995-2EC0-4400-9FEE-F210A4DF6F2C}"
 EndProject
@@ -22,9 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_NoHost_Logging", "3_NoHos
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4_NoHost_Configuration", "4_NoHost_Configuration", "{15B8A097-BEBF-4707-B8FA-856F245B48BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoHost.Configuration", "NoHost.Configuration\NoHost.Configuration.csproj", "{208343A6-14CC-4DF4-904E-5C3146CB63CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoHost.Configuration", "Hosting\4_NoHost_Configuration\NoHost.Configuration\NoHost.Configuration.csproj", "{208343A6-14CC-4DF4-904E-5C3146CB63CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Configuration", "Services.Configuration\Services.Configuration.csproj", "{91E372B4-6BF2-434C-A173-0D930786225B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Configuration", "Hosting\4_NoHost_Configuration\Services.Configuration\Services.Configuration.csproj", "{91E372B4-6BF2-434C-A173-0D930786225B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5_GenericHost", "5_GenericHost", "{EBCC8199-7562-4DAE-AE8F-ECF0B3652007}"
 EndProject
@@ -34,7 +34,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7_GenericHost_AspNetCore", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8_Web_Application", "8_Web_Application", "{0D9C36FD-3F8F-4D74-BDAE-A31BC294DCB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost", "GenericHost\GenericHost.csproj", "{E4530C8A-BE43-4DD9-9CA3-448CD13BBE2B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost", "Hosting\5_GenericHost\GenericHost\GenericHost.csproj", "{E4530C8A-BE43-4DD9-9CA3-448CD13BBE2B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hosting", "Hosting", "{099BE7BB-DE4C-469F-A11D-9966C8F7E938}"
 EndProject
@@ -103,5 +103,6 @@ Global
 		{E56D569F-67CC-44C8-A414-F09535B8F913} = {099BE7BB-DE4C-469F-A11D-9966C8F7E938}
 		{F726685C-F8DB-4FF1-96A9-4429C7874D93} = {099BE7BB-DE4C-469F-A11D-9966C8F7E938}
 		{0D9C36FD-3F8F-4D74-BDAE-A31BC294DCB9} = {099BE7BB-DE4C-469F-A11D-9966C8F7E938}
+		{6D5B0460-7344-4593-AED4-CC8F4633E899} = {099BE7BB-DE4C-469F-A11D-9966C8F7E938}
 	EndGlobalSection
 EndGlobal
