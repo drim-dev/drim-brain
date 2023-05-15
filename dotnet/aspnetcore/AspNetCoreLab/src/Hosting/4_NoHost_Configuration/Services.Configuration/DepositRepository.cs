@@ -9,6 +9,7 @@ public interface IDepositRepository
     Task SaveNewDeposits(IEnumerable<Deposit> deposits, CancellationToken cancellationToken);
     Task<IEnumerable<Deposit>> LoadUnconfirmedDeposits(CancellationToken cancellationToken);
     Task UpdateDepositConfirmations(IEnumerable<Deposit> deposits, CancellationToken cancellationToken);
+    Task<IEnumerable<Deposit>> LoadAllDeposits(CancellationToken cancellationToken);
 }
 
 public class DepositRepository : IDepositRepository
@@ -48,5 +49,16 @@ public class DepositRepository : IDepositRepository
         _logger.LogInformation("Deposit confirmations updated in database");
 
         return Task.CompletedTask;
+    }
+
+    public Task<IEnumerable<Deposit>> LoadAllDeposits(CancellationToken cancellationToken)
+    {
+        IEnumerable<Deposit> deposits = new[]
+        {
+            new Deposit { UserId = 1, Currency = "BTC", Amount = 2.5m, IsConfirmed = true },
+            new Deposit { UserId = 1, Currency = "BTC", Amount = 0.75m, IsConfirmed = false },
+        };
+
+        return Task.FromResult(deposits);
     }
 }
