@@ -1,6 +1,76 @@
-var builder = WebApplication.CreateBuilder(args);
-var app = builder.Build();
+using System.Text;
+using System.Text.Json;
+using Domain;
+using GenericHost.Kestrel.Endpoints;
+using GenericHost.Kestrel.Endpoints.Middlewares;
+using GenericHost.Kestrel.Endpoints.Middlewares.Terminal;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.Primitives;
+using Services.Configuration;
+using Services.Configuration.Options;
 
-app.MapGet("/", () => "Hello World!");
+var host = Host.CreateDefaultBuilder(args)
+    .ConfigureServices((hostContext, services) =>
+    {
+        services.AddHostedService<NewDepositHostedService>();
+        services.AddHostedService<DepositConfirmationsHostedService>();
+        services.AddHostedService<KestrelHostedServicePipeline>();
 
-app.Run();
+        services.AddScoped<DbContext>();
+
+        services.AddTransient<INewDepositProcessor, NewDepositProcessor>();
+        services.AddTransient<IDepositConfirmationsProcessor, DepositConfirmationsProcessor>();
+
+        services.AddTransient<IDepositAddressRepository, DepositAddressRepository>();
+        services.AddTransient<IDepositRepository, DepositRepository>();
+        services.AddTransient<IAccountRepository, AccountRepository>();
+
+        services.AddTransient<IBitcoinBlockchainScanner, BitcoinBlockchainScanner>();
+
+        services.AddSingleton<IBitcoinNodeClient, BitcoinNodeClient>();
+
+        services.Configure<BitcoinNodeClientOptions>(hostContext.Configuration.GetSection("BitcoinNodeClient"));
+        services.Configure<NewDepositProcessingOptions>(hostContext.Configuration.GetSection("NewDepositProcessing"));
+        services.Configure<DepositConfirmationsProcessingOptions>(hostContext.Configuration.GetSection("DepositConfirmationsProcessing"));
+    })
+    .AddPipeline(builder => builder
+        .Use<LogMiddleware>()
+        .Use<ExceptionPageMiddleware>()
+        .Use<StaticFilesMiddleware>()
+        .Use<RoutingMiddleware>()
+        .Use<RateLimitingMiddleware>()
+        .Use<EndpointExecutionMiddleware>()
+        .UseEndpoint("/exception", (context, scope) =>
+        {
+            throw new Exception("You hit the exception route");
+        })
+        .UseEndpoint("/deposits", async (context, scope) =>
+        {
+            var depositRepository = scope.ServiceProvider.GetRequiredService<IDepositRepository>();
+
+            var depositModels = (await depositRepository.LoadAllDeposits(CancellationToken.None))
+                .Select(x => new DepositDto
+                {
+                    UserId = x.UserId,
+                    Currency = x.Currency,
+                    Amount = x.Amount,
+                    IsConfirmed = x.IsConfirmed,
+                });
+
+            var responseFeature = context.Features.Get<IHttpResponseFeature>()!;
+            var responseBodyFeature = context.Features.Get<IHttpResponseBodyFeature>()!;
+
+            responseFeature.Headers.Add("Content-Type", new StringValues("application/json; charset=UTF-8"));
+            await responseBodyFeature.Stream.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(depositModels)));
+        }, new Dictionary<string, object>{{EndpointMetadataKeys.RateLimitingInverval, TimeSpan.FromSeconds(10)}})
+        .UseEndpoint("/health", async (context, scope) =>
+        {
+            var responseFeature = context.Features.Get<IHttpResponseFeature>()!;
+            var responseBodyFeature = context.Features.Get<IHttpResponseBodyFeature>()!;
+
+            responseFeature.Headers.Add("Content-Type", new StringValues("text/plain; charset=UTF-8"));
+            await responseBodyFeature.Stream.WriteAsync("OK"u8.ToArray());
+        }, new Dictionary<string, object>{{EndpointMetadataKeys.RateLimitingInverval, TimeSpan.FromSeconds(5)}}))
+    .Build();
+
+await host.RunAsync();

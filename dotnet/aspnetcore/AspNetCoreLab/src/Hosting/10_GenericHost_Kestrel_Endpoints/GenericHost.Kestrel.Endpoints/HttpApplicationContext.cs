@@ -2,4 +2,4 @@
 
 namespace GenericHost.Kestrel.Endpoints;
 
-internal record HttpApplicationContext(IFeatureCollection Features);
+public record HttpApplicationContext(IFeatureCollection Features);
