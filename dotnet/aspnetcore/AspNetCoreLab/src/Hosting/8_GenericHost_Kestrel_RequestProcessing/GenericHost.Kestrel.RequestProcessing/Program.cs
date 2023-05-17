@@ -8,7 +8,7 @@ var host = Host.CreateDefaultBuilder(args)
     {
         services.AddHostedService<NewDepositHostedService>();
         services.AddHostedService<DepositConfirmationsHostedService>();
-        services.AddHostedService<KestrelHostedService>();
+        services.AddHostedService<KestrelHostedServiceDelegates>();
 
         services.AddScoped<DbContext>();
 

@@ -53,8 +53,6 @@ public class KestrelHostedService : IHostedService
     }
 }
 
-internal record HttpApplicationContext(IFeatureCollection Features);
-
 internal class HttpApplication : IHttpApplication<HttpApplicationContext>
 {
     private readonly IServiceScopeFactory _serviceScopeFactory;
@@ -219,12 +217,4 @@ internal class HttpApplication : IHttpApplication<HttpApplicationContext>
         logger.LogInformation("Response: {Method} {Path} HTTP {StatusCode} {ElapsedMilliseconds}ms",
             requestFeature.Method, requestFeature.Path, responseFeature.StatusCode, stopwatch.ElapsedMilliseconds);
     }
-}
-
-public class DepositDto
-{
-    public int UserId { get; set; }
-    public string Currency { get; set; }
-    public decimal Amount { get; set; }
-    public bool IsConfirmed { get; set; }
 }
