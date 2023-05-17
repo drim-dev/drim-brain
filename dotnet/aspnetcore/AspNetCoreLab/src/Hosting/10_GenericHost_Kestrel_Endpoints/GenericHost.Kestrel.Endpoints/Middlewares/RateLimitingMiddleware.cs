@@ -16,7 +16,7 @@ public class RateLimitingMiddleware : IPipelineMiddleware
             return;
         }
         var lastExecutionTime = LastExecutionTimes.GetOrAdd(endpoint.PathPattern, _ => DateTime.MinValue);
-        if (DateTime.UtcNow - lastExecutionTime < (TimeSpan)interval)
+        if (DateTime.UtcNow - lastExecutionTime < TimeSpan.FromMilliseconds((int)interval))
         {
             var responseFeature = context.Features.Get<IHttpResponseFeature>()!;
             responseFeature.StatusCode = StatusCodes.Status429TooManyRequests;

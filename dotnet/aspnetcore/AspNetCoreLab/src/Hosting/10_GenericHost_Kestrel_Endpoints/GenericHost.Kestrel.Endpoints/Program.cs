@@ -2,6 +2,7 @@ using System.Text;
 using System.Text.Json;
 using Domain;
 using GenericHost.Kestrel.Endpoints;
+using GenericHost.Kestrel.Endpoints.Controllers;
 using GenericHost.Kestrel.Endpoints.Middlewares;
 using GenericHost.Kestrel.Endpoints.Middlewares.Terminal;
 using Microsoft.AspNetCore.Http.Features;
@@ -44,25 +45,26 @@ var host = Host.CreateDefaultBuilder(args)
         {
             throw new Exception("You hit the exception route");
         })
-        .UseEndpoint("/deposits", async (context, scope) =>
-        {
-            var depositRepository = scope.ServiceProvider.GetRequiredService<IDepositRepository>();
-
-            var depositModels = (await depositRepository.LoadAllDeposits(CancellationToken.None))
-                .Select(x => new DepositDto
-                {
-                    UserId = x.UserId,
-                    Currency = x.Currency,
-                    Amount = x.Amount,
-                    IsConfirmed = x.IsConfirmed,
-                });
-
-            var responseFeature = context.Features.Get<IHttpResponseFeature>()!;
-            var responseBodyFeature = context.Features.Get<IHttpResponseBodyFeature>()!;
-
-            responseFeature.Headers.Add("Content-Type", new StringValues("application/json; charset=UTF-8"));
-            await responseBodyFeature.Stream.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(depositModels)));
-        }, new Dictionary<string, object>{{EndpointMetadataKeys.RateLimitingInverval, TimeSpan.FromSeconds(10)}})
+        .UseControllerEndpoints()
+        // .UseEndpoint("/deposits", async (context, scope) =>
+        // {
+        //     var depositRepository = scope.ServiceProvider.GetRequiredService<IDepositRepository>();
+        //
+        //     var depositModels = (await depositRepository.LoadAllDeposits(CancellationToken.None))
+        //         .Select(x => new DepositDto
+        //         {
+        //             UserId = x.UserId,
+        //             Currency = x.Currency,
+        //             Amount = x.Amount,
+        //             IsConfirmed = x.IsConfirmed,
+        //         });
+        //
+        //     var responseFeature = context.Features.Get<IHttpResponseFeature>()!;
+        //     var responseBodyFeature = context.Features.Get<IHttpResponseBodyFeature>()!;
+        //
+        //     responseFeature.Headers.Add("Content-Type", new StringValues("application/json; charset=UTF-8"));
+        //     await responseBodyFeature.Stream.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(depositModels)));
+        // }, new Dictionary<string, object>{{EndpointMetadataKeys.RateLimitingInverval, 10_000}})
         .UseEndpoint("/health", async (context, scope) =>
         {
             var responseFeature = context.Features.Get<IHttpResponseFeature>()!;
@@ -70,7 +72,7 @@ var host = Host.CreateDefaultBuilder(args)
 
             responseFeature.Headers.Add("Content-Type", new StringValues("text/plain; charset=UTF-8"));
             await responseBodyFeature.Stream.WriteAsync("OK"u8.ToArray());
-        }, new Dictionary<string, object>{{EndpointMetadataKeys.RateLimitingInverval, TimeSpan.FromSeconds(5)}}))
+        }, new Dictionary<string, object>{{EndpointMetadataKeys.RateLimitingInverval, 5_000}}))
     .Build();
 
 await host.RunAsync();
