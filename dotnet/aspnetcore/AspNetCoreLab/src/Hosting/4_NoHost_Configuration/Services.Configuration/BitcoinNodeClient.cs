@@ -13,10 +13,10 @@ public class BitcoinNodeClient : IBitcoinNodeClient
     private readonly string _rpcUrl;
     private readonly TimeSpan _rpcTimeout;
 
-    public BitcoinNodeClient(IConfiguration configuration)
+    public BitcoinNodeClient(IOptions<BitcoinNodeClientOptions> options)
     {
-        _rpcUrl = configuration.GetSection("BitcoinNodeClient:RpcUrl").Get<string>()!;
-        _rpcTimeout = configuration.GetSection("BitcoinNodeClient:RpcTimeout").Get<TimeSpan>();
+        _rpcUrl = options.Value.RpcUrl;
+        _rpcTimeout = options.Value.RpcTimeout;
     }
 
     // ... client methods

@@ -98,7 +98,7 @@ internal class HttpApplication : IHttpApplication<HttpApplicationContext>
             responseFeature.StatusCode = StatusCodes.Status404NotFound;
         }
 
-        // No HttpContext needed
+        //No HttpContext needed
         // HttpContext httpContext = new DefaultHttpContext(context.Features);
         // httpContext.Response.Headers.Add("Content-Type", new StringValues("application/json; charset=UTF-8"));
         // await httpContext.Response.Body.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(depositModels)));

@@ -26,16 +26,16 @@ services.AddTransient<IBitcoinBlockchainScanner, BitcoinBlockchainScanner>();
 
 services.AddSingleton<IBitcoinNodeClient, BitcoinNodeClient>();
 
-using var loggerFactory = LoggerFactory.Create(builder =>
-{
-    builder.AddConsole();
-});
-
-services.AddSingleton(loggerFactory);
-services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
+// using var loggerFactory = LoggerFactory.Create(builder =>
+// {
+//     builder.AddConsole();
+// });
+//
+// services.AddSingleton(loggerFactory);
+// services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
 
 // TODO: uncomment
-// services.AddLogging(builder => builder.AddConsole());
+services.AddLogging(builder => builder.AddConsole());
 
 var serviceProvider = services.BuildServiceProvider();
 

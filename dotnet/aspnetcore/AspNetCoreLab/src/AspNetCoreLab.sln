@@ -30,9 +30,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5_GenericHost", "5_GenericH
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7_GenericHost_Kestrel", "7_GenericHost_Kestrel", "{E56D569F-67CC-44C8-A414-F09535B8F913}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8_GenericHost_AspNetCore", "8_GenericHost_AspNetCore", "{F726685C-F8DB-4FF1-96A9-4429C7874D93}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "9_GenericHost_AspNetCore", "9_GenericHost_AspNetCore", "{F726685C-F8DB-4FF1-96A9-4429C7874D93}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "9_Web_Application", "9_Web_Application", "{0D9C36FD-3F8F-4D74-BDAE-A31BC294DCB9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10_Web_Application", "10_Web_Application", "{0D9C36FD-3F8F-4D74-BDAE-A31BC294DCB9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost", "Hosting\5_GenericHost\GenericHost\GenericHost.csproj", "{E4530C8A-BE43-4DD9-9CA3-448CD13BBE2B}"
 EndProject
@@ -43,6 +43,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost.Multiple", "Hosting\6_GenericHost_Multiple\GenericHost.Multiple\GenericHost.Multiple.csproj", "{D166E2B6-70B8-47F8-8D09-C883E3FC23C3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost.Kestrel", "Hosting\7_GenericHost_Kestrel\GenericHost.Kestrel\GenericHost.Kestrel.csproj", "{593370DD-1EC4-4A01-BF0F-BBF4BB398C38}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8_GenericHost_Kestrel_RequestProcessing", "8_GenericHost_Kestrel_RequestProcessing", "{D4497AC9-9F45-4BC6-9176-C5B193B11489}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost.Kestrel.RequestProcessing", "Hosting\8_GenericHost_Kestrel_RequestProcessing\GenericHost.Kestrel.RequestProcessing\GenericHost.Kestrel.RequestProcessing.csproj", "{718DF6ED-A55E-4A8E-91B2-38D580B06C4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +102,10 @@ Global
 		{593370DD-1EC4-4A01-BF0F-BBF4BB398C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{593370DD-1EC4-4A01-BF0F-BBF4BB398C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{593370DD-1EC4-4A01-BF0F-BBF4BB398C38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{718DF6ED-A55E-4A8E-91B2-38D580B06C4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{718DF6ED-A55E-4A8E-91B2-38D580B06C4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{718DF6ED-A55E-4A8E-91B2-38D580B06C4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{718DF6ED-A55E-4A8E-91B2-38D580B06C4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{900C91D9-20AC-45F2-B487-F884653713DB} = {D7CD3995-2EC0-4400-9FEE-F210A4DF6F2C}
@@ -121,5 +129,7 @@ Global
 		{A1767E47-A81A-4E97-B7B4-DC0053314426} = {099BE7BB-DE4C-469F-A11D-9966C8F7E938}
 		{D166E2B6-70B8-47F8-8D09-C883E3FC23C3} = {A1767E47-A81A-4E97-B7B4-DC0053314426}
 		{593370DD-1EC4-4A01-BF0F-BBF4BB398C38} = {E56D569F-67CC-44C8-A414-F09535B8F913}
+		{D4497AC9-9F45-4BC6-9176-C5B193B11489} = {099BE7BB-DE4C-469F-A11D-9966C8F7E938}
+		{718DF6ED-A55E-4A8E-91B2-38D580B06C4A} = {D4497AC9-9F45-4BC6-9176-C5B193B11489}
 	EndGlobalSection
 EndGlobal

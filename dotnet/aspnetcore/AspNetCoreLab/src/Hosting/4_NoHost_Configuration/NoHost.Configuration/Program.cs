@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Services.Configuration;
+using Services.Configuration.Options;
 
 var cts = new CancellationTokenSource();
 
@@ -37,9 +38,9 @@ IConfiguration configuration = new ConfigurationBuilder()
 services.AddSingleton(configuration);
 
 // TODO: uncomment
-// services.Configure<BitcoinNodeClientOptions>(configuration.GetSection("BitcoinNodeClient"));
-// services.Configure<NewDepositProcessingOptions>(configuration.GetSection("NewDepositProcessing"));
-// services.Configure<DepositConfirmationsProcessingOptions>(configuration.GetSection("DepositConfirmationsProcessing"));
+services.Configure<BitcoinNodeClientOptions>(configuration.GetSection("BitcoinNodeClient"));
+services.Configure<NewDepositProcessingOptions>(configuration.GetSection("NewDepositProcessing"));
+services.Configure<DepositConfirmationsProcessingOptions>(configuration.GetSection("DepositConfirmationsProcessing"));
 
 var serviceProvider = services.BuildServiceProvider();
 
