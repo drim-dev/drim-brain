@@ -1,5 +1,7 @@
 using Domain;
-using GenericHost.Kestrel.RequestProcessing;
+using GenericHost.Kestrel.Middlewares;
+using GenericHost.Kestrel.Middlewares.Middlewares;
+using GenericHost.Kestrel.Middlewares.Middlewares.Terminal;
 using Services.Configuration;
 using Services.Configuration.Options;
 
@@ -8,7 +10,7 @@ var host = Host.CreateDefaultBuilder(args)
     {
         services.AddHostedService<NewDepositHostedService>();
         services.AddHostedService<DepositConfirmationsHostedService>();
-        services.AddHostedService<KestrelHostedService>();
+        services.AddHostedService<KestrelHostedServicePipeline>();
 
         services.AddScoped<DbContext>();
 
@@ -27,6 +29,14 @@ var host = Host.CreateDefaultBuilder(args)
         services.Configure<NewDepositProcessingOptions>(hostContext.Configuration.GetSection("NewDepositProcessing"));
         services.Configure<DepositConfirmationsProcessingOptions>(hostContext.Configuration.GetSection("DepositConfirmationsProcessing"));
     })
+    .AddPipeline(builder => builder
+        .Use<LogMiddleware>()
+        .Use<ExceptionPageMiddleware>()
+        .Use<StaticFilesMiddleware>()
+        .Use<ExceptionThrowingMiddleware>()
+        .Use<DepositsMiddleware>()
+        .Use<HealthCheckMiddleware>()
+        .Use<NotFoundMiddleware>())
     .Build();
 
 await host.RunAsync();

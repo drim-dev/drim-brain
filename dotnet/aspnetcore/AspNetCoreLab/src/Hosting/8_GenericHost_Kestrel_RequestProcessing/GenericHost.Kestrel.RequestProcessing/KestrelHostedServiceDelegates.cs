@@ -83,7 +83,7 @@ internal class HttpApplicationDelegates : IHttpApplication<HttpApplicationContex
         await Log(context, scope, async () =>
             await ExceptionPage(context, scope, async () =>
                 await RouteStaticFiles(context, scope, async () =>
-                    await RouteException(context, scope, async () =>
+                    await RouteExceptionThrowing(context, scope, async () =>
                         await RouteDeposits(context, scope, async () =>
                             await RouteHealthCheck(context, scope, async () =>
                                 await RouteNotFound(context, scope, () => Task.CompletedTask)))))));
@@ -186,7 +186,7 @@ internal class HttpApplicationDelegates : IHttpApplication<HttpApplicationContex
         await responseBodyFeature.CompleteAsync();
     }
 
-    private static async Task RouteException(HttpApplicationContext context, AsyncServiceScope scope, Func<Task> action)
+    private static async Task RouteExceptionThrowing(HttpApplicationContext context, AsyncServiceScope scope, Func<Task> action)
     {
         var requestFeature = context.Features.Get<IHttpRequestFeature>()!;
 

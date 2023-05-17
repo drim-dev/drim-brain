@@ -89,7 +89,7 @@ internal class HttpApplicationMethods : IHttpApplication<HttpApplicationContext>
                     return;
                 }
 
-                if (RouteException(context))
+                if (RouteExceptionThrowing(context))
                 {
                     return;
                 }
@@ -206,7 +206,7 @@ internal class HttpApplicationMethods : IHttpApplication<HttpApplicationContext>
         return true;
     }
 
-    private static bool RouteException(HttpApplicationContext context)
+    private static bool RouteExceptionThrowing(HttpApplicationContext context)
     {
         var requestFeature = context.Features.Get<IHttpRequestFeature>()!;
 
