@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using GenericHost.Kestrel.Endpoints.HostedServices;
 using Microsoft.AspNetCore.Http.Features;
 
 namespace GenericHost.Kestrel.Endpoints.Middlewares;

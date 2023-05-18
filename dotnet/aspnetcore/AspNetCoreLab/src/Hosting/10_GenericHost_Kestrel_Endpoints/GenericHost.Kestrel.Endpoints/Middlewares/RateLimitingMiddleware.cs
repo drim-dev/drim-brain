@@ -1,4 +1,6 @@
 ﻿using System.Collections.Concurrent;
+using GenericHost.Kestrel.Endpoints.Endpoints;
+using GenericHost.Kestrel.Endpoints.HostedServices;
 using Microsoft.AspNetCore.Http.Features;
 
 namespace GenericHost.Kestrel.Endpoints.Middlewares;

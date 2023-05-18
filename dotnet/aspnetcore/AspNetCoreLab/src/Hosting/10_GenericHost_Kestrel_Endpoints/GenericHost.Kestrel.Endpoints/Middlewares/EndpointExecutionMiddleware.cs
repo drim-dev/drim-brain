@@ -1,4 +1,7 @@
-﻿namespace GenericHost.Kestrel.Endpoints.Middlewares;
+﻿using GenericHost.Kestrel.Endpoints.Endpoints;
+using GenericHost.Kestrel.Endpoints.HostedServices;
+
+namespace GenericHost.Kestrel.Endpoints.Middlewares;
 
 public class EndpointExecutionMiddleware : IPipelineMiddleware
 {

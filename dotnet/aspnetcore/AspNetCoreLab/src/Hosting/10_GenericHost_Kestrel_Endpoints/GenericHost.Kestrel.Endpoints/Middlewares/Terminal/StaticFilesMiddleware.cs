@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.Features;
+﻿using GenericHost.Kestrel.Endpoints.HostedServices;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Primitives;
 
 namespace GenericHost.Kestrel.Endpoints.Middlewares.Terminal;

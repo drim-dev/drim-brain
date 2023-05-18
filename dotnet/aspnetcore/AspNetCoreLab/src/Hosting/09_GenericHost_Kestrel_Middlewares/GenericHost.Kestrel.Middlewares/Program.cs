@@ -1,7 +1,9 @@
 using Domain;
 using GenericHost.Kestrel.Middlewares;
+using GenericHost.Kestrel.Middlewares.HostedServices;
 using GenericHost.Kestrel.Middlewares.Middlewares;
 using GenericHost.Kestrel.Middlewares.Middlewares.Terminal;
+using GenericHost.Kestrel.Middlewares.Pipeline;
 using Services.Configuration;
 using Services.Configuration.Options;
 

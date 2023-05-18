@@ -1,6 +1,6 @@
-﻿using GenericHost.Kestrel.Endpoints.HostedServices;
+﻿using GenericHost.Kestrel.Middlewares.HostedServices;
 
-namespace GenericHost.Kestrel.Endpoints.Middlewares;
+namespace GenericHost.Kestrel.Middlewares.Middlewares.Abstract;
 
 public interface IPipelineMiddleware
 {

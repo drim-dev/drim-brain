@@ -3,8 +3,12 @@ using System.Text.Json;
 using Domain;
 using GenericHost.Kestrel.Endpoints;
 using GenericHost.Kestrel.Endpoints.Controllers;
+using GenericHost.Kestrel.Endpoints.Dtos;
+using GenericHost.Kestrel.Endpoints.Endpoints;
+using GenericHost.Kestrel.Endpoints.HostedServices;
 using GenericHost.Kestrel.Endpoints.Middlewares;
 using GenericHost.Kestrel.Endpoints.Middlewares.Terminal;
+using GenericHost.Kestrel.Endpoints.Pipeline;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Primitives;
 using Services.Configuration;
@@ -15,7 +19,7 @@ var host = Host.CreateDefaultBuilder(args)
     {
         services.AddHostedService<NewDepositHostedService>();
         services.AddHostedService<DepositConfirmationsHostedService>();
-        services.AddHostedService<KestrelHostedServicePipeline>();
+        services.AddHostedService<KestrelHostedService>();
 
         services.AddScoped<DbContext>();
 

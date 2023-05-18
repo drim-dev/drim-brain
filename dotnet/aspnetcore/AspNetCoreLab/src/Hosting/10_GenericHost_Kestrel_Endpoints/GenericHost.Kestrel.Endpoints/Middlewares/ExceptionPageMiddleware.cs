@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using GenericHost.Kestrel.Endpoints.HostedServices;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Primitives;
 

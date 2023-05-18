@@ -1,4 +1,6 @@
 ﻿using System.Text;
+using GenericHost.Kestrel.Middlewares.HostedServices;
+using GenericHost.Kestrel.Middlewares.Middlewares.Abstract;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.Extensions.Primitives;
 
