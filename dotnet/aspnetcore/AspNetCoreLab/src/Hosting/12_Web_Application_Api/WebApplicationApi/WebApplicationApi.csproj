@@ -7,17 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\4_NoHost_Configuration\Services.Configuration\Services.Configuration.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Update="public\index.html">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="public\images\dotnet.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Remove="Properties\launchSettings.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\4_NoHost_Configuration\Services.Configuration\Services.Configuration.csproj" />
     </ItemGroup>
 
 </Project>

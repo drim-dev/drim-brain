@@ -1,9 +1,9 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Http.Features;
 
-namespace GenericHost.Kestrel.Endpoints.Middlewares;
+namespace GenericHost.Kestrel.Middlewares.Middlewares;
 
-public class LogMiddleware : IPipelineMiddleware
+public class LoggingMiddleware : IPipelineMiddleware
 {
     public async Task Invoke(HttpApplicationContext context, IServiceScope scope, Func<Task> next)
     {

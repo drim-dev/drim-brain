@@ -30,7 +30,7 @@ var host = Host.CreateDefaultBuilder(args)
         services.Configure<DepositConfirmationsProcessingOptions>(hostContext.Configuration.GetSection("DepositConfirmationsProcessing"));
     })
     .AddPipeline(builder => builder
-        .Use<LogMiddleware>()
+        .Use<LoggingMiddleware>()
         .Use<ExceptionPageMiddleware>()
         .Use<StaticFilesMiddleware>()
         .Use<ExceptionThrowingMiddleware>()
