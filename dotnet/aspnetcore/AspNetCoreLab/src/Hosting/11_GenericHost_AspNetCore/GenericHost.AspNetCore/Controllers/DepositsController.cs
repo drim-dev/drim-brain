@@ -1,4 +1,5 @@
-﻿using GenericHost.AspNetCore.Dtos;
+﻿using GenericHost.AspNetCore.Controllers.Attributes;
+using GenericHost.AspNetCore.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using Services.Configuration;
 
@@ -15,6 +16,7 @@ public class DepositsController : Controller
     }
 
     [HttpGet]
+    [RateLimiting(10_000)]
     public async Task<DepositDto[]> GetDeposits(CancellationToken cancellationToken) =>
         (await _depositRepository.LoadAllDeposits(cancellationToken))
             .Select(x => new DepositDto

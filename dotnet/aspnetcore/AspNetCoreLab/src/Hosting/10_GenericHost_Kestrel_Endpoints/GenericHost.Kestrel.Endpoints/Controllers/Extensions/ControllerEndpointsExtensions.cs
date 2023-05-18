@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using GenericHost.Kestrel.Endpoints.Controllers.Attributes;
 using GenericHost.Kestrel.Endpoints.Endpoints;
 using GenericHost.Kestrel.Endpoints.HostedServices;
 using GenericHost.Kestrel.Endpoints.Pipeline;
@@ -27,7 +28,7 @@ public static class ControllerEndpointsExtensions
             Dictionary<string, object> metadata = new();
             if (rateLimitingAttribute is not null)
             {
-                metadata[EndpointMetadataKeys.RateLimitingInverval] = rateLimitingAttribute.Ms;
+                metadata[EndpointMetadataKeys.RateLimitingInverval] = rateLimitingAttribute.IntervalMs;
             }
             var endpointDelegate = CreateEndpointDelegate(controllerType, method);
             pipelineBuilder.UseEndpoint(pathAttribute.Path, endpointDelegate, metadata);
@@ -41,17 +42,6 @@ public static class ControllerEndpointsExtensions
         var controllerInstance = Activator.CreateInstance(controllerType);
         return (Func<HttpApplicationContext, IServiceScope, Task>)method.CreateDelegate(typeof(Func<HttpApplicationContext, IServiceScope, Task>), controllerInstance);
     }
-}
-
-[AttributeUsage(AttributeTargets.Method)]
-public class RateLimitingAttribute : Attribute
-{
-    public RateLimitingAttribute(int ms)
-    {
-        Ms = ms;
-    }
-
-    public int Ms { get; }
 }
 
 [AttributeUsage(AttributeTargets.Method)]

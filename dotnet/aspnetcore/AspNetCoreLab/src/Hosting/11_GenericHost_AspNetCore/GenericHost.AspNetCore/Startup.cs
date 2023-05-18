@@ -1,4 +1,5 @@
 ﻿using Domain;
+using GenericHost.AspNetCore.Controllers.Attributes;
 using GenericHost.AspNetCore.HostedServices;
 using GenericHost.AspNetCore.Middlewares;
 using Microsoft.Extensions.FileProviders;
@@ -41,6 +42,7 @@ public class Startup
 
         services.AddControllers();
         services.AddScoped<LoggingMiddleware>();
+        services.AddScoped<RateLimitingMiddleware>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment environment)
@@ -60,6 +62,8 @@ public class Startup
 
         app.UseRouting();
 
+        app.UseRateLimiting();
+
         app.UseEndpoints(endpoints =>
         {
             endpoints.Map("/exception", context =>
@@ -71,7 +75,8 @@ public class Startup
             {
                 context.Response.Headers.Add("Content-Type", new StringValues("text/plain; charset=UTF-8"));
                 await context.Response.Body.WriteAsync("OK"u8.ToArray());
-            });
+            })
+                .WithMetadata(new RateLimitingAttribute(5_000));
 
             endpoints.MapControllers();
         });

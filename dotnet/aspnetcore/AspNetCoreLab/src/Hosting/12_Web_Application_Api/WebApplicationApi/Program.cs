@@ -3,6 +3,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Primitives;
 using Services.Configuration;
 using Services.Configuration.Options;
+using WebApplicationApi.Controllers.Attributes;
 using WebApplicationApi.HostedServices;
 using WebApplicationApi.Middlewares;
 
@@ -30,6 +31,7 @@ builder.Services.Configure<DepositConfirmationsProcessingOptions>(builder.Config
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<LoggingMiddleware>();
+builder.Services.AddScoped<RateLimitingMiddleware>();
 
 var app = builder.Build();
 
@@ -46,6 +48,8 @@ app.UseStaticFiles(new StaticFileOptions
     RequestPath = "/public"
 });
 
+app.UseRateLimiting();
+
 app.MapGet("/exception", context =>
 {
     throw new Exception("You hit the exception route");
@@ -55,7 +59,8 @@ app.MapGet("/health", async context =>
 {
     context.Response.Headers.Add("Content-Type", new StringValues("text/plain; charset=UTF-8"));
     await context.Response.Body.WriteAsync("OK"u8.ToArray());
-});
+})
+    .WithMetadata(new RateLimitingAttribute(5_000));
 
 app.MapControllers();
 

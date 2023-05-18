@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services.Configuration;
+using WebApplicationApi.Controllers.Attributes;
 using WebApplicationApi.Dtos;
 
 namespace WebApplicationApi.Controllers;
@@ -15,6 +16,7 @@ public class DepositsController : Controller
     }
 
     [HttpGet]
+    [RateLimiting(10_000)]
     public async Task<DepositDto[]> GetDeposits(CancellationToken cancellationToken) =>
         (await _depositRepository.LoadAllDeposits(cancellationToken))
             .Select(x => new DepositDto

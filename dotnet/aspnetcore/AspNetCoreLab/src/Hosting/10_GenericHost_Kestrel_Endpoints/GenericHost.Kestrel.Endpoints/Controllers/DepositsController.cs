@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
+using GenericHost.Kestrel.Endpoints.Controllers.Attributes;
 using GenericHost.Kestrel.Endpoints.Controllers.Extensions;
 using GenericHost.Kestrel.Endpoints.Dtos;
 using GenericHost.Kestrel.Endpoints.Endpoints;
