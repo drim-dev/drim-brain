@@ -1,6 +1,6 @@
 ﻿namespace Clean.Options;
 
-public class DepositOptions
+public class AccountsOptions
 {
-    
+
 }

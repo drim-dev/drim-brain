@@ -1,8 +1,8 @@
 ﻿using Vertical.Features.Auth.Options;
 
-namespace Vertical.Features.Deposits.Registration;
+namespace Vertical.Features.Auth.Registration;
 
-public static class AuthServicesExtensions
+public static class AuthBuilderExtensions
 {
     public static WebApplicationBuilder AddAuth(this WebApplicationBuilder builder)
     {

@@ -7,7 +7,7 @@ using Vertical.Features.Deposits.Services;
 
 namespace Vertical.Features.Deposits.Registration;
 
-public static class DepositsServicesExtensions
+public static class DepositsBuilderExtensions
 {
     public static WebApplicationBuilder AddDeposits(this WebApplicationBuilder builder)
     {

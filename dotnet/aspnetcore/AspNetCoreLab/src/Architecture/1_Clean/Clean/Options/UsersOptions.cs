@@ -1,6 +1,6 @@
 ﻿namespace Clean.Options;
 
-public class UserOptions
+public class UsersOptions
 {
-    
+
 }

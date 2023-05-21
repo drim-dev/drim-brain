@@ -1,8 +1,8 @@
 ﻿using Vertical.Features.Withdrawals.Options;
 
-namespace Vertical.Features.Deposits.Registration;
+namespace Vertical.Features.Withdrawals.Registration;
 
-public static class WithdrawalsServicesExtensions
+public static class WithdrawalsBuilderExtensions
 {
     public static WebApplicationBuilder AddWithdrawals(this WebApplicationBuilder builder)
     {

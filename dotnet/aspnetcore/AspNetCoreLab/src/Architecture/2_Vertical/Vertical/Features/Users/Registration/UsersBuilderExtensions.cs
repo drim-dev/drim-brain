@@ -1,8 +1,8 @@
 ﻿using Vertical.Features.Users.Options;
 
-namespace Vertical.Features.Deposits.Registration;
+namespace Vertical.Features.Users.Registration;
 
-public static class UsersServicesExtensions
+public static class UsersBuilderExtensions
 {
     public static WebApplicationBuilder AddUsers(this WebApplicationBuilder builder)
     {

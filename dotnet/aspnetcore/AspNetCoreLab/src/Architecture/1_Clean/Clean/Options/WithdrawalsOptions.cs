@@ -1,6 +1,6 @@
 ﻿namespace Clean.Options;
 
-public class AccountOptions
+public class WithdrawalsOptions
 {
-    
+
 }

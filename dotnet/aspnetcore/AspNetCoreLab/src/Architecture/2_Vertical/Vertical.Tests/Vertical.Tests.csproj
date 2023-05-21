@@ -22,15 +22,8 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Tests\Accounts\Requests\" />
-      <Folder Include="Tests\Auth\Requests\" />
       <Folder Include="Tests\Deposits\Events\" />
-      <Folder Include="Tests\Deposits\Jobs\" />
-      <Folder Include="Tests\Deposits\Requests\" />
-      <Folder Include="Tests\Users\Requests\" />
       <Folder Include="Tests\Withdrawals\Events\" />
-      <Folder Include="Tests\Withdrawals\Jobs\" />
-      <Folder Include="Tests\Withdrawals\Requests\" />
     </ItemGroup>
 
 </Project>

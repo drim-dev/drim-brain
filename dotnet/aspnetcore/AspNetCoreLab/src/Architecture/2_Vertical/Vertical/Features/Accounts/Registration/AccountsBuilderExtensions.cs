@@ -1,8 +1,8 @@
 ﻿using Vertical.Features.Accounts.Options;
 
-namespace Vertical.Features.Deposits.Registration;
+namespace Vertical.Features.Accounts.Registration;
 
-public static class AccountsServicesExtensions
+public static class AccountsBuilderExtensions
 {
     public static WebApplicationBuilder AddAccounts(this WebApplicationBuilder builder)
     {
