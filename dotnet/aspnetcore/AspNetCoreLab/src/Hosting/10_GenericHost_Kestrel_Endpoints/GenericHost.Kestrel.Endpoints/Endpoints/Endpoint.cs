@@ -6,9 +6,6 @@ public record Endpoint(string PathPattern, Func<HttpApplicationContext, IService
 
 public class EndpointCollection : List<Endpoint>
 {
-    public EndpointCollection()
-    {
-    }
 }
 
 public static class EndpointMetadataKeys

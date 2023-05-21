@@ -82,12 +82,12 @@ internal class HttpApplicationDelegates : IHttpApplication<HttpApplicationContex
         await using var scope = _serviceScopeFactory.CreateAsyncScope();
 
         await Log(context, scope, async () =>
-            await ExceptionPage(context, scope, async () =>
-                await RouteStaticFiles(context, scope, async () =>
-                    await RouteExceptionThrowing(context, scope, async () =>
-                        await RouteDeposits(context, scope, async () =>
-                            await RouteHealthCheck(context, scope, async () =>
-                                await RouteNotFound(context, scope, () => Task.CompletedTask)))))));
+        await ExceptionPage(context, scope, async () =>
+        await RouteStaticFiles(context, scope, async () =>
+        await RouteExceptionThrowing(context, scope, async () =>
+        await RouteDeposits(context, scope, async () =>
+        await RouteHealthCheck(context, scope, async () =>
+        await RouteNotFound(context, scope, () => Task.CompletedTask)))))));
     }
 
     private static async Task Log(HttpApplicationContext context, AsyncServiceScope scope, Func<Task> action)

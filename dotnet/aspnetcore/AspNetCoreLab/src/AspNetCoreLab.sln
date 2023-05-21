@@ -49,11 +49,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost.Kestrel.RequestProcessing", "Hosting\8_GenericHost_Kestrel_RequestProcessing\GenericHost.Kestrel.RequestProcessing\GenericHost.Kestrel.RequestProcessing.csproj", "{718DF6ED-A55E-4A8E-91B2-38D580B06C4A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09_GenericHost_Kestrel_Middlewares", "09_GenericHost_Kestrel_Middlewares", "{8072FF75-4009-4073-99B5-FC7DE8C95A05}"
-	ProjectSection(SolutionItems) = preProject
-		public\index.html = public\index.html
-		public\images = public\images
-		public\images\dotnet.png = public\images\dotnet.png
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10_GenericHost_Kestrel_Endpoints", "10_GenericHost_Kestrel_Endpoints", "{19190A75-5583-4975-846D-635C5F06AB51}"
 EndProject
@@ -64,6 +59,20 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost.AspNetCore", "Hosting\11_GenericHost_AspNetCore\GenericHost.AspNetCore\GenericHost.AspNetCore.csproj", "{A4A9F81A-A015-425D-908E-ECDCE2E69ACC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationApi", "Hosting\12_Web_Application_Api\WebApplicationApi\WebApplicationApi.csproj", "{01E2B542-5BA1-425D-9E72-1654CB3B5D0E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Architecture", "Architecture", "{6B3E1CC1-CFF3-4E14-8538-5FEC9D48F3C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_Clean", "1_Clean", "{7BD1A7FA-C268-409F-8977-2BB8FC9BB835}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2_Vertical", "2_Vertical", "{423C0553-9CB5-4744-9FD2-C96577F12A30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clean", "Architecture\1_Clean\Clean\Clean.csproj", "{F260D4C3-93BA-4BF2-9375-93511B65D446}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vertical", "Architecture\2_Vertical\Vertical\Vertical.csproj", "{6CA06AC6-F1D3-418F-8FFB-8C5606E17702}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clean.Tests", "Architecture\1_Clean\Clean.Tests\Clean.Tests.csproj", "{6B216523-A20C-4B16-9F12-309444AADAE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vertical.Tests", "Architecture\2_Vertical\Vertical.Tests\Vertical.Tests.csproj", "{BD40E140-0388-4392-BEBD-EAF6E369B18D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -139,6 +148,22 @@ Global
 		{01E2B542-5BA1-425D-9E72-1654CB3B5D0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01E2B542-5BA1-425D-9E72-1654CB3B5D0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01E2B542-5BA1-425D-9E72-1654CB3B5D0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F260D4C3-93BA-4BF2-9375-93511B65D446}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F260D4C3-93BA-4BF2-9375-93511B65D446}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F260D4C3-93BA-4BF2-9375-93511B65D446}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F260D4C3-93BA-4BF2-9375-93511B65D446}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CA06AC6-F1D3-418F-8FFB-8C5606E17702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CA06AC6-F1D3-418F-8FFB-8C5606E17702}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CA06AC6-F1D3-418F-8FFB-8C5606E17702}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CA06AC6-F1D3-418F-8FFB-8C5606E17702}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B216523-A20C-4B16-9F12-309444AADAE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B216523-A20C-4B16-9F12-309444AADAE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B216523-A20C-4B16-9F12-309444AADAE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B216523-A20C-4B16-9F12-309444AADAE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD40E140-0388-4392-BEBD-EAF6E369B18D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD40E140-0388-4392-BEBD-EAF6E369B18D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD40E140-0388-4392-BEBD-EAF6E369B18D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD40E140-0388-4392-BEBD-EAF6E369B18D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{900C91D9-20AC-45F2-B487-F884653713DB} = {D7CD3995-2EC0-4400-9FEE-F210A4DF6F2C}
@@ -170,5 +195,11 @@ Global
 		{85E2DF11-2CF2-4303-AE75-10E622BABE5C} = {19190A75-5583-4975-846D-635C5F06AB51}
 		{A4A9F81A-A015-425D-908E-ECDCE2E69ACC} = {F726685C-F8DB-4FF1-96A9-4429C7874D93}
 		{01E2B542-5BA1-425D-9E72-1654CB3B5D0E} = {0D9C36FD-3F8F-4D74-BDAE-A31BC294DCB9}
+		{7BD1A7FA-C268-409F-8977-2BB8FC9BB835} = {6B3E1CC1-CFF3-4E14-8538-5FEC9D48F3C2}
+		{423C0553-9CB5-4744-9FD2-C96577F12A30} = {6B3E1CC1-CFF3-4E14-8538-5FEC9D48F3C2}
+		{F260D4C3-93BA-4BF2-9375-93511B65D446} = {7BD1A7FA-C268-409F-8977-2BB8FC9BB835}
+		{6CA06AC6-F1D3-418F-8FFB-8C5606E17702} = {423C0553-9CB5-4744-9FD2-C96577F12A30}
+		{6B216523-A20C-4B16-9F12-309444AADAE3} = {7BD1A7FA-C268-409F-8977-2BB8FC9BB835}
+		{BD40E140-0388-4392-BEBD-EAF6E369B18D} = {423C0553-9CB5-4744-9FD2-C96577F12A30}
 	EndGlobalSection
 EndGlobal

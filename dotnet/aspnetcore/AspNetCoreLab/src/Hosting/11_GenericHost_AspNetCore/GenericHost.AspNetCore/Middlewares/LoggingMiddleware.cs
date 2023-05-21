@@ -17,7 +17,7 @@ public class LoggingMiddleware : IMiddleware
         var requestFeature = context.Features.Get<IHttpRequestFeature>()!;
         var responseFeature = context.Features.Get<IHttpResponseFeature>()!;
 
-        _logger.LogInformation("Request: {Method} {Path}", requestFeature.Method, requestFeature.Path);
+        _logger.LogInformation("Request: {Method} {Path}", context.Request.Method, context.Request.Path);
         var stopwatch = Stopwatch.StartNew();
 
         await next(context);
