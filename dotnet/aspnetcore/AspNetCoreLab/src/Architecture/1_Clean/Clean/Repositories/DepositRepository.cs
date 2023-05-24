@@ -17,6 +17,7 @@ public class DepositRepository : IDepositRepository
     public Task<Deposit[]> GetDepositsByUserId(int userId, CancellationToken cancellationToken)
     {
         return _db.Deposits
+            .Include(x => x.Address)
             .Where(x => x.UserId == userId)
             .ToArrayAsync(cancellationToken);
     }
