@@ -30,8 +30,6 @@ public static class ApplicationBuilderExtensions
 
                     problemDetails.Extensions.Add("traceId", Activity.Current?.Id ?? context.TraceIdentifier);
 
-                    problemDetails.Extensions.Remove("errors");
-
                     problemDetails.Extensions["errors"] = validationErrorsException.Errors
                         .Select(x => new ErrorData(x.Field, x.Message));
 

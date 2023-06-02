@@ -27,7 +27,9 @@ public static class CreateWithdrawalAsyncValidation
                 .NotEmpty().WithErrorCode(AddressRequired);
             RuleFor(x => x.Currency)
                 .NotEmpty().WithErrorCode(CurrencyRequired)
-                .MustAsync(async (currency, ct) => await CurrencyStorage.Exists(currency, ct)).WithErrorCode(CurrencyNotFound);
+                .MustAsync(async (currency, ct) => await CurrencyStorage.Exists(currency, ct))
+                .WithMessage("Currency not found")
+                .WithErrorCode(CurrencyNotFound);
             RuleFor(x => x.Amount)
                 .GreaterThan(0).WithErrorCode(AmountLessOrEqualZero);
         }

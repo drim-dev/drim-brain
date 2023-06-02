@@ -1,6 +1,6 @@
 ﻿namespace Errors.Features.Withdrawals.Errors.Codes;
 
-public static class WithdrawalLogicConfictErrors
+public static class WithdrawalLogicConflictErrors
 {
     private const string Prefix = "withdrawals_logic_confict_";
 

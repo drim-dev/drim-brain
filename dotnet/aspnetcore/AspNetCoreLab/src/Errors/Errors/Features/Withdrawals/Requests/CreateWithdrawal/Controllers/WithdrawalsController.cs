@@ -15,7 +15,7 @@ public class WithdrawalsController : Controller
 
     [Authorize]
     [HttpPost("basic-validation")]
-    public async Task CreateWithdrawalBasicValidation([FromBody] CreateWithdrawalBasicValidation.Request request, CancellationToken cancellationToken)
+    public async Task CreateWithdrawalBasicValidation(CreateWithdrawalBasicValidation.Request request, CancellationToken cancellationToken)
     {
         var userId = User.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
@@ -26,7 +26,7 @@ public class WithdrawalsController : Controller
 
     [Authorize]
     [HttpPost("codes-validation")]
-    public async Task CreateWithdrawalCodesValidation([FromBody] CreateWithdrawalCodesValidation.Request request, CancellationToken cancellationToken)
+    public async Task CreateWithdrawalCodesValidation(CreateWithdrawalCodesValidation.Request request, CancellationToken cancellationToken)
     {
         var userId = User.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
@@ -37,7 +37,7 @@ public class WithdrawalsController : Controller
 
     [Authorize]
     [HttpPost("async-validation")]
-    public async Task CreateWithdrawalAsyncValidation([FromBody] CreateWithdrawalAsyncValidation.Request request, CancellationToken cancellationToken)
+    public async Task CreateWithdrawalAsyncValidation(CreateWithdrawalAsyncValidation.Request request, CancellationToken cancellationToken)
     {
         var userId = User.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
@@ -48,7 +48,7 @@ public class WithdrawalsController : Controller
 
     [Authorize]
     [HttpPost("logic-conflict")]
-    public async Task CreateWithdrawalLogicConflict([FromBody] CreateWithdrawalLogicConflict.Request request, CancellationToken cancellationToken)
+    public async Task CreateWithdrawalLogicConflict(CreateWithdrawalLogicConflict.Request request, CancellationToken cancellationToken)
     {
         var userId = User.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
 
@@ -59,7 +59,7 @@ public class WithdrawalsController : Controller
 
     [Authorize]
     [HttpPost("complete")]
-    public async Task CreateWithdrawalComplete([FromBody] CreateWithdrawalComplete.Request request, CancellationToken cancellationToken)
+    public async Task CreateWithdrawalComplete(CreateWithdrawalComplete.Request request, CancellationToken cancellationToken)
     {
         var userId = User.Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value;
 

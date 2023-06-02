@@ -3,7 +3,7 @@ using FluentValidation;
 using MediatR;
 
 using static Errors.Features.Withdrawals.Errors.Codes.WithdrawalValidationErrors;
-using static Errors.Features.Withdrawals.Errors.Codes.WithdrawalLogicConfictErrors;
+using static Errors.Features.Withdrawals.Errors.Codes.WithdrawalLogicConflictErrors;
 
 namespace Errors.Features.Withdrawals.Requests.CreateWithdrawal;
 
