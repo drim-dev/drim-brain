@@ -197,7 +197,7 @@ public class RegisterValidatorTests : IAsyncLifetime
         var _ = _factory.Server;
         _scope = _factory.Services.CreateAsyncScope();
         _db = _scope.ServiceProvider.GetRequiredService<TestingDbContext>();
-        _validator = new Register.RequestValidator(_db, new OptionsWrapper<UsersOptions>(_options));
+        _validator = new Register.RequestValidator(_db, Options.Create(_options));
 
         return Task.CompletedTask;
     }
