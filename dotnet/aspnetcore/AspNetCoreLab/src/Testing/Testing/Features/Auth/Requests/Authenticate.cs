@@ -8,7 +8,10 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Testing.Common.Passwords;
 using Testing.Database;
+using Testing.Errors.Exceptions;
 using Testing.Features.Auth.Options;
+
+using static Testing.Features.Auth.Errors.AuthValidationErrors;
 
 namespace Testing.Features.Auth.Requests;
 
@@ -20,9 +23,11 @@ public static class Authenticate
     {
         public RequestValidator()
         {
-            RuleFor(x => x.Email).NotEmpty();
-            // TODO: password strength
-            RuleFor(x => x.Password).NotEmpty();
+            RuleFor(x => x.Email)
+                .NotEmpty().WithErrorCode(EmailRequired)
+                .EmailAddress().WithErrorCode(InvalidEmailFormat);
+            RuleFor(x => x.Password)
+                .NotEmpty().WithErrorCode(PasswordRequired);
         }
     }
 
@@ -48,14 +53,9 @@ public static class Authenticate
         {
             var user = await _db.Users.SingleOrDefaultAsync(x => x.Email == request.Email.ToLower(), cancellationToken);
 
-            if (user is null)
+            if (user is null || !_passwordHasher.VerifyHashedPassword(user.PasswordHash, request.Password))
             {
-                throw new Exception("Invalid credentials");
-            }
-
-            if (!_passwordHasher.VerifyHashedPassword(user.PasswordHash, request.Password))
-            {
-                throw new Exception("Invalid credentials");
+                throw new ValidationErrorsException(string.Empty, "Wrong email or password", WrongCredentials);
             }
 
             var jwt = GenerateJwt(user.Id);

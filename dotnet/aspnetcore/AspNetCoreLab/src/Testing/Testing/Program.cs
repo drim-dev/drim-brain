@@ -5,6 +5,7 @@ using Testing.Common.Registration;
 using Testing.Database;
 using Testing.Errors.Extensions;
 using Testing.Features.Auth.Registration;
+using Testing.Features.Users.Registration;
 using Testing.Pipeline.Behaviors;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +30,7 @@ builder.Services.AddControllers()
 builder.AddCommon();
 
 builder.AddAuth();
+builder.AddUsers();
 
 var app = builder.Build();
 

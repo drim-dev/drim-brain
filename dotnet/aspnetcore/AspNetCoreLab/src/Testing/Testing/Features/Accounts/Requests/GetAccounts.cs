@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Testing.Database;
 using Testing.Features.Accounts.Models;
 
+using static Testing.Features.Accounts.Errors.AccountsValidationErrors;
+
 namespace Testing.Features.Accounts.Requests;
 
 public static class GetAccounts
@@ -14,9 +16,10 @@ public static class GetAccounts
     {
         public RequestValidator(TestingDbContext db)
         {
-            RuleFor(x => x.UserId).Cascade(CascadeMode.Stop)
-                .NotEmpty()
-                .MustAsync(async (userId, ct) => await db.Users.AnyAsync(x => x.Id == userId, ct));
+            RuleFor(x => x.UserId)
+                .Cascade(CascadeMode.Stop)
+                .NotEmpty().WithErrorCode(UserIdRequired)
+                .MustAsync(async (userId, ct) => await db.Users.AnyAsync(x => x.Id == userId, ct)).WithErrorCode(UserNotFound);
         }
     }
 
