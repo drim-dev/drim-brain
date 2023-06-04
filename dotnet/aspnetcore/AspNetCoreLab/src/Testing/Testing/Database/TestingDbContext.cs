@@ -1,16 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Testing.Features.Deposits.Domain;
+using Testing.Features.Accounts.Domain;
 using Testing.Features.Users.Domain;
-using Testing.Features.Variables.Domain;
 
 namespace Testing.Database;
 
 public class TestingDbContext : DbContext
 {
-    public DbSet<Variable> Variables { get; set; }
     public DbSet<User> Users { get; set; }
-    public DbSet<Xpub> Xpubs { get; set; }
-    public DbSet<DepositAddress> DepositAddresses { get; set; }
+    public DbSet<Account> Accounts { get; set; }
 
     public TestingDbContext(DbContextOptions<TestingDbContext> options) : base(options)
     {
@@ -20,29 +17,44 @@ public class TestingDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        MapVariables(modelBuilder);
         MapUsers(modelBuilder);
-        MapXpubs(modelBuilder);
-        MapDepositAddresses(modelBuilder);
+        MapAccounts(modelBuilder);
     }
 
-    private void MapVariables(ModelBuilder modelBuilder)
+    private static void MapUsers(ModelBuilder modelBuilder)
     {
-        throw new NotImplementedException();
+        modelBuilder.Entity<User>(user =>
+        {
+            user.HasKey(x => x.Id);
+
+            user.Property(x => x.Id).UseIdentityAlwaysColumn();
+
+            user.Property(x => x.Email).IsRequired();
+
+            user.Property(x => x.PasswordHash).IsRequired();
+
+            user.Property(x => x.DateOfBirth).IsRequired();
+
+            user.Property(x => x.RegisteredAt).IsRequired();
+        });
     }
 
-    private void MapUsers(ModelBuilder modelBuilder)
+    private static void MapAccounts(ModelBuilder modelBuilder)
     {
-        throw new NotImplementedException();
-    }
+        modelBuilder.Entity<Account>(account =>
+        {
+            account.HasKey(x => x.Number);
 
-    private void MapXpubs(ModelBuilder modelBuilder)
-    {
-        throw new NotImplementedException();
-    }
+            account.Property(x => x.Number).ValueGeneratedNever();
 
-    private void MapDepositAddresses(ModelBuilder modelBuilder)
-    {
-        throw new NotImplementedException();
+            account.Property(x => x.Currency).IsRequired();
+
+            account.Property(x => x.Amount).IsRequired();
+
+            account.HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.UserId)
+                .IsRequired();
+        });
     }
 }

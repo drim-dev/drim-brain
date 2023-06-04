@@ -11,10 +11,11 @@ public static class AuthBuilderExtensions
     {
         const string sectionName = "Features:Auth";
 
-        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
-            builder.Services.Configure<AuthOptions>(builder.Configuration.GetSection(sectionName));
+        builder.Services.Configure<AuthOptions>(builder.Configuration.GetSection(sectionName));
 
+        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => {
             var jwtOptions = builder.Configuration.GetSection(sectionName).Get<AuthOptions>()!.Jwt;
+
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = true,

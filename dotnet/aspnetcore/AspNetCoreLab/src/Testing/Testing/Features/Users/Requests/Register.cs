@@ -40,7 +40,7 @@ public static class Register
             {
                 Email = request.Email.ToLower(),
                 PasswordHash = passwordHash,
-                DateOfBirth = request.DateOfBirth,
+                DateOfBirth = request.DateOfBirth.ToUniversalTime(),
                 RegisteredAt = DateTime.UtcNow,
             };
 
