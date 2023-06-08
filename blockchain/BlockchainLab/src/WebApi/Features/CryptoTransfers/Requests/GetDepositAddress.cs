@@ -5,6 +5,8 @@ using NBitcoin;
 using WebApi.Database;
 using WebApi.Features.CryptoTransfers.Domain;
 
+using static WebApi.Features.CryptoTransfers.Errors.GetDepositAddressValidationErrors;
+
 namespace WebApi.Features.CryptoTransfers.Requests
 {
     public static class GetDepositAddress
@@ -13,8 +15,21 @@ namespace WebApi.Features.CryptoTransfers.Requests
 
         public class RequestValidator : AbstractValidator<Request>
         {
-            public RequestValidator()
+            public RequestValidator(BlockchainDbContext db)
             {
+                ClassLevelCascadeMode = CascadeMode.Stop;
+                RuleFor(x => x.UserId)
+                    .NotEmpty().WithErrorCode(UserIdRequired)
+                    .MustAsync(async (id, ct) =>
+                    {
+                        return await db.Users.AnyAsync(x => x.Id == id);
+                    });
+                RuleFor(x => x.CurrencyCode)
+                    .NotEmpty().WithErrorCode(CurrencyCodeRequired)
+                    .MustAsync(async (code, ct) =>
+                    {
+                        return await db.Currencies.AnyAsync(x => x.Code == code);
+                    });
             }
         }
 
@@ -33,13 +48,12 @@ namespace WebApi.Features.CryptoTransfers.Requests
 
             public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
             {
-
-
-
                 var currency = _db.Currencies.FirstOrDefault(x => x.Code == request.CurrencyCode);
 
-                var existingAddress = await _db.DepositAddresses
-                    .FirstOrDefaultAsync(x=>x.UserId==request.UserId && x.CurrencyId==currency.Id);
+
+
+                var existingAddress = (await _db.DepositAddresses.ToListAsync(cancellationToken))
+                    .FirstOrDefault(x=>x.UserId==request.UserId && x.CurrencyId==currency.Id);
 
                 if (existingAddress is not null)
                 {
@@ -68,22 +82,28 @@ namespace WebApi.Features.CryptoTransfers.Requests
                 _db.Variables.Update(variable);
                 _db.SaveChanges();
 
+                var depositCryptoAddress = await GenerateCryptoAddress(xpub, derivationIndex);
+                var depositAddress = new DepositAddress(currency.Id, request.UserId, xpub.Id, derivationIndex, depositCryptoAddress);
+                _db.DepositAddresses.AddAsync(depositAddress);
+                await _db.SaveChangesAsync(cancellationToken);
+
+                return new Response(depositAddress.CryptoAddress);
+            }
+            private async Task<string> GenerateCryptoAddress(Xpub? xpub, int derivationIndex)
+            {
                 var networkConfig = _configuration.GetSection("BitcoinNetwork").Value;
                 var network = Network.Main;
                 if (networkConfig == "Testnet")
                 {
                     network = Network.TestNet;
                 }
+
                 var extPubKey = ExtPubKey.Parse(xpub.Value, network)
                     .Derive(0, false);
                 var derivedPubKey = extPubKey.Derive(derivationIndex, false).PubKey;
 
                 var depositCryptoAddress = derivedPubKey.GetAddress(ScriptPubKeyType.Segwit, network).ToString();
-                var depositAddress = new DepositAddress(currency.Id, request.UserId, xpub.Id, derivationIndex, depositCryptoAddress);
-                _db.DepositAddresses.AddAsync(depositAddress);
-                await _db.SaveChangesAsync(cancellationToken);
-
-                return new Response(depositAddress.CryptoAddress);
+                return depositCryptoAddress;
             }
         }
     }
