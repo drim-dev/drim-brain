@@ -87,8 +87,8 @@ public class AuthenticateTests : IAsyncLifetime
         {
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
-            ValidateIssuer = false,
-            ValidateAudience = false,
+            ValidateIssuer = true,
+            ValidateAudience = true,
             ClockSkew = TimeSpan.Zero
         }, out var validatedToken);
 

@@ -74,6 +74,7 @@ public class RegisterTests : IAsyncLifetime
     {
         _db.Users.RemoveRange(_db.Users);
         await _db.SaveChangesAsync();
+        await _db.DisposeAsync();
         await _scope.DisposeAsync();
     }
 }
