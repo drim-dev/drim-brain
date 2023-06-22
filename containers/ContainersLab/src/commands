@@ -1,0 +1,89 @@
+dotnet publish -c Release WebApi/WebApi.csproj
+
+docker build -t webapi -f WebApi/runtime.Dockerfile .
+
+docker create --name webapi1 webapi
+
+docker ps -a
+
+docker start webapi1
+
+docker ps
+
+docker logs webapi1
+
+docker stop webapi1
+
+docker rm webapi1
+
+docker run -i -t -p 10000:80 --name webapi1 webapi
+
+curl http://localhost:10000
+
+docker push webapi
+
+docker login
+
+docker tag webapi docker.io/drimdev/webapi:v1
+
+docker push docker.io/drimdev/webapi:v1
+
+docker images rmi webapi docker.io/drimdev/webapi:v1
+
+docker images | grep webapi
+
+docker pull docker.io/drimdev/webapi:v1
+
+docker rmi docker.io/drimdev/webapi:v1
+
+docker run -it -p 10000:80 --name webapi1 docker.io/drimdev/webapi:v1
+
+docker run -it -p 10000:80 --rm --name webapi1 docker.io/drimdev/webapi:v1
+
+docker run -it -d -p 10000:80 --rm --name webapi1 docker.io/drimdev/webapi:v1
+
+docker logs webapi1
+
+docker stop webapi1
+
+dive docker.io/drimdev/webapi:v1
+
+skopeo inspect docker://docker.io/drimdev/webapi:v1
+
+skopeo inspect --config docker://docker.io/drimdev/webapi:v1
+
+docker build -t webapi -f WebApi/sdk.Dockerfile .
+
+docker tag webapi docker.io/drimdev/webapi:v2
+
+docker push drimdev/webapi:v2
+
+docker run -it -d -p 10000:80 --rm --name webapi2 docker.io/drimdev/webapi:v2
+
+curl http://localhost:10000
+
+dive docker.io/drimdev/webapi:v2
+
+#change Program.cs
+
+docker build -t webapi -f WebApi/sdk.Dockerfile .
+
+docker build -t docker.io/drimdev/webapi:v3 -f WebApi/sdk-restore.Dockerfile .
+
+docker run -it -p 10000:80 --rm --name webapi3 docker.io/drimdev/webapi:v3
+
+dive docker.io/drimdev/webapi:v3
+
+#change Program.cs
+
+docker build -t docker.io/drimdev/webapi:v3 -f WebApi/sdk-restore.Dockerfile .
+
+docker build -t docker.io/drimdev/webapi:v4 -f WebApi/multistage.Dockerfile .
+
+docker run -it -p 10000:80 --rm --name webapi4 docker.io/drimdev/webapi:v4
+
+dive docker.io/drimdev/webapi:v4
+
+docker run -it -d -p 10000:80 --rm --name webapi4 docker.io/drimdev/webapi:v4
+
+docker exec -it webapi4 bash
