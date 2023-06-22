@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.NativeAot", "WebApi\WebApi.NativeAot.csproj", "{2D342764-4F82-4561-8FF7-5907EFB3E8FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{9658651A-B301-4B5A-8A42-CBC1F5030286}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2D342764-4F82-4561-8FF7-5907EFB3E8FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D342764-4F82-4561-8FF7-5907EFB3E8FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D342764-4F82-4561-8FF7-5907EFB3E8FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D342764-4F82-4561-8FF7-5907EFB3E8FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9658651A-B301-4B5A-8A42-CBC1F5030286}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9658651A-B301-4B5A-8A42-CBC1F5030286}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9658651A-B301-4B5A-8A42-CBC1F5030286}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9658651A-B301-4B5A-8A42-CBC1F5030286}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
