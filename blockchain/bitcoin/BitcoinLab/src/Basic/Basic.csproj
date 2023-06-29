@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FastEndpoints" Version="5.13.0" />
+      <PackageReference Include="MediatR" Version="12.0.1" />
+      <PackageReference Include="NBitcoin" Version="7.0.27" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="out\web.config" />
+      <_ContentIncludedByDefault Remove="out\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="out\appsettings.json" />
+      <_ContentIncludedByDefault Remove="out\Basic.deps.json" />
+      <_ContentIncludedByDefault Remove="out\Basic.runtimeconfig.json" />
+      <_ContentIncludedByDefault Remove="out\out\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="out\out\appsettings.json" />
+      <_ContentIncludedByDefault Remove="out\out\out\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="out\out\out\appsettings.json" />
+      <_ContentIncludedByDefault Remove="out\out\out\out\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="out\out\out\out\appsettings.json" />
+      <_ContentIncludedByDefault Remove="out\out\out\out\out\appsettings.Development.json" />
+      <_ContentIncludedByDefault Remove="out\out\out\out\out\appsettings.json" />
+    </ItemGroup>
+
+</Project>

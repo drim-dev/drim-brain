@@ -1,0 +1,52 @@
+bitcoin-cli getblockchaininfo
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblockchaininfo", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli createwallet "drimwallet"
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "createwallet", "params": ["drimwallet"]}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli listwallets
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listwallets", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli unloadwallet drimwallet
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "unloadwallet", "params": ["drimwallet"]}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli loadwallet drimwallet
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "loadwallet", "params": ["drimwallet"]}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli encryptwallet "mysecret"
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "encryptwallet", "params": ["mysecret"]}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli getnewaddress
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getnewaddress", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+tb1q9r5sv2t7pr82v4uywg0wjm3793nsutk90nrj0n
+
+# Go to faucet
+
+bitcoin-cli getbalance
+bitcoin-cli getbalance "*" 6
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getbalance", "params": ["*", 6]}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli getaddressinfo "tb1q9r5sv2t7pr82v4uywg0wjm3793nsutk90nrj0n"
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getaddressinfo", "params": ["tb1q9r5sv2t7pr82v4uywg0wjm3793nsutk90nrj0n"]}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli listtransactions
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listtransactions", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli gettransaction "43d70abdc8200c839eef947755050cb977e37e93b1333a0bfc9cc57f0ec231d0" false true
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "gettransaction", "params": ["43d70abdc8200c839eef947755050cb977e37e93b1333a0bfc9cc57f0ec231d0", "false", "true"]}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli getblock "000000000000001cd9c2d062f0afe885d408909751fad378e4dda18b0e611203"
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblock", "params": ["000000000000001cd9c2d062f0afe885d408909751fad378e4dda18b0e611203"]}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli getblock "000000000000001cd9c2d062f0afe885d408909751fad378e4dda18b0e611203" 2
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "getblock", "params": ["000000000000001cd9c2d062f0afe885d408909751fad378e4dda18b0e611203", 2]}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli listunspent
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "listunspent", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli sendtoaddress "tb1qxfq4wy7kscrhnts9yes3xj42dk00rqf065cup6" 0.000001
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "sendtoaddress", "params": ["tb1qxfq4wy7kscrhnts9yes3xj42dk00rqf065cup6", 0.000001]}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
+
+bitcoin-cli walletlock
+curl --user user:password --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method": "walletlock", "params": []}' -H 'content-type: text/plain;' http://127.0.0.1:18332/
