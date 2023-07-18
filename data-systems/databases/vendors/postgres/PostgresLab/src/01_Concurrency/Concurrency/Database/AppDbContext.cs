@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Transactions.Features.Accounts.Domain;
+using Transactions.Features.Withdrawals.Domain;
 
 namespace Transactions.Database;
 
@@ -11,11 +12,15 @@ public class AppDbContext : DbContext
 
     public DbSet<Account> Accounts { get; set; }
     public DbSet<VersionedAccount> VersionedAccounts { get; set; }
+    public DbSet<Withdrawal> Withdrawals { get; set; }
+    public DbSet<WithdrawalOutboxRecord> WithdrawalOutboxRecords { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         MapAccounts(modelBuilder);
         MapVersionedAccounts(modelBuilder);
+        // TODO: map Withdrawal
+        // TODO: map WithdrawalOutboxRecord
     }
 
     private static void MapAccounts(ModelBuilder builder)

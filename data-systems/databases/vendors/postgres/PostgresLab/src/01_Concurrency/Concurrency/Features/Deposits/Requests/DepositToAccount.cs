@@ -9,12 +9,12 @@ using Transactions.Errors;
 using Transactions.Features.Accounts.Domain;
 using Transactions.Features.Accounts.Errors;
 
-namespace Transactions.Features.Accounts.Requests;
+namespace Transactions.Features.Deposits.Requests;
 
 public static class DepositToAccount
 {
     [AllowAnonymous]
-    [HttpPost("/accounts/deposit")]
+    [HttpPost("/deposits")]
     public class Endpoint : Endpoint<Request, Response>
     {
         private readonly IMediator _mediator;
