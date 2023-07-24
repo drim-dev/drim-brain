@@ -1,0 +1,9 @@
+name: "web-api"
+services:
+  # WebApi image build and run
+  web_api:
+    build:
+      context: ../src
+      dockerfile: ../src/WebApi/Dockerfile
+    ports:
+      - "8000:5000"
