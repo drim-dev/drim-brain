@@ -1,0 +1,36 @@
+name: "web-api"
+
+volumes:
+  db:
+    name: db
+
+secrets:
+  db_user:
+    file: /root/secrets/db_user
+  db_password:
+    file: /root/secrets/db_password
+
+services:
+  # Build WebApi image and run container
+  web_api:
+    build:
+      context: ../src
+      dockerfile: ../src/WebApi/Dockerfile
+    environment:
+      ConnectionStrings__DockerCompose: Host=db;Database=DockerCompose;Username=db_creator;Password=12345678;Maximum Pool Size=50;Connection Idle Lifetime=60;
+    ports:
+      - "8000:80"
+    depends_on:
+      - db
+
+  # Run PostgreSQL from image
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: /run/secrets/db_user
+      POSTGRES_PASSWORD: /run/secrets/db_password
+    volumes:
+      - db:/var/lib/postgresql/data
+    secrets:
+      - db_user
+      - db_password

@@ -12,6 +12,10 @@ services:
       dockerfile: ../src/WebApi/Dockerfile
     ports:
       - "8000:80"
+    environment:
+      ConnectionStrings__DockerCompose: "Host=db;Database=DockerCompose;Username=db_creator;Password=12345678;Maximum Pool Size=50;Connection Idle Lifetime=60;"
+    depends_on:
+      - db
 
   # Run PostgreSQL from image
   db:
