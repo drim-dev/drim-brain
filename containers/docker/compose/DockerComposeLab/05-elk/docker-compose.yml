@@ -1,5 +1,7 @@
 version: "3.8"
 
+name: "elk"
+
 volumes:
  certs:
    driver: local

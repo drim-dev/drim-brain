@@ -4,6 +4,10 @@ volumes:
   db:
     name: db
 
+networks:
+  elastic:
+     external: true
+
 services:
   # Build WebApi image and run container
   web_api:
@@ -11,9 +15,11 @@ services:
       context: ../src
       dockerfile: ../src/WebApi/Dockerfile
     ports:
-      - "80"
+      - "8000:80"
     environment:
       ConnectionStrings__DockerCompose: "Host=db;Database=DockerCompose;Username=db_creator;Password=12345678;Maximum Pool Size=50;Connection Idle Lifetime=60;"
+    networks:
+      - elastic
     depends_on:
       - db
 
@@ -25,3 +31,5 @@ services:
       - POSTGRES_PASSWORD=12345678
     volumes:
       - db:/var/lib/postgresql/data
+    networks:
+      - elastic
