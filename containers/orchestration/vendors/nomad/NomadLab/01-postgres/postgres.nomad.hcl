@@ -1,5 +1,4 @@
 job "postgres" {
-  datacenters = ["local"]
   type = "service"
 
   group "postgres" {
@@ -33,7 +32,7 @@ job "postgres" {
       }
 
       config {
-        image = "stellirin/postgres-windows"
+        image = "postgres:15"
 
         ports = ["db"]
       }
@@ -46,12 +45,6 @@ job "postgres" {
       service {
         name = "postgres"
         port = "db"
-
-        // check {
-        //   type     = "tcp"
-        //   interval = "10s"
-        //   timeout  = "2s"
-        // }
       }
     }
 

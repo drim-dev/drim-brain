@@ -4,7 +4,7 @@ client {
   enabled = true
 
   host_volume "postgres" {
-    path      = "d:\\nomad\\volumes\\postgres"
+    path      = "/opt/nomad/data/volumes/postgres/"
     read_only = false
   }
 }
