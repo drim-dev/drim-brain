@@ -1,0 +1,18 @@
+In client.hcl:
+
+client {
+  enabled = true
+
+  host_volume "postgres" {
+    path      = "d:\\nomad\\volumes\\postgres"
+    read_only = false
+  }
+}
+
+nomad node status -short -self
+
+nomad run postgres.nomad.hcl
+
+nomad job status
+
+nomad job inspect postgres
