@@ -71,25 +71,25 @@ internal class HttpApplication : IHttpApplication<HttpApplicationContext>
 
     public async Task ProcessRequestAsync(HttpApplicationContext context)
     {
-        await using var scope = _serviceScopeFactory.CreateAsyncScope();
-
-        var depositRepository = scope.ServiceProvider.GetRequiredService<IDepositRepository>();
-
-        var depositModels = (await depositRepository.LoadAllDeposits(CancellationToken.None))
-            .Select(x => new DepositDto
-            {
-                UserId = x.UserId,
-                Currency = x.Currency,
-                Amount = x.Amount,
-                IsConfirmed = x.IsConfirmed,
-            });
-
         var requestFeature = context.Features.Get<IHttpRequestFeature>()!;
         var responseFeature = context.Features.Get<IHttpResponseFeature>()!;
         var responseBodyFeature = context.Features.Get<IHttpResponseBodyFeature>()!;
 
         if (requestFeature.Path == "/deposits")
         {
+            await using var scope = _serviceScopeFactory.CreateAsyncScope();
+
+            var depositRepository = scope.ServiceProvider.GetRequiredService<IDepositRepository>();
+
+            var depositModels = (await depositRepository.LoadAllDeposits(CancellationToken.None))
+                .Select(x => new DepositDto
+                {
+                    UserId = x.UserId,
+                    Currency = x.Currency,
+                    Amount = x.Amount,
+                    IsConfirmed = x.IsConfirmed,
+                });
+
             responseFeature.Headers.Add("Content-Type", new StringValues("application/json; charset=UTF-8"));
             await responseBodyFeature.Stream.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(depositModels)));
         }

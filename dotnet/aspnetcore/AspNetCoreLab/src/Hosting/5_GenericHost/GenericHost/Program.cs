@@ -2,6 +2,7 @@
 using GenericHost;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Services.Configuration;
 using Services.Configuration.Options;
 

@@ -11,12 +11,15 @@ public class NewDepositHostedService : BackgroundService
 {
     private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly ILogger<NewDepositHostedService> _logger;
+    private readonly NewDepositProcessingOptions _options;
 
     public NewDepositHostedService(
         IServiceScopeFactory serviceScopeFactory,
+        IOptions<NewDepositProcessingOptions> options,
         ILogger<NewDepositHostedService> logger)
     {
         _serviceScopeFactory = serviceScopeFactory;
+        _options = options.Value;
         _logger = logger;
     }
 
@@ -30,9 +33,7 @@ public class NewDepositHostedService : BackgroundService
             {
                 await using var scope = _serviceScopeFactory.CreateAsyncScope();
 
-                var options = scope.ServiceProvider.GetRequiredService<IOptions<NewDepositProcessingOptions>>().Value;
-
-                await Task.Delay(options.Interval, stoppingToken);
+                await Task.Delay(_options.Interval, stoppingToken);
 
                 var newDepositProcessor = scope.ServiceProvider.GetRequiredService<INewDepositProcessor>();
 

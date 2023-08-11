@@ -35,7 +35,10 @@ services.AddSingleton<IBitcoinNodeClient, BitcoinNodeClient>();
 // services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
 
 // TODO: uncomment
-services.AddLogging(builder => builder.AddConsole());
+services.AddLogging(builder =>
+{
+    builder.AddConsole();
+});
 
 var serviceProvider = services.BuildServiceProvider();
 

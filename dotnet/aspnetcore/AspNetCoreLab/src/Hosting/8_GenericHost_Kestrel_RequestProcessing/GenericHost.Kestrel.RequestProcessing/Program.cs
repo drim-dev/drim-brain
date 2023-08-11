@@ -1,5 +1,4 @@
 using Domain;
-using GenericHost.Kestrel.RequestProcessing;
 using GenericHost.Kestrel.RequestProcessing.HostedServices;
 using Services.Configuration;
 using Services.Configuration.Options;
@@ -9,7 +8,7 @@ var host = Host.CreateDefaultBuilder(args)
     {
         services.AddHostedService<NewDepositHostedService>();
         services.AddHostedService<DepositConfirmationsHostedService>();
-        services.AddHostedService<KestrelHostedService>();
+        services.AddHostedService<KestrelHostedServiceMethods>();
 
         services.AddScoped<DbContext>();
 

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Services.Configuration;
 using Services.Configuration.Options;
 
@@ -60,9 +61,9 @@ var newDepositsTask = Task.Run(async () =>
 
             await newDepositProcessor.Process(timeoutCts.Token);
 
-            var interval = configuration.GetSection("NewDepositProcessing:Interval").Get<TimeSpan>();
+            var options = scope.ServiceProvider.GetRequiredService<IOptions<NewDepositProcessingOptions>>();
 
-            await Task.Delay(interval);
+            await Task.Delay(options.Value.Interval);
         }
         catch (OperationCanceledException ex) when (ex.CancellationToken == timeoutCts.Token)
         {

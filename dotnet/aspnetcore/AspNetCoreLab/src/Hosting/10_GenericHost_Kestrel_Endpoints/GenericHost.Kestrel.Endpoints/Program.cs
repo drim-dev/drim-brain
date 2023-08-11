@@ -50,26 +50,26 @@ var host = Host.CreateDefaultBuilder(args)
         {
             throw new Exception("You hit the exception route");
         })
-        // .UseEndpoint("/deposits", async (context, scope) =>
-        // {
-        //     var depositRepository = scope.ServiceProvider.GetRequiredService<IDepositRepository>();
-        //
-        //     var depositModels = (await depositRepository.LoadAllDeposits(CancellationToken.None))
-        //         .Select(x => new DepositDto
-        //         {
-        //             UserId = x.UserId,
-        //             Currency = x.Currency,
-        //             Amount = x.Amount,
-        //             IsConfirmed = x.IsConfirmed,
-        //         });
-        //
-        //     var responseFeature = context.Features.Get<IHttpResponseFeature>()!;
-        //     var responseBodyFeature = context.Features.Get<IHttpResponseBodyFeature>()!;
-        //
-        //     responseFeature.Headers.Add("Content-Type", new StringValues("application/json; charset=UTF-8"));
-        //     await responseBodyFeature.Stream.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(depositModels)));
-        // }, new Dictionary<string, object>{{EndpointMetadataKeys.RateLimitingInverval, 10_000}})
-        .UseControllerEndpoints()
+        .UseEndpoint("/deposits", async (context, scope) =>
+        {
+            var depositRepository = scope.ServiceProvider.GetRequiredService<IDepositRepository>();
+
+            var depositModels = (await depositRepository.LoadAllDeposits(CancellationToken.None))
+                .Select(x => new DepositDto
+                {
+                    UserId = x.UserId,
+                    Currency = x.Currency,
+                    Amount = x.Amount,
+                    IsConfirmed = x.IsConfirmed,
+                });
+
+            var responseFeature = context.Features.Get<IHttpResponseFeature>()!;
+            var responseBodyFeature = context.Features.Get<IHttpResponseBodyFeature>()!;
+
+            responseFeature.Headers.Add("Content-Type", new StringValues("application/json; charset=UTF-8"));
+            await responseBodyFeature.Stream.WriteAsync(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(depositModels)));
+        }, new Dictionary<string, object>{{EndpointMetadataKeys.RateLimitingInverval, 10_000}})
+        //.UseControllerEndpoints()
         .UseEndpoint("/health", async (context, scope) =>
         {
             var responseFeature = context.Features.Get<IHttpResponseFeature>()!;
