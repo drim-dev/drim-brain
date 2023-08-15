@@ -11,4 +11,5 @@ public class EndpointCollection : List<Endpoint>
 public static class EndpointMetadataKeys
 {
     public const string RateLimitingInverval = nameof(RateLimitingInverval);
+    public const string CacheExpirationInterval = nameof(CacheExpirationInterval);
 }

@@ -32,7 +32,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7_GenericHost_Kestrel", "7_
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "11_GenericHost_AspNetCore", "11_GenericHost_AspNetCore", "{F726685C-F8DB-4FF1-96A9-4429C7874D93}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12_Web_Application_Api", "12_Web_Application_Api", "{0D9C36FD-3F8F-4D74-BDAE-A31BC294DCB9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "13_Web_Application_Api", "13_Web_Application_Api", "{0D9C36FD-3F8F-4D74-BDAE-A31BC294DCB9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost", "Hosting\5_GenericHost\GenericHost\GenericHost.csproj", "{E4530C8A-BE43-4DD9-9CA3-448CD13BBE2B}"
 EndProject
@@ -58,7 +58,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost.Kestrel.Endpoin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost.AspNetCore", "Hosting\11_GenericHost_AspNetCore\GenericHost.AspNetCore\GenericHost.AspNetCore.csproj", "{A4A9F81A-A015-425D-908E-ECDCE2E69ACC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationApi", "Hosting\12_Web_Application_Api\WebApplicationApi\WebApplicationApi.csproj", "{01E2B542-5BA1-425D-9E72-1654CB3B5D0E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationApi", "Hosting\13_Web_Application_Api\WebApplicationApi\WebApplicationApi.csproj", "{01E2B542-5BA1-425D-9E72-1654CB3B5D0E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Architecture", "Architecture", "{6B3E1CC1-CFF3-4E14-8538-5FEC9D48F3C2}"
 EndProject
@@ -91,6 +91,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Tests.Integration", "Testing\Testing.Tests.Integration\Testing.Tests.Integration.csproj", "{E7B418CE-B099-44F2-ADAA-13DBF57A95C1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Tests.Integration.Advanced", "Testing\Testing.Tests.Integration.Advanced\Testing.Tests.Integration.Advanced.csproj", "{842FC42F-81B8-4B14-B862-E9815696BF8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "12_GenericHost_AspNetCore_FastEndpoints", "12_GenericHost_AspNetCore_FastEndpoints", "{A930A297-1899-474D-9797-114278960B05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericHost.AspNetCore.FastEndpoints", "Hosting\GenericHost.AspNetCore.FastEndpoints\GenericHost.AspNetCore.FastEndpoints.csproj", "{DF51F440-DF45-4C18-B3CE-8522B17AF71A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -206,6 +210,10 @@ Global
 		{842FC42F-81B8-4B14-B862-E9815696BF8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{842FC42F-81B8-4B14-B862-E9815696BF8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{842FC42F-81B8-4B14-B862-E9815696BF8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF51F440-DF45-4C18-B3CE-8522B17AF71A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF51F440-DF45-4C18-B3CE-8522B17AF71A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF51F440-DF45-4C18-B3CE-8522B17AF71A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF51F440-DF45-4C18-B3CE-8522B17AF71A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{900C91D9-20AC-45F2-B487-F884653713DB} = {D7CD3995-2EC0-4400-9FEE-F210A4DF6F2C}
@@ -249,5 +257,7 @@ Global
 		{17C88AE4-E5AF-4C12-AED5-DAC6BF5AEA07} = {72A276D1-AEF0-4D6B-B734-0A1DE297D21E}
 		{E7B418CE-B099-44F2-ADAA-13DBF57A95C1} = {72A276D1-AEF0-4D6B-B734-0A1DE297D21E}
 		{842FC42F-81B8-4B14-B862-E9815696BF8D} = {72A276D1-AEF0-4D6B-B734-0A1DE297D21E}
+		{A930A297-1899-474D-9797-114278960B05} = {099BE7BB-DE4C-469F-A11D-9966C8F7E938}
+		{DF51F440-DF45-4C18-B3CE-8522B17AF71A} = {A930A297-1899-474D-9797-114278960B05}
 	EndGlobalSection
 EndGlobal

@@ -2,6 +2,7 @@
 using GenericHost.Kestrel.Endpoints.Endpoints;
 using GenericHost.Kestrel.Endpoints.HostedServices;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace GenericHost.Kestrel.Endpoints.Middlewares;
 
@@ -28,5 +29,22 @@ public class RateLimitingMiddleware : IPipelineMiddleware
             LastExecutionTimes[endpoint.PathPattern] = DateTime.UtcNow;
             await next();
         }
+    }
+}
+
+public class CachingMiddleware : IPipelineMiddleware
+{
+    public async Task Invoke(HttpApplicationContext context, IServiceScope scope, Func<Task> next)
+    {
+        var endpoint = context.Features.Get<EndpointFeature>()!.Endpoint!;
+        if (endpoint.Metadata is null || !endpoint.Metadata.TryGetValue(EndpointMetadataKeys.CacheExpirationInterval, out var interval))
+        {
+            await next();
+            return;
+        }
+
+        var cache = scope.ServiceProvider.GetRequiredService<IMemoryCache>();
+        cache.TryGetValue(endpoint.PathPattern, out var cachedResponse);
+        // TODO
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Concurrent;
-using GenericHost.AspNetCore.Controllers.Attributes;
+using FastEndpoints;
+using GenericHost.AspNetCore.FastEndpoints.Attributes;
 using Microsoft.AspNetCore.Http.Features;
 
-namespace GenericHost.AspNetCore.Middlewares;
+namespace GenericHost.AspNetCore.FastEndpoints.Middlewares;
 
 public class RateLimitingMiddleware : IMiddleware
 {
