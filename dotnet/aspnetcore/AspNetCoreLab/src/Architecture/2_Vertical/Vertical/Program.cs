@@ -1,4 +1,5 @@
 using System.Reflection;
+using FastEndpoints;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Prometheus;
@@ -29,7 +30,7 @@ builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 builder.Services.AddSingleton<Dispatcher>();
 
-builder.Services.AddControllers();
+builder.Services.AddFastEndpoints();
 
 // Features
 builder.AddUsers();
@@ -49,6 +50,6 @@ if (app.Environment.IsDevelopment())
 
 app.MapMetrics();
 
-app.MapControllers();
+app.MapFastEndpoints();
 
 app.Run();

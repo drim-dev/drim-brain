@@ -12,24 +12,21 @@ public class DepositService : IDepositService
     private readonly IDepositRepository _depositRepository;
     private readonly IDepositAddressRepository _depositAddressRepository;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly CleanDbContext _db;
 
     public DepositService(
         IDepositRepository depositRepository,
         IDepositAddressRepository depositAddressRepository,
-        IUnitOfWork unitOfWork,
-        CleanDbContext db)
+        IUnitOfWork unitOfWork)
     {
         _depositRepository = depositRepository;
         _depositAddressRepository = depositAddressRepository;
         _unitOfWork = unitOfWork;
-        _db = db;
     }
 
-    public async Task<DepositModel[]> GetDeposits(int userId, CancellationToken cancellationToken) =>
-        await _db.Deposits
-            .Include(x => x.Address)
-            .Where(x => x.UserId == userId)
+    public async Task<DepositModel[]> GetDeposits(int userId, CancellationToken cancellationToken)
+    {
+        var deposits = await _depositRepository.GetDepositsByUserId(userId, cancellationToken);
+        return deposits
             .Select(x => new DepositModel
             {
                 Id = x.Id,
@@ -42,23 +39,8 @@ public class DepositService : IDepositService
                 CreatedAt = x.CreatedAt,
                 UpdatedAt = x.UpdatedAt,
             })
-            .ToArrayAsync(cancellationToken);
-
-    // var deposits = await _depositRepository.GetDepositsByUserId(userId, cancellationToken);
-    // return deposits
-    //     .Select(x => new DepositModel
-    //     {
-    //         Id = x.Id,
-    //         CryptoAddress = x.Address.CryptoAddress,
-    //         Amount = x.Amount,
-    //         CurrencyCode = x.CurrencyCode,
-    //         TxId = x.TxId,
-    //         Confirmations = x.Confirmations,
-    //         Status = x.Status,
-    //         CreatedAt = x.CreatedAt,
-    //         UpdatedAt = x.UpdatedAt,
-    //     })
-    //     .ToArray();
+            .ToArray();
+    }
 
     public async Task<DepositAddressModel> GetDepositAddress(int userId, CancellationToken cancellationToken)
     {

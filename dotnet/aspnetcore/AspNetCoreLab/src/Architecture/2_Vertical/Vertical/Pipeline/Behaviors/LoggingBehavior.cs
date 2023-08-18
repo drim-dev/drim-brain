@@ -19,7 +19,7 @@ public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, 
         var response = await next();
 
         _logger.LogInformation("Handled {RequestType}", request.GetType().FullName);
-        _logger.LogDebug("Response: {@Request}", response);
+        _logger.LogDebug("Response: {@Response}", response);
 
         return response;
     }
