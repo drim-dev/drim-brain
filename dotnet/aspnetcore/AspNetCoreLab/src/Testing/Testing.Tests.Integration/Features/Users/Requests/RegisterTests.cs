@@ -24,21 +24,24 @@ public class RegisterTests : IAsyncLifetime
     public RegisterTests()
     {
         _factory = new WebApplicationFactory<Program>().WithWebHostBuilder(builder =>
-            builder.ConfigureAppConfiguration((_, configBuilder) =>
-            {
-                configBuilder.AddInMemoryCollection(new Dictionary<string, string?>
+            builder
+                .ConfigureAppConfiguration((_, configBuilder) =>
                 {
+                    configBuilder.AddInMemoryCollection(new Dictionary<string, string?>
                     {
-                        "ConnectionStrings:TestingDbContext",
-                        "Host=localhost;Database=Testing.Tests;Username=db_creator;Password=12345678;Maximum Pool Size=10;Connection Idle Lifetime=60;"
-                    },
-                });
-            }));
+                        {
+                            "ConnectionStrings:TestingDbContext",
+                            "Host=localhost;Database=Testing.Tests;Username=db_creator;Password=12345678;Maximum Pool Size=10;Connection Idle Lifetime=60;"
+                        },
+                    });
+                }));
     }
 
     [Fact]
     public async Task Should_register_user()
     {
+        // AAA:
+
         // Arrange
         var client = _factory.CreateClient();
 

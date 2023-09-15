@@ -26,3 +26,21 @@ public class RoleRequirementHandler : AuthorizationHandler<RoleRequirement>
         return Task.CompletedTask;
     }
 }
+
+public class ActionRequirement : IAuthorizationRequirement
+{
+    public ActionRequirement(string actionName)
+    {
+        ActionName = actionName;
+    }
+
+    public string ActionName { get; set; }
+}
+
+public class ActionRequirementHandler : AuthorizationHandler<ActionRequirement>
+{
+    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, ActionRequirement requirement)
+    {
+        throw new NotImplementedException();
+    }
+}

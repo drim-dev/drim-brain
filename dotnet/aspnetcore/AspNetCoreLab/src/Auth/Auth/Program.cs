@@ -29,7 +29,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         ValidateIssuerSigningKey = true,
         ValidIssuer = jwtOptions.Issuer,
         ValidAudience = jwtOptions.Audience,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SigningKey))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.SigningKey)),
+        RoleClaimType = "role",
     };
 });
 
@@ -42,7 +43,8 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy(PolicyNames.SellerRole, policy => policy.AddRequirements(new RoleRequirement(UserRole.Seller)));
     options.AddPolicy(PolicyNames.OwnerRole, policy => policy.RequireClaim(ClaimTypes.Role, UserRole.Owner.ToString()));
 
-    options.AddPolicy(PolicyNames.SellerFromRank3, policy => policy.AddRequirements(new SellerRankRequirement(3)));
+    options.AddPolicy(PolicyNames.SellerFromRank3, policy => policy.AddRequirements(new SellerRankRequirement(3), new RoleRequirement(UserRole.Owner)));
+    options.AddPolicy(PolicyNames.OpenShift, policy => policy.AddRequirements(new ActionRequirement("OpenShift")));
 });
 
 builder.Services.AddControllers();

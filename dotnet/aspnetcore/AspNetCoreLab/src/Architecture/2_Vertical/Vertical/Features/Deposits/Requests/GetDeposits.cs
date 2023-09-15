@@ -17,7 +17,7 @@ public static class GetDeposits
     {
         private readonly VerticalDbContext _dbContext;
 
-        public NewEndpoint(VerticalDbContext dbContext)
+        public Endpoint(VerticalDbContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -47,7 +47,7 @@ public static class GetDeposits
     {
         private readonly IMediator _mediator;
 
-        public Endpoint(IMediator mediator)
+        public MediatorEndpoint(IMediator mediator)
         {
             _mediator = mediator;
         }

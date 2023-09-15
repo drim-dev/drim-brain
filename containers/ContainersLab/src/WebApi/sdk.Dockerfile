@@ -7,10 +7,12 @@ WORKDIR /src
 COPY . .
 
 # NEW LAYER
-RUN dotnet publish -c Release WebApi/WebApi.csproj
+RUN dotnet publish -c Release WebApi.csproj
 
 # NEW LAYER
-RUN cp -r WebApi/bin/Release/net7.0/publish /app
+RUN cp -r bin/Release/net7.0/publish /app
+
+RUN rm -rf /src
 
 ENV ASPNETCORE_URLS http://*:80
 

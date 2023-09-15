@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Auth.Features.Reporting.Requests.Controllers;
 
 [ApiController]
-[Authorize(Policy = PolicyNames.OwnerRole)]
+[Authorize(Roles = "Owner")]
 [Route("/reporting")]
 public class ReportingController : Controller
 {

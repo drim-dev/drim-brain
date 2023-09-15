@@ -1,6 +1,6 @@
-dotnet publish -c Release WebApi/WebApi.csproj
+dotnet publish -c Release WebApi.csproj
 
-docker build -t webapi -f WebApi/runtime.Dockerfile .
+docker build -t webapi -f runtime.Dockerfile .
 
 docker create --name webapi1 webapi
 

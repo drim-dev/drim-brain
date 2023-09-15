@@ -49,21 +49,9 @@ public class GetAccountsTests : IAsyncLifetime
         // Arrange
         var passwordHasher = _scope.ServiceProvider.GetRequiredService<Argon2IdPasswordHasher>();
 
-        var user = new User
-        {
-            Email = "test@test.com",
-            PasswordHash = passwordHasher.HashPassword("qwerty123456A!"),
-            DateOfBirth = new DateTime(2000, 01, 31).ToUniversalTime(),
-            RegisteredAt = DateTime.UtcNow,
-        };
+        var user = CreateUser("me@example.com", "12345678");
 
-        var anotherUser = new User
-        {
-            Email = "example@example.com",
-            PasswordHash = passwordHasher.HashPassword("qwerty123456A!"),
-            DateOfBirth = new DateTime(2001, 01, 31).ToUniversalTime(),
-            RegisteredAt = DateTime.UtcNow,
-        };
+        var anotherUser = CreateUser("example@example.com", "qwerty123456A!");
 
         _db.Users.AddRange(user, anotherUser);
         await _db.SaveChangesAsync();
@@ -136,6 +124,17 @@ public class GetAccountsTests : IAsyncLifetime
         var account2Contract = accounts.Single(a => a.Number == account2.Number);
         account2Contract.Currency.Should().Be(account2.Currency);
         account2Contract.Amount.Should().Be(account2.Amount);
+
+        User CreateUser(string email, string password)
+        {
+            return new User
+            {
+                Email = email,
+                PasswordHash = passwordHasher.HashPassword(password),
+                DateOfBirth = new DateTime(2000, 01, 31).ToUniversalTime(),
+                RegisteredAt = DateTime.UtcNow,
+            };
+        }
     }
 
     [Fact]

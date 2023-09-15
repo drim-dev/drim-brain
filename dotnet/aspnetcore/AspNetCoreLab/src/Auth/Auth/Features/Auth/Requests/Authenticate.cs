@@ -59,7 +59,7 @@ public static class Authenticate
 
             foreach (var role in roles)
             {
-                claims.Add(new(ClaimTypes.Role, role.ToString()));
+                claims.Add(new("role", role.ToString()));
             }
 
             if (rank is not null)

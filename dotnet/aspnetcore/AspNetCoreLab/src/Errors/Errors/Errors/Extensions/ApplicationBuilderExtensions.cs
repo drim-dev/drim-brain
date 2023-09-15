@@ -218,6 +218,22 @@ public static class ApplicationBuilderExtensions
 
                         await context.Response.WriteAsync(JsonSerializer.Serialize(operationCanceledProblemDetails));
                         break;
+                    case InternalErrorException internalErrorException:
+                        var internalErrorExProblemDetails = new ProblemDetails
+                        {
+                            Title = "Internal error",
+                            Type = "https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/504",
+                            Detail = internalErrorException.Message,
+                            Status = StatusCodes.Status500InternalServerError,
+                        };
+
+                        internalErrorExProblemDetails.Extensions.Add("traceId", Activity.Current?.Id ?? context.TraceIdentifier);
+
+                        context.Response.ContentType = "application/problem+json";
+                        context.Response.StatusCode = StatusCodes.Status504GatewayTimeout;
+
+                        await context.Response.WriteAsync(JsonSerializer.Serialize(internalErrorExProblemDetails));
+                        break;
                     default:
                         var internalErrorProblemDetails = new ProblemDetails
                         {
