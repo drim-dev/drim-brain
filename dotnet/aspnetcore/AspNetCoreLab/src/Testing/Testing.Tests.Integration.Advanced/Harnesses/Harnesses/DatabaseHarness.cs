@@ -48,11 +48,10 @@ public class DatabaseHarness<TProgram, TDbContext> : IHarness<TProgram>
             .WithPortBinding(5432, true)
             .WithEnvironment("POSTGRES_USER", Username)
             .WithEnvironment("POSTGRES_PASSWORD", Password)
+            .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(5432))
             .Build();
 
         await _postgres.StartAsync(cancellationToken);
-
-        await Task.Delay(2_000, cancellationToken); // TODO: use health check
 
         _port = _postgres.GetMappedPublicPort(5432);
 

@@ -86,13 +86,16 @@ public class AuthenticateTests : IAsyncLifetime
         contract!.Jwt.Should().NotBeNullOrEmpty();
 
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = _scope.ServiceProvider.GetRequiredService<IOptions<AuthOptions>>().Value.Jwt.SigningKey;
+        var jwtOptions = _scope.ServiceProvider.GetRequiredService<IOptions<AuthOptions>>().Value.Jwt;
+        var key = jwtOptions.SigningKey;
         tokenHandler.ValidateToken(contract.Jwt, new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key)),
             ValidateIssuer = true,
+            ValidIssuer = jwtOptions.Issuer,
             ValidateAudience = true,
+            ValidAudience = jwtOptions.Audience,
             ClockSkew = TimeSpan.Zero
         }, out var validatedToken);
 
@@ -198,10 +201,9 @@ public class AuthenticateTests : IAsyncLifetime
             .WithPortBinding(15432, 5432)
             .WithEnvironment("POSTGRES_USER", "db_creator")
             .WithEnvironment("POSTGRES_PASSWORD", "12345678")
+            .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(5432))
             .Build();
         await _postgres.StartAsync();
-
-        await Task.Delay(2_000); // TODO: use health check
 
         var _ = _factory.Server;
         _scope = _factory.Services.CreateAsyncScope();
