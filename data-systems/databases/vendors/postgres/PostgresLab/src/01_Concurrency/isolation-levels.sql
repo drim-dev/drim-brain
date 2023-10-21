@@ -14,17 +14,6 @@ INSERT INTO "Withdrawals" VALUES(DEFAULT, 2, 10, 'BTC', 52, '2023-07-18 12:00:00
 INSERT INTO "Withdrawals" VALUES(DEFAULT, 2, 10, 'BTC', 14, '2023-07-18 13:00:00', 'tbabcdef');
 INSERT INTO "Withdrawals" VALUES(DEFAULT, 2, 10, 'BTC', 20, '2023-07-18 14:00:00', 'tb998877');
 
--- MS SQL Server
-CREATE TABLE "Withdrawals" (
-    "Id" integer IDENTITY(1,1) PRIMARY KEY,
-    "UserId" integer NOT NULL,
-    "AccountId" integer NOT NULL,
-    "CurrencyCode" text NOT NULL,
-    "Amount" numeric NOT NULL,
-    "CreatedAt" timestamp NOT NULL,
-    "ToAddress" text NOT NULL
-);
-
 -- READ UNCOMMITTED #1
 
 --1
@@ -36,9 +25,6 @@ BEGIN TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
 --1
 -- PostgreSQL
 INSERT INTO "Withdrawals" VALUES(DEFAULT, 2, 10, 'BTC', 52, '2023-07-17', 'tb123456');
-
--- MS SQL Server
-INSERT INTO "Withdrawals" VALUES(2, 10, 'BTC', 52, DEFAULT, 'tb123456');
 
 --2
 SELECT * FROM "Withdrawals";

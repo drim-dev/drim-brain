@@ -6,9 +6,9 @@ volumes:
 
 secrets:
   db_user:
-    file: /root/secrets/db_user
+    file: /Users/mitro/drim/tmp/secrets/db_user
   db_password:
-    file: /root/secrets/db_password
+    file: /Users/mitro/drim/tmp/secrets/db_password
 
 services:
   # Build WebApi image and run container

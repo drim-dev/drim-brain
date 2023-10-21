@@ -72,7 +72,7 @@ public static class DepositToAccount
         {
             try
             {
-                Mutexes.AccountsMutex.WaitOne();
+                Mutexes.AccountsMutexNamed.WaitOne();
 
                 var account = await _db.Accounts.SingleOrDefaultAsync(
                     x => x.UserId == request.UserId && x.Id == request.AccountId, cancellationToken);
@@ -91,7 +91,7 @@ public static class DepositToAccount
             }
             finally
             {
-                Mutexes.AccountsMutex.ReleaseMutex();
+                Mutexes.AccountsMutexNamed.ReleaseMutex();
             }
         }
     }
