@@ -8,14 +8,19 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="static\images\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Update="static\index.html">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
       <None Update="static\images\dotnet.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="static\images\dotnet.image1">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="static\images\dotnet.image2">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="static\images\dotnet.image3">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

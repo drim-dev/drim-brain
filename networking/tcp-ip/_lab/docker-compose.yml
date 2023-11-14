@@ -1,0 +1,13 @@
+services:
+
+  server:
+    build:
+      context: ./src/Server
+      dockerfile: Dockerfile
+
+  client:
+    build:
+      context: ./src/Client
+      dockerfile: Dockerfile
+    depends_on:
+      - server

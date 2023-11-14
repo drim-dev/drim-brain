@@ -5,5 +5,6 @@ var app = builder.Build();
 
 app.UseStaticFiles();
 app.UseUrlProcessing();
+app.UseMimeTypes();
 
 app.Run();

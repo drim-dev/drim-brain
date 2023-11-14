@@ -2,11 +2,11 @@
 
 The target of an HTTP request is called a __resource__. It can be a document, a photo, or anything else. Each resource is identified by a __Uniform Resource Identifier__ (__URI__) used throughout HTTP for identifying resources.
 
-![HTTP Resources](.images/resources.png)
+![HTTP Resources](_images/resources.png)
 
 ## URI
 
-![URI](.images/uri.png)
+![URI](_images/uri.png)
 
 ### URL
 
