@@ -12,7 +12,7 @@ Simple example:
 
 ![Network of networks](_images/network-of-networks.png)
 
-Real life example:
+Real life example. The part of the Internet in November 2003:
 
 ![Internet map](_images/internet-map.png)
 
@@ -26,7 +26,7 @@ The model partitions the flow of data in a communication system into seven abstr
 
 ## TCP/IP Model
 
-![TCP/IP model](_images/tcp-ip-model.png)
+![TCP/IP model](_images/tcp-ip-model.webp)
 
 ### OSI Comparison
 
