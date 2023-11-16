@@ -68,7 +68,9 @@ Step-by-step, here’s how slow start works:
 
 ![TCP Slow Start](_images/tcp-slow-start.png)
 
-<mark>Establishing new TCP connection is expensive due to the 3-way handshake and the slow start</mark>
+## Notes
+
+<mark>Establishing new TCP connection is expensive due to the 3-way handshake and the slow start.</mark>
 
 ## Links
 
