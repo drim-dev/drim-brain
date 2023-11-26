@@ -1,3 +1,4 @@
+using BlockchainService.Client;
 using FluentValidation;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
@@ -24,12 +25,15 @@ internal static class CreateWithdrawal
     {
         public async Task<CreateWithdrawalReply> Handle(CreateWithdrawalRequest request, CancellationToken cancellationToken)
         {
-            var response = await _withdrawalsClient.WithdrawAsync(new()
+            var withdrawRequest = new WithdrawRequest
             {
                 Currency = request.Currency,
                 Amount = request.Amount,
                 CryptoAddress = request.CryptoAddress,
-            }, new CallOptions(cancellationToken: cancellationToken));
+            };
+
+            var withdrawResponse = await _withdrawalsClient.WithdrawAsync(withdrawRequest,
+                new CallOptions(cancellationToken: cancellationToken));
 
             return new()
             {
@@ -41,7 +45,7 @@ internal static class CreateWithdrawal
                     Currency = request.Currency,
                     Amount = request.Amount,
                     CryptoAddress = request.CryptoAddress,
-                    TxId = response.TxId,
+                    TxId = withdrawResponse.TxId,
                     CreatedAt = Timestamp.FromDateTime(DateTime.UtcNow),
                 }
             };

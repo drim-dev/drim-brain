@@ -8,7 +8,6 @@ package withdrawals;
 
 service Withdrawals {
     rpc CreateWithdrawal(CreateWithdrawalRequest) returns (CreateWithdrawalReply);
-    rpc ListWithdrawals(ListWithdrawalsRequest) returns (ListWithdrawalsReply);
 }
 
 message CreateWithdrawalRequest {
@@ -21,13 +20,6 @@ message CreateWithdrawalRequest {
 
 message CreateWithdrawalReply {
     WithdrawalDto withdrawal = 1;
-}
-
-message ListWithdrawalsRequest {
-    int32 user_id = 1;
-}
-
-message ListWithdrawalsReply {
 }
 
 message WithdrawalDto {

@@ -7,7 +7,4 @@ public class WithdrawalsApi(IMediator _mediator) : BankingService.Withdrawals.Wi
 {
     public override Task<CreateWithdrawalReply> CreateWithdrawal(CreateWithdrawalRequest request, ServerCallContext context) =>
         _mediator.Send(request, context.CancellationToken);
-
-    public override Task<ListWithdrawalsReply> ListWithdrawals(ListWithdrawalsRequest request, ServerCallContext context) =>
-        _mediator.Send(request, context.CancellationToken);
 }

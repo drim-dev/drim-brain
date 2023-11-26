@@ -1,4 +1,5 @@
 using ApiGateway.Clients;
+using ApiGateway.Metrics;
 using Common.Web.Endpoints;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
@@ -10,6 +11,7 @@ builder.Services.AddOpenTelemetry()
     .ConfigureResource(resource => resource
         .AddService(builder.Environment.ApplicationName))
     .WithMetrics(metrics => metrics
+        .AddMeter(ApiGatewayMetrics.MeterName)
         .AddRuntimeInstrumentation()
         .AddAspNetCoreInstrumentation()
         .AddPrometheusExporter())
@@ -18,6 +20,8 @@ builder.Services.AddOpenTelemetry()
         .AddGrpcClientInstrumentation()
         .AddConsoleExporter()
         .AddOtlpExporter());
+
+builder.Services.AddSingleton<ApiGatewayMetrics>();
 
 var clientsOptions = builder.Configuration.GetSection(ClientsOptions.SectionName).Get<ClientsOptions>();
 
