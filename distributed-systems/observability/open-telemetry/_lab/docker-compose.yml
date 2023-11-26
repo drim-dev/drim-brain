@@ -13,18 +13,46 @@ volumes:
 services:
   api-gateway: 
     build:
-      context: ./src/ApiGateway
-      dockerfile: Dockerfile
+      context: ./src
+      dockerfile: ApiGateway/Dockerfile
+    environment:
+      - Clients__BankingService=http://banking-service:80
+      - ASPNETCORE_URLS=http://+:80
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
+    ports:
+      - 9000:80
 
   banking-service: 
     build:
-      context: ./src/BankingService
-      dockerfile: Dockerfile
+      context: ./src
+      dockerfile: BankingService/Dockerfile
+    environment:
+      - Kestrel__Endpoints__Http__Url=http://+:81
+      - Kestrel__Endpoints__Http__Protocols=Http1
+      - Kestrel__Endpoints__gRPC__Url=http://+:80
+      - Kestrel__Endpoints__gRPC__Protocols=Http2
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
 
   blockchain-service: 
     build:
-      context: ./src/BlockchainService
-      dockerfile: Dockerfile
+      context: ./src
+      dockerfile: BlockchainService/Dockerfile
+
+  jaeger:
+    image: jaegertracing/all-in-one:1.51.0
+    container_name: jaeger
+    environment:
+      COLLECTOR_OTLP_ENABLED: true
+    ports:
+      - 16686:16686
+
+  prometheus:
+    image: prom/prometheus:v2.48.0
+    container_name: prometheus
+    volumes:
+      - ./configs/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
 
   elk-setup:
     image: docker.elastic.co/elasticsearch/elasticsearch:${STACK_VERSION}

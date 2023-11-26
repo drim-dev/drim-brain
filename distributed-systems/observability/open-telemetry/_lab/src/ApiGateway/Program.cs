@@ -16,7 +16,8 @@ builder.Services.AddOpenTelemetry()
     .WithTracing(tracing => tracing
         .AddAspNetCoreInstrumentation()
         .AddGrpcClientInstrumentation()
-        .AddConsoleExporter());
+        .AddConsoleExporter()
+        .AddOtlpExporter());
 
 var clientsOptions = builder.Configuration.GetSection(ClientsOptions.SectionName).Get<ClientsOptions>();
 

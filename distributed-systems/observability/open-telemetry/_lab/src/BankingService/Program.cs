@@ -25,7 +25,8 @@ builder.Services.AddOpenTelemetry()
         .AddPrometheusExporter())
     .WithTracing(tracing => tracing
         .AddAspNetCoreInstrumentation()
-        .AddConsoleExporter());
+        .AddConsoleExporter()
+        .AddOtlpExporter());
 
 builder.Services.AddGrpc();
 
