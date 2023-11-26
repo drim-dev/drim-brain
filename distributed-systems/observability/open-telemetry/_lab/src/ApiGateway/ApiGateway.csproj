@@ -29,14 +29,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Protobuf Include="Clients\withdrawals.proto">
-        <GrpcServices>Client</GrpcServices>
-        <Access>Public</Access>
-        <ProtoCompile>True</ProtoCompile>
-        <CompileOutputs>True</CompileOutputs>
-        <OutputDir>obj\Debug/net8.0/</OutputDir>
-        <Generator>MSBuild:Compile</Generator>
-      </Protobuf>
+      <Protobuf Include="Clients\withdrawals.proto" GrpcServices="Client"/>
     </ItemGroup>
 
 </Project>

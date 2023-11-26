@@ -1,4 +1,5 @@
 using System.Reflection;
+using BankingService.Clients;
 using BankingService.Database;
 using BankingService.Features.Withdrawals.Registration;
 using Common.Validation;
@@ -25,8 +26,16 @@ builder.Services.AddOpenTelemetry()
         .AddPrometheusExporter())
     .WithTracing(tracing => tracing
         .AddAspNetCoreInstrumentation()
+        .AddGrpcClientInstrumentation()
         .AddConsoleExporter()
         .AddOtlpExporter());
+
+var clientsOptions = builder.Configuration.GetSection(ClientsOptions.SectionName).Get<ClientsOptions>();
+
+builder.Services.AddGrpcClient<BlockchainService.Client.Withdrawals.WithdrawalsClient>(o =>
+{
+    o.Address = new Uri(clientsOptions!.BlockchainService);
+});
 
 builder.Services.AddGrpc();
 

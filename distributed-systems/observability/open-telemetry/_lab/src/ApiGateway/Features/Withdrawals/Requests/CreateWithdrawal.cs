@@ -1,6 +1,7 @@
 using ApiGateway.Features.Withdrawals.Models;
 using BankingService.Client;
 using Common.Web.Endpoints;
+using Grpc.Core;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,7 +25,7 @@ public static class CreateWithdrawal
                         Currency = body.Currency,
                         Amount = body.Amount,
                         CryptoAddress = body.CryptoAddress,
-                    });
+                    }, new CallOptions(cancellationToken: cancellationToken));
 
                     var withdrawal = reply.Withdrawal;
                     var withdrawalModel = new WithdrawalModel(withdrawal.Id, withdrawal.AccountNumber,

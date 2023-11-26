@@ -1,5 +1,6 @@
 using FluentValidation;
 using Google.Protobuf.WellKnownTypes;
+using Grpc.Core;
 using MediatR;
 
 namespace BankingService.Features.Withdrawals.Requests;
@@ -18,11 +19,19 @@ internal static class CreateWithdrawal
         }
     }
 
-    internal class RequestHandler : IRequestHandler<CreateWithdrawalRequest, CreateWithdrawalReply>
+    internal class RequestHandler(BlockchainService.Client.Withdrawals.WithdrawalsClient _withdrawalsClient)
+        : IRequestHandler<CreateWithdrawalRequest, CreateWithdrawalReply>
     {
-        public Task<CreateWithdrawalReply> Handle(CreateWithdrawalRequest request, CancellationToken cancellationToken)
+        public async Task<CreateWithdrawalReply> Handle(CreateWithdrawalRequest request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(new CreateWithdrawalReply
+            var response = await _withdrawalsClient.WithdrawAsync(new()
+            {
+                Currency = request.Currency,
+                Amount = request.Amount,
+                CryptoAddress = request.CryptoAddress,
+            }, new CallOptions(cancellationToken: cancellationToken));
+
+            return new()
             {
                 Withdrawal = new()
                 {
@@ -32,10 +41,10 @@ internal static class CreateWithdrawal
                     Currency = request.Currency,
                     Amount = request.Amount,
                     CryptoAddress = request.CryptoAddress,
-                    TxId = "txid",
+                    TxId = response.TxId,
                     CreatedAt = Timestamp.FromDateTime(DateTime.UtcNow),
                 }
-            });
+            };
         }
     }
 }

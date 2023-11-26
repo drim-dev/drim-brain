@@ -1,6 +1,5 @@
+using MediatR;
+
 namespace BlockchainService;
 
-public class Mixins
-{
-    
-}
+public sealed partial class WithdrawRequest : IRequest<WithdrawReply>;

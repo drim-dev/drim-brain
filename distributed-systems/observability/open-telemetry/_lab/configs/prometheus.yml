@@ -7,3 +7,4 @@ scrape_configs:
   - targets:
     - api-gateway:80
     - banking-service:81
+    - blockchain-service:81
