@@ -1,5 +1,5 @@
 using ApiGateway.Features.Withdrawals.Models;
-using Clients.BankingService;
+using BankingService.Client;
 using Common.Web.Endpoints;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -15,7 +15,7 @@ public static class CreateWithdrawal
         public void MapEndpoint(WebApplication app)
         {
             app.MapPost(Path, async Task<Created<WithdrawalModel>>
-                    (RequestBody body, [FromServices]Clients.BankingService.Withdrawals.WithdrawalsClient withdrawalsClient, CancellationToken cancellationToken) =>
+                    (RequestBody body, [FromServices] BankingService.Client.Withdrawals.WithdrawalsClient withdrawalsClient, CancellationToken cancellationToken) =>
                 {
                     var reply = await withdrawalsClient.CreateWithdrawalAsync(new CreateWithdrawalRequest
                     {

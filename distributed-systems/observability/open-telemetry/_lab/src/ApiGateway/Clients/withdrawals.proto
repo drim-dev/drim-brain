@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
 
-option csharp_namespace = "Clients.BankingService";
+option csharp_namespace = "BankingService.Client";
 
 package withdrawals;
 

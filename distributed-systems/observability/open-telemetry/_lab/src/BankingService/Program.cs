@@ -3,6 +3,9 @@ using BankingService.Database;
 using BankingService.Features.Withdrawals.Registration;
 using Common.Validation;
 using Microsoft.EntityFrameworkCore;
+using OpenTelemetry.Metrics;
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,11 +16,24 @@ builder.Services.AddMediatR(cfg => cfg
     .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())
     .AddOpenBehavior(typeof(ValidationBehavior<,>)));
 
+builder.Services.AddOpenTelemetry()
+    .ConfigureResource(resource => resource
+        .AddService(builder.Environment.ApplicationName))
+    .WithMetrics(metrics => metrics
+        .AddRuntimeInstrumentation()
+        .AddAspNetCoreInstrumentation()
+        .AddPrometheusExporter())
+    .WithTracing(tracing => tracing
+        .AddAspNetCoreInstrumentation()
+        .AddConsoleExporter());
+
 builder.Services.AddGrpc();
 
 builder.AddWithdrawals();
 
 var app = builder.Build();
+
+app.MapPrometheusScrapingEndpoint();
 
 app.MapWithdrawals();
 
