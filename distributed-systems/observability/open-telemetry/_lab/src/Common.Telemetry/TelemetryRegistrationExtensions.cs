@@ -32,6 +32,7 @@ public static class TelemetryRegistrationExtensions
                 .AddSource(serviceName)
                 .AddAspNetCoreInstrumentation()
                 .AddGrpcClientInstrumentation()
+                .AddEntityFrameworkCoreInstrumentation()
                 .AddConsoleExporter()
                 .AddOtlpExporter());
 

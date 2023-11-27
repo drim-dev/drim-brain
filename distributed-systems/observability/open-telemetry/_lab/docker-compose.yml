@@ -19,12 +19,15 @@ services:
       context: ./src
       dockerfile: BankingService/Dockerfile
     environment:
+      - ConnectionStrings__BankingDbContext=Host=postgres;Database=OpenTelemetryLab;Username=test_user;Password=123456789;Maximum Pool Size=50;Connection Idle Lifetime=60;
       - Clients__BlockchainService=http://blockchain-service:80
       - Kestrel__Endpoints__Http__Url=http://+:81
       - Kestrel__Endpoints__Http__Protocols=Http1
       - Kestrel__Endpoints__gRPC__Url=http://+:80
       - Kestrel__Endpoints__gRPC__Protocols=Http2
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
+    depends_on:
+      - postgres
 
   blockchain-service: 
     build:
@@ -36,6 +39,12 @@ services:
       - Kestrel__Endpoints__gRPC__Url=http://+:80
       - Kestrel__Endpoints__gRPC__Protocols=Http2
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://jaeger:4317
+
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=test_user
+      - POSTGRES_PASSWORD=123456789
 
   jaeger:
     image: jaegertracing/all-in-one:1.51.0

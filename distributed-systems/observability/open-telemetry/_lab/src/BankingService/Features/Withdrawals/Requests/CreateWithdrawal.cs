@@ -1,3 +1,5 @@
+using BankingService.Database;
+using BankingService.Domain;
 using BlockchainService.Client;
 using FluentValidation;
 using Google.Protobuf.WellKnownTypes;
@@ -22,6 +24,7 @@ internal static class CreateWithdrawal
 
     internal class RequestHandler(
         BlockchainService.Client.Withdrawals.WithdrawalsClient _withdrawalsClient,
+        BankingDbContext _db,
         ILogger<RequestHandler> _logger)
         : IRequestHandler<CreateWithdrawalRequest, CreateWithdrawalReply>
     {
@@ -37,22 +40,28 @@ internal static class CreateWithdrawal
             var withdrawResponse = await _withdrawalsClient.WithdrawAsync(withdrawRequest,
                 new CallOptions(cancellationToken: cancellationToken));
 
+            var withdrawal = new Withdrawal(0, request.UserId, request.AccountNumber, request.Currency, request.Amount,
+                request.CryptoAddress, withdrawResponse.TxId, DateTime.UtcNow);
+
+            await _db.Withdrawals.AddAsync(withdrawal, cancellationToken);
+            await _db.SaveChangesAsync(cancellationToken);
+
             _logger.LogInformation("Withdrawal created");
 
-            return new()
-            {
-                Withdrawal = new()
+            return new() { Withdrawal = MapFrom(withdrawal) };
+
+            static WithdrawalDto MapFrom(Withdrawal withdrawal) =>
+                new()
                 {
-                    Id = 1,
-                    UserId = request.UserId,
-                    AccountNumber = request.AccountNumber,
-                    Currency = request.Currency,
-                    Amount = request.Amount,
-                    CryptoAddress = request.CryptoAddress,
-                    TxId = withdrawResponse.TxId,
-                    CreatedAt = Timestamp.FromDateTime(DateTime.UtcNow),
-                }
-            };
+                    Id = withdrawal.Id,
+                    UserId = withdrawal.UserId,
+                    AccountNumber = withdrawal.AccountNumber,
+                    Currency = withdrawal.Currency,
+                    Amount = withdrawal.Amount,
+                    CryptoAddress = withdrawal.CryptoAddress,
+                    TxId = withdrawal.TxId,
+                    CreatedAt = Timestamp.FromDateTime(withdrawal.CreatedAt),
+                };
         }
     }
 }
