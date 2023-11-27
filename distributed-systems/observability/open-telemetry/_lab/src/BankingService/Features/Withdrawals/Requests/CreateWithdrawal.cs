@@ -20,7 +20,9 @@ internal static class CreateWithdrawal
         }
     }
 
-    internal class RequestHandler(BlockchainService.Client.Withdrawals.WithdrawalsClient _withdrawalsClient)
+    internal class RequestHandler(
+        BlockchainService.Client.Withdrawals.WithdrawalsClient _withdrawalsClient,
+        ILogger<RequestHandler> _logger)
         : IRequestHandler<CreateWithdrawalRequest, CreateWithdrawalReply>
     {
         public async Task<CreateWithdrawalReply> Handle(CreateWithdrawalRequest request, CancellationToken cancellationToken)
@@ -34,6 +36,8 @@ internal static class CreateWithdrawal
 
             var withdrawResponse = await _withdrawalsClient.WithdrawAsync(withdrawRequest,
                 new CallOptions(cancellationToken: cancellationToken));
+
+            _logger.LogInformation("Withdrawal created");
 
             return new()
             {

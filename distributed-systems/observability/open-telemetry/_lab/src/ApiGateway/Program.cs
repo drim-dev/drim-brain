@@ -1,25 +1,17 @@
+using System.Reflection;
 using ApiGateway.Clients;
 using ApiGateway.Metrics;
+using Common.Telemetry;
+using Common.Validation;
 using Common.Web.Endpoints;
-using OpenTelemetry.Metrics;
-using OpenTelemetry.Resources;
-using OpenTelemetry.Trace;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddOpenTelemetry()
-    .ConfigureResource(resource => resource
-        .AddService(builder.Environment.ApplicationName))
-    .WithMetrics(metrics => metrics
-        .AddMeter(ApiGatewayMetrics.MeterName)
-        .AddRuntimeInstrumentation()
-        .AddAspNetCoreInstrumentation()
-        .AddPrometheusExporter())
-    .WithTracing(tracing => tracing
-        .AddAspNetCoreInstrumentation()
-        .AddGrpcClientInstrumentation()
-        .AddConsoleExporter()
-        .AddOtlpExporter());
+builder.Services.AddTelemetry(builder.Host, builder.Environment.ApplicationName);
+
+builder.Services.AddMediatR(cfg => cfg
+    .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())
+    .AddOpenBehavior(typeof(ValidationBehavior<,>)));
 
 builder.Services.AddSingleton<ApiGatewayMetrics>();
 
@@ -32,7 +24,7 @@ builder.Services.AddGrpcClient<BankingService.Client.Withdrawals.WithdrawalsClie
 
 var app = builder.Build();
 
-app.MapPrometheusScrapingEndpoint();
+app.MapTelemetry();
 
 app.MapEndpoints();
 

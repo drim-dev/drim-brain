@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-namespace BlockchainService.Telemetry;
+namespace Common.Telemetry;
 
 public static class Tracing
 {

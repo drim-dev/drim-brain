@@ -1,4 +1,4 @@
-using BlockchainService.Telemetry;
+using Common.Telemetry;
 using FluentValidation;
 using MediatR;
 
@@ -16,7 +16,7 @@ internal static class Withdraw
         }
     }
 
-    internal class RequestHandler : IRequestHandler<WithdrawRequest, WithdrawReply>
+    internal class RequestHandler(ILogger<RequestHandler> _logger) : IRequestHandler<WithdrawRequest, WithdrawReply>
     {
         public async Task<WithdrawReply> Handle(WithdrawRequest request, CancellationToken cancellationToken)
         {
@@ -34,6 +34,8 @@ internal static class Withdraw
             activity.AddTag("amount", amount);
 
             await Task.Delay(Random.Shared.Next(5, 10), cancellationToken);
+
+            _logger.LogInformation("Fee estimated");
         }
 
         private async Task<string> SendTransaction(string currency, double amount, string address,
@@ -44,6 +46,8 @@ internal static class Withdraw
             activity.AddTag("amount", amount);
 
             await Task.Delay(Random.Shared.Next(50, 100), cancellationToken);
+
+            _logger.LogInformation("Transaction sent");
 
             return Guid.NewGuid().ToString();
         }

@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Elastic.Serilog.Sinks" Version="8.6.1" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
+      <PackageReference Include="OpenTelemetry" Version="1.7.0-alpha.1" />
+      <PackageReference Include="OpenTelemetry.Exporter.Console" Version="1.7.0-alpha.1" />
+      <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.7.0-alpha.1" />
+      <PackageReference Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.7.0-alpha.1" />
+      <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.7.0-alpha.1" />
+      <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.6.0-beta.3" />
+      <PackageReference Include="OpenTelemetry.Instrumentation.GrpcNetClient" Version="1.6.0-beta.3" />
+      <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.6.0-beta.3" />
+      <PackageReference Include="OpenTelemetry.Instrumentation.Process" Version="0.5.0-beta.3" />
+      <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" Version="1.5.1" />
+      <PackageReference Include="Serilog.AspNetCore" Version="8.0.0" />
+      <PackageReference Include="Serilog.Enrichers.Span" Version="3.1.0" />
+    </ItemGroup>
+
+</Project>

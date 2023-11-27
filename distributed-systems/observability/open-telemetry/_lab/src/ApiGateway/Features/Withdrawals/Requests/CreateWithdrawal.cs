@@ -20,6 +20,7 @@ public static class CreateWithdrawal
                     RequestBody body,
                     [FromServices] BankingService.Client.Withdrawals.WithdrawalsClient withdrawalsClient,
                     [FromServices] ApiGatewayMetrics metrics,
+                    [FromServices] ILogger<Endpoint> logger,
                     CancellationToken cancellationToken) =>
                 {
                     var request = new CreateWithdrawalRequest
@@ -37,6 +38,8 @@ public static class CreateWithdrawal
                     var withdrawalModel = MapFrom(reply.Withdrawal);
 
                     metrics.WithdrawalsCreated(1);
+
+                    logger.LogInformation("Withdrawal created: {Withdrawal}", withdrawalModel);
 
                     return TypedResults.Created($"{Path}/{withdrawalModel.Id}", withdrawalModel);
                 })
