@@ -1,0 +1,18 @@
+version: "3.8"
+
+name: "tcp-lab"
+
+services:
+  tcp-server: 
+    build:
+      context: ./src
+      dockerfile: TcpServer/Dockerfile
+
+  tcp-client: 
+    build:
+      context: ./src
+      dockerfile: TcpClient/Dockerfile
+    environment:
+      - HOST=tcp-server
+    depends_on:
+      - tcp-server

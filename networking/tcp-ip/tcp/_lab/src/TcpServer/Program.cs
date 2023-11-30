@@ -12,15 +12,19 @@ Console.CancelKeyPress += (_, args) =>
 
 var listener = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-listener.Bind(new IPEndPoint(IPAddress.Loopback, 15000));
+listener.Bind(new IPEndPoint(IPAddress.Any, 15000));
 
 listener.Listen(10);
+
+Console.WriteLine("Waiting for connections...");
 
 while (!cts.IsCancellationRequested)
 {
     try
     {
         var socket = await listener.AcceptAsync(cts.Token);
+
+        Console.WriteLine("Client connected");
 
         var buffer = new byte[1024];
 

@@ -2,10 +2,17 @@
 using System.Net.Sockets;
 using System.Text;
 
-Console.WriteLine("Enter a request to send to the server, or 'quit' to exit");
+Console.WriteLine("Protocol commands:\n");
+
+Console.WriteLine("LIST - list all files on the server");
+Console.WriteLine("SEARCH <substring> - search for files on the server");
+Console.WriteLine("DOWNLOAD <file name> - download file from the server");
+Console.WriteLine("quit - exit the program\n");
 
 while (true)
 {
+    Console.Write("Enter command: ");
+
     var request = Console.ReadLine();
 
     if (request == "quit")
@@ -15,7 +22,11 @@ while (true)
 
     var client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-    await client.ConnectAsync(IPAddress.Loopback, 15000);
+    var host = Environment.GetEnvironmentVariable("HOST");
+    var ipAddress = host is null
+        ? IPAddress.Loopback
+        : Dns.GetHostAddresses(host).First();
+    await client.ConnectAsync(ipAddress, 15000);
 
     var requestBytes = Encoding.UTF8.GetBytes(request);
 
@@ -23,7 +34,15 @@ while (true)
 
     var buffer = new byte[1024];
 
-    if (request.StartsWith("DOWNLOAD "))
+    if (!request.StartsWith("DOWNLOAD "))
+    {
+        var bytesRead = await client.ReceiveAsync(buffer, SocketFlags.None);
+
+        var response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+        Console.WriteLine($"\n{response}");
+    }
+    else
     {
         await client.ReceiveAsync(buffer, SocketFlags.None);
         var response = Encoding.UTF8.GetString(buffer);
@@ -54,14 +73,6 @@ while (true)
         {
             Console.WriteLine($"\n{response}");
         }
-    }
-    else
-    {
-        var bytesRead = await client.ReceiveAsync(buffer, SocketFlags.None);
-
-        var response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-
-        Console.WriteLine($"\n{response}");
     }
 
     client.Close();
