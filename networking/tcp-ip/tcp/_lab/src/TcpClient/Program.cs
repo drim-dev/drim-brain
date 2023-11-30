@@ -9,6 +9,11 @@ Console.WriteLine("SEARCH <substring> - search for files on the server");
 Console.WriteLine("DOWNLOAD <file name> - download file from the server");
 Console.WriteLine("quit - exit the program\n");
 
+var host = Environment.GetEnvironmentVariable("HOST");
+var ipAddress = host is null
+    ? IPAddress.Loopback
+    : Dns.GetHostAddresses(host).First();
+
 while (true)
 {
     Console.Write("Enter command: ");
@@ -22,10 +27,6 @@ while (true)
 
     var client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-    var host = Environment.GetEnvironmentVariable("HOST");
-    var ipAddress = host is null
-        ? IPAddress.Loopback
-        : Dns.GetHostAddresses(host).First();
     await client.ConnectAsync(ipAddress, 15000);
 
     var requestBytes = Encoding.UTF8.GetBytes(request);
