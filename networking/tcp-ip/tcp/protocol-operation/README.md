@@ -76,5 +76,6 @@ Step-by-step, here’s how slow start works:
 
 * https://en.wikipedia.org/wiki/Transmission_Control_Protocol
 * https://www.quora.com/Why-are-TCP-connections-expensive-when-made-from-an-application
+* https://cabulous.medium.com/tcp-send-window-receive-window-and-how-it-works-8629a4fad9ec
 
 #tcp-protocol-operation
