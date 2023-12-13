@@ -1,0 +1,11 @@
+version: "3.8"
+
+name: "terraform-lab"
+
+services:
+  terraform-client: 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src/:/src/
