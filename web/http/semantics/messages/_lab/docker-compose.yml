@@ -1,0 +1,19 @@
+name: "http-resources-lab"
+
+services:
+
+  web_server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 5555:5555
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    depends_on:
+      - web_server
+    volumes:
+      - ./client/scripts:/scripts:ro
