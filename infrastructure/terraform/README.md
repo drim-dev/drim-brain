@@ -180,6 +180,10 @@ Here are some key points related to Terraform state:
 
 4. __Data Sensitivity__: The state file can contain sensitive information, such as passwords or private keys. It is important to handle the state file securely and, when necessary, use remote backends with proper access controls.
 
+Example of state backends:
+
+![State Backends](_images/state-backends.png)
+
 https://developer.hashicorp.com/terraform/language/state
 
 ### Data Source
