@@ -6,26 +6,39 @@ namespace EncryptionLab;
 [MemoryDiagnoser]
 public class Benchmark
 {
+    private byte[]? _plainTextBytes;
+    private byte[]? _iv;
+    private Aes? _aes;
+    private RSA? _rsa;
+
+    [GlobalSetup]
+    public void GlobalSetup()
+    {
+        _plainTextBytes = "Hello, World!"u8.ToArray();
+        _iv = RandomNumberGenerator.GetBytes(16);
+
+        _aes = Aes.Create();
+        _rsa = RSA.Create();
+    }
+
+    [GlobalCleanup]
+    public void Cleanup()
+    {
+        _aes!.Dispose();
+        _rsa!.Dispose();
+    }
+
     [Benchmark]
     public void SymmetricAes()
     {
-        var plainTextBytes = "Hello, World!"u8.ToArray();
-        var iv = RandomNumberGenerator.GetBytes(16);
-
-        using var aes = Aes.Create();
-
-        var encryptedTextBytes = aes.EncryptCbc(plainTextBytes, iv);
-        aes.DecryptCbc(encryptedTextBytes, iv);
+        var encryptedTextBytes = _aes!.EncryptCbc(_plainTextBytes!, _iv!);
+        _aes.DecryptCbc(encryptedTextBytes, _iv!);
     }
 
     [Benchmark]
     public void AsymmetricRsa()
     {
-        var plainTextBytes = "Hello, World!"u8.ToArray();
-
-        using var rsa = RSA.Create();
-
-        var encryptedTextBytes = rsa.Encrypt(plainTextBytes, RSAEncryptionPadding.OaepSHA256);
-        rsa.Decrypt(encryptedTextBytes, RSAEncryptionPadding.OaepSHA256);
+        var encryptedTextBytes = _rsa!.Encrypt(_plainTextBytes!, RSAEncryptionPadding.OaepSHA256);
+        _rsa.Decrypt(encryptedTextBytes, RSAEncryptionPadding.OaepSHA256);
     }
 }
