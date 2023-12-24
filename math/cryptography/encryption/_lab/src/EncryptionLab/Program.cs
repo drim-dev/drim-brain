@@ -1,14 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 using BenchmarkDotNet.Running;
 using EncryptionLab;
 
-BenchmarkRunner.Run<Benchmark>();
+// BenchmarkRunner.Run<Benchmark>();
 
-// SymmetricAes();
-// AsymmetricRsa();
+SymmetricAes();
+AsymmetricRsa();
 
 void SymmetricAes()
 {
@@ -50,14 +48,12 @@ void AsymmetricRsa()
     var plainText = Console.ReadLine()!;
     var plainTextBytes = Encoding.UTF8.GetBytes(plainText);
 
-    using var keySource = RSA.Create();
-
     using var rsa = RSA.Create();
 
-    var privateKey = keySource.ExportRSAPrivateKey();
+    var privateKey = rsa.ExportRSAPrivateKey();
     Console.WriteLine($"\nPrivate key: {Convert.ToBase64String(privateKey)}\n");
 
-    var publicKey = keySource.ExportRSAPublicKey();
+    var publicKey = rsa.ExportRSAPublicKey();
     Console.WriteLine($"Public key: {Convert.ToBase64String(publicKey)}\n");
 
     var encryptedTextBytes = rsa.Encrypt(plainTextBytes, RSAEncryptionPadding.OaepSHA256);
