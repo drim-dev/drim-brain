@@ -16,6 +16,8 @@ RUN apt-get install --yes software-properties-common && \
     add-apt-repository --yes --update ppa:ansible/ansible && \
     apt-get install --yes ansible
 
+ENV ANSIBLE_HOST_KEY_CHECKING=False
+
 WORKDIR /src
 
 ENTRYPOINT ["bash"]

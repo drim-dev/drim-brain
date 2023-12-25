@@ -3,7 +3,7 @@ server_tokens off;
 # HTTP server
 
 server {
-    listen 80 default_server;
+    listen {{ http_port }} default_server;
 
     location / {
         try_files $uri $uri/ =404;

@@ -104,6 +104,39 @@ Example playbook:
         state: present
 ```
 
+### Variable
+
+Variables are used to store values that can be referenced and reused throughout your playbooks. Here's an example of Ansible variable usage:
+
+```yaml
+- name: Deploy Web Server
+  hosts: web_servers
+  become: yes
+
+  # Define variables
+  vars:
+    web_server_version: "2.0.1"
+
+  tasks:
+    - name: Install Web Server
+      yum:
+        name: "web-server-{{ web_server_version }}"
+        state: present
+
+    - name: Start Web Server
+      service:
+        name: "web-server"
+        state: started
+```
+
+In this example:
+
+* `web_server_version` is a variable storing the version of the web server.
+* `yum` task installs the web server using the specified version.
+* `service` task starts the web server.
+
+You can easily modify the `web_server_version` variable to deploy a different version of the web server without changing the playbook logic. This makes your playbook more flexible and reusable.
+
 ### Management Node
 
 Management node is the machine from which you run the Ansible CLI tools (`ansible-playbook`, `ansible`, `ansible-vault` and others). Multiple control nodes are possible, but Ansible itself does not coordinate across them.

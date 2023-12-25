@@ -1,6 +1,9 @@
 - name: Setup Nginx
   hosts: frontend
 
+  vars:
+    http_port: 80
+
   tasks:
   - name: Upgrade system
     apt:
