@@ -1,0 +1,5 @@
+eval $(ssh-agent)
+
+ssh-add /root/.ssh/hetzner
+
+ansible-playbook -i inventory.ini playbook.yml

@@ -1,0 +1,12 @@
+version: "3.8"
+
+name: "ansible-lab"
+
+services:
+  client: 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src/:/src/
+      - /Users/mitro/.ssh:/root/.ssh
