@@ -37,16 +37,5 @@
 - name: Setup Docker
   hosts: backend
 
-  tasks:
-  - name: Add Docker GPG apt Key
-    apt_key:
-      url: https://download.docker.com/linux/ubuntu/gpg
-
-  - name: Add Docker repository
-    apt_repository:
-      repo: deb https://download.docker.com/linux/ubuntu focal stable
-
-  - name: Update apt and install docker-ce
-    apt:
-      name: docker-ce
-      update_cache: true
+  roles:
+  - docker
