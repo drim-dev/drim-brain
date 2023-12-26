@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.DependencyInjection;
@@ -56,7 +57,8 @@ public static class Extensions
 
                 tracing.AddAspNetCoreInstrumentation()
                        .AddGrpcClientInstrumentation()
-                       .AddHttpClientInstrumentation();
+                       .AddHttpClientInstrumentation()
+                       .AddSource(builder.Environment.ApplicationName);
             });
 
         builder.AddOpenTelemetryExporters();
@@ -117,4 +119,14 @@ public static class Extensions
             "Microsoft.AspNetCore.Hosting",
             "Microsoft.AspNetCore.Server.Kestrel",
             "System.Net.Http");
+}
+
+public static class Tracing
+{
+    public static ActivitySource ActivitySource { get; private set; }
+
+    public static void Init(string name)
+    {
+        ActivitySource = new ActivitySource(name);
+    }
 }

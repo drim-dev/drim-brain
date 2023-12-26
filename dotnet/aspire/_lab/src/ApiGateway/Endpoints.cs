@@ -1,3 +1,4 @@
+using AccountService.Api;
 using LoanService.Api;
 using Microsoft.AspNetCore.Http.HttpResults;
 
@@ -14,6 +15,13 @@ public static class Endpoints
                 return TypedResults.Ok(offerings);
             })
             .CacheOutput(c => c.Expire(TimeSpan.FromSeconds(10)));
+
+        app.MapPost("/accounts/withdrawals",
+            async Task<Ok> (WithdrawalDto withdrawal, AccountServiceClient client, CancellationToken cancellationToken) =>
+            {
+                await client.Withdraw(withdrawal, cancellationToken);
+                return TypedResults.Ok();
+            });
 
         return app;
     }

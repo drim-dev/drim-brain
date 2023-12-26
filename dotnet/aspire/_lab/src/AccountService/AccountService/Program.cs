@@ -4,6 +4,8 @@ using BlockchainService.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Tracing.Init(builder.Environment.ApplicationName);
+
 builder.AddServiceDefaults();
 
 builder.Services.AddHttpClient<BlockchainServiceClient>(

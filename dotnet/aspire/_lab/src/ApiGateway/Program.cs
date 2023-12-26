@@ -14,7 +14,6 @@ builder.AddRedisOutputCache("redis", static settings =>
     settings.HealthChecks = true;
 });
 
-
 builder.Services.AddHttpClient<LoanServiceClient>(
     static client=> client.BaseAddress = new("http://loan-service"));
 
