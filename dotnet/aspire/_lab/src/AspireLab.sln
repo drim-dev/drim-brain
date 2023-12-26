@@ -1,0 +1,86 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.0.0
+MinimumVisualStudioVersion = 17.8.0.0
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspireLab.AppHost", "AspireLab.AppHost\AspireLab.AppHost.csproj", "{6A4AEB6F-FC2C-46BB-9832-1DA681502E5A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspireLab.ServiceDefaults", "AspireLab.ServiceDefaults\AspireLab.ServiceDefaults.csproj", "{862FFE1C-F46E-41BC-97C2-4D6C3810ED85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiGateway", "ApiGateway\ApiGateway.csproj", "{6C5C8D99-37D7-4514-85BB-B0F65EBD7FBA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountService", "AccountService\AccountService\AccountService.csproj", "{7713EB49-95C7-4C52-AA78-907F95947CF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockchainService", "BlockchainService\BlockchainService\BlockchainService.csproj", "{4B9EF28F-3913-4543-B252-D8D97C5BE1F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanService", "LoanService\LoanService\LoanService.csproj", "{BDE3E0C2-B95C-44CF-BE42-E41900D4B062}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountService.Api", "AccountService\AccountService.Api\AccountService.Api.csproj", "{33A590F4-8EF3-4FFB-90CA-696A26D054E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlockchainService.Api", "BlockchainService\BlockchainService.Api\BlockchainService.Api.csproj", "{428619ED-0930-4093-A43D-F26B3EDC5258}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoanService.Api", "LoanService\LoanService.Api\LoanService.Api.csproj", "{3F214E25-9475-4121-87FE-CCC6AC47BAAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AccountService", "AccountService", "{49804D3A-BF7A-4868-9719-0A4FD49EEEC7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BlockchainService", "BlockchainService", "{C5D8A535-9C01-4CD4-9FD5-F2A56D740D92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LoanService", "LoanService", "{97A134D0-D7DD-4920-A2EB-E061A04F733F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6A4AEB6F-FC2C-46BB-9832-1DA681502E5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A4AEB6F-FC2C-46BB-9832-1DA681502E5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A4AEB6F-FC2C-46BB-9832-1DA681502E5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A4AEB6F-FC2C-46BB-9832-1DA681502E5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{862FFE1C-F46E-41BC-97C2-4D6C3810ED85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{862FFE1C-F46E-41BC-97C2-4D6C3810ED85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{862FFE1C-F46E-41BC-97C2-4D6C3810ED85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{862FFE1C-F46E-41BC-97C2-4D6C3810ED85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C5C8D99-37D7-4514-85BB-B0F65EBD7FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C5C8D99-37D7-4514-85BB-B0F65EBD7FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C5C8D99-37D7-4514-85BB-B0F65EBD7FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C5C8D99-37D7-4514-85BB-B0F65EBD7FBA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7713EB49-95C7-4C52-AA78-907F95947CF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7713EB49-95C7-4C52-AA78-907F95947CF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7713EB49-95C7-4C52-AA78-907F95947CF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7713EB49-95C7-4C52-AA78-907F95947CF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B9EF28F-3913-4543-B252-D8D97C5BE1F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B9EF28F-3913-4543-B252-D8D97C5BE1F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B9EF28F-3913-4543-B252-D8D97C5BE1F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B9EF28F-3913-4543-B252-D8D97C5BE1F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE3E0C2-B95C-44CF-BE42-E41900D4B062}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE3E0C2-B95C-44CF-BE42-E41900D4B062}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE3E0C2-B95C-44CF-BE42-E41900D4B062}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE3E0C2-B95C-44CF-BE42-E41900D4B062}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33A590F4-8EF3-4FFB-90CA-696A26D054E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33A590F4-8EF3-4FFB-90CA-696A26D054E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33A590F4-8EF3-4FFB-90CA-696A26D054E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33A590F4-8EF3-4FFB-90CA-696A26D054E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{428619ED-0930-4093-A43D-F26B3EDC5258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{428619ED-0930-4093-A43D-F26B3EDC5258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{428619ED-0930-4093-A43D-F26B3EDC5258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{428619ED-0930-4093-A43D-F26B3EDC5258}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F214E25-9475-4121-87FE-CCC6AC47BAAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F214E25-9475-4121-87FE-CCC6AC47BAAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F214E25-9475-4121-87FE-CCC6AC47BAAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F214E25-9475-4121-87FE-CCC6AC47BAAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {17BB0258-91B4-4861-8237-CFB8D7062830}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7713EB49-95C7-4C52-AA78-907F95947CF5} = {49804D3A-BF7A-4868-9719-0A4FD49EEEC7}
+		{33A590F4-8EF3-4FFB-90CA-696A26D054E7} = {49804D3A-BF7A-4868-9719-0A4FD49EEEC7}
+		{4B9EF28F-3913-4543-B252-D8D97C5BE1F9} = {C5D8A535-9C01-4CD4-9FD5-F2A56D740D92}
+		{428619ED-0930-4093-A43D-F26B3EDC5258} = {C5D8A535-9C01-4CD4-9FD5-F2A56D740D92}
+		{BDE3E0C2-B95C-44CF-BE42-E41900D4B062} = {97A134D0-D7DD-4920-A2EB-E061A04F733F}
+		{3F214E25-9475-4121-87FE-CCC6AC47BAAA} = {97A134D0-D7DD-4920-A2EB-E061A04F733F}
+	EndGlobalSection
+EndGlobal
