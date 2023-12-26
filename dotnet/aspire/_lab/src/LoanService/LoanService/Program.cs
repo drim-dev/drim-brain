@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
 
-builder.AddNpgsqlDbContext<LoanServiceDbContext>("LoanServiceDb", settings =>
+builder.AddNpgsqlDbContext<LoanServiceDbContext>("LoanServiceDb", static settings =>
 {
     // Can be set in configuration
     settings.DbContextPooling = false;

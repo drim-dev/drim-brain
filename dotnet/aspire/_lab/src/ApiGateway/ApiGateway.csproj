@@ -13,4 +13,8 @@
       <ProjectReference Include="..\LoanService\LoanService.Api\LoanService.Api.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Aspire.StackExchange.Redis.OutputCaching" Version="8.0.0-preview.2.23619.3" />
+    </ItemGroup>
+
 </Project>
