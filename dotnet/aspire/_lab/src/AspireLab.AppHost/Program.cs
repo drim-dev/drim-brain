@@ -9,16 +9,16 @@ var blockchainService = builder.AddProject<Projects.BlockchainService>("blockcha
 
 var accountService = builder.AddProject<Projects.AccountService>("account-service")
     .WithReference(blockchainService)
-    .WithReplicas(2);
+    .WithReplicas(1);
 
 var loanService = builder.AddProject<Projects.LoanService>("loan-service")
     .WithReference(loanServiceDb)
-    .WithReplicas(2);
+    .WithReplicas(1);
 
 var apiGateway = builder.AddProject<Projects.ApiGateway>("api-gateway")
     .WithReference(accountService)
     .WithReference(loanService)
     .WithReference(redis)
-    .WithReplicas(2);
+    .WithReplicas(1);
 
 builder.Build().Run();
