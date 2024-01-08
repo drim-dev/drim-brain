@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab</title>
+</head>
+<body>
+
+<button id="getButton">GET data</button>
+<pre id="getResult"></pre>
+<br/>
+<button id="putButton">PUT data</button>
+<pre id="putResult"></pre>
+
+<script>
+    document.getElementById('getButton').addEventListener('click', function() {
+        const apiUrl = 'http://backend.drim.city';
+        const resultElement = document.getElementById('getResult');
+
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                resultElement.textContent = JSON.stringify(data, null, " ");
+            })
+            .catch(error => {
+                resultElement.textContent = 'Error: ' + error.message;
+            });
+    });
+
+    document.getElementById('putButton').addEventListener('click', function() {
+        const apiUrl = 'http://backend.drim.city';
+        const resultElement = document.getElementById('putResult');
+
+        fetch(apiUrl, { method: "PUT" })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                resultElement.textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                resultElement.textContent = 'Error: ' + error.message;
+            });
+    });
+</script>
+
+</body>
+</html>
