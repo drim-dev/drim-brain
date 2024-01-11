@@ -2,6 +2,8 @@
 
 __Reverse proxy__ is a server or software application that acts as an intermediary between client devices and a web server. Unlike a traditional forward proxy, which sits between client devices and the internet, a reverse proxy sits between client devices and a web server, forwarding client requests to the server and returning the server's responses to the clients.
 
+![Reverse proxy](_images/reverse-proxy.png)
+
 Here are some key points about reverse proxies:
 
 * __Load Balancing__: Reverse proxies often include load balancing functionality, distributing incoming client requests across multiple backend servers. This helps distribute the load and improve the overall performance and reliability of a web application.
@@ -19,8 +21,6 @@ Here are some key points about reverse proxies:
 Popular reverse proxy software includes Nginx, Apache HTTP Server with mod_proxy, HAProxy, Traefik, Linkerd. Many content delivery networks (CDNs) also use reverse proxy architecture to efficiently deliver content to users.
 
 Overall, reverse proxies play a crucial role in optimizing performance, enhancing security, and improving the scalability of web applications.
-
-![Reverse proxy](_images/reverse-proxy.png)
 
 ## Forwarding Headers
 

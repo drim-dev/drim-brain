@@ -1,0 +1,11 @@
+name: "web-api"
+
+services:
+  web_api:
+    image: docker.io/drimdev/nginx-lab-web-api:v1
+    pull_policy: always
+    restart: always
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+    ports:
+    - "8080:8080"

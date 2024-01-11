@@ -1,0 +1,119 @@
+- name: Upgrade system
+  hosts: all
+  
+  tasks:
+  - name: Upgrade system
+    apt:
+      upgrade: dist
+      update_cache: yes
+
+- name: Install docker
+  hosts: all
+  
+  tasks:
+  - name: Add Docker GPG apt Key
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+
+  - name: Add Docker repository
+    apt_repository:
+      repo: deb https://download.docker.com/linux/ubuntu focal stable
+
+  - name: Update apt and install docker-ce
+    apt:
+      name: docker-ce
+      update_cache: true
+
+- name: Run docker compose service for web app
+  hosts: frontend
+
+  vars:
+    docker_compose_dir: /srv/nginx-lab/web-app
+
+  tasks:
+  - name: Create docker compose directory
+    file:
+      path: "{{ docker_compose_dir }}"
+      state: directory
+
+  - name: Stop service
+    ansible.builtin.command: docker compose -f "{{ docker_compose_dir }}/docker-compose.yml" down
+
+  - name: Install docker compose config
+    template:
+      src: templates/docker-compose.web-app.yml.j2
+      dest: "{{ docker_compose_dir }}/docker-compose.yml"
+
+  # - name: Install docker compose config
+  #   template:
+  #     src: templates/docker-compose.web-api-and-web-app.yml.j2
+  #     dest: "{{ docker_compose_dir }}/docker-compose.yml"
+
+  - name: Run service
+    ansible.builtin.command: docker compose -f "{{ docker_compose_dir }}/docker-compose.yml" up -d
+
+- name: Run docker compose service for web api
+  hosts: backend
+
+  vars:
+    docker_compose_dir: /srv/nginx-lab/web-api
+
+  tasks:
+  - name: Create docker compose directory
+    file:
+      path: "{{ docker_compose_dir }}"
+      state: directory
+
+  - name: Stop service
+    ansible.builtin.command: docker compose -f "{{ docker_compose_dir }}/docker-compose.yml" down
+
+  - name: Install docker compose config
+    template:
+      src: templates/docker-compose.web-api.yml.j2
+      dest: "{{ docker_compose_dir }}/docker-compose.yml"
+
+  # - name: Install docker compose config
+  #   template:
+  #     src: templates/docker-compose.web-api-and-web-app.yml.j2
+  #     dest: "{{ docker_compose_dir }}/docker-compose.yml"
+
+  - name: Run service
+    ansible.builtin.command: docker compose -f "{{ docker_compose_dir }}/docker-compose.yml" up -d
+
+- name: Setup nginx
+  hosts: frontend
+
+  tasks:
+  - name: Install nginx
+    apt:
+      name: nginx
+
+  - name: Remove default nginx config
+    file:
+      name: /etc/nginx/sites-enabled/default
+      state: absent
+
+  # - name: Create WWW data directory
+  #   file:
+  #     path: /www/data
+  #     state: directory
+
+  # - name: Copy index.html
+  #   template:
+  #     src: templates/index.html.j2
+  #     dest: /www/data/index.html
+
+  # - name: Install system nginx config
+  #   template:
+  #     src: templates/nginx.static.conf.j2
+  #     dest: /etc/nginx/nginx.conf
+
+  - name: Install system nginx config
+    template:
+      src: templates/nginx.proxy.conf.j2
+      dest: /etc/nginx/nginx.conf
+
+  - name: Reload nginx
+    service:
+      name: nginx
+      state: restarted

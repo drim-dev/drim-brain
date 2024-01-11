@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NginxLab.WebApp", "NginxLab.WebApp\NginxLab.WebApp.csproj", "{A5BCDAFD-B3A6-45BA-9E9E-311DC27F45F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NginxLab.WebApi", "NginxLab.WebApi\NginxLab.WebApi.csproj", "{74D36FA6-7D50-4923-BCC9-6D5D8806C873}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A5BCDAFD-B3A6-45BA-9E9E-311DC27F45F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5BCDAFD-B3A6-45BA-9E9E-311DC27F45F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5BCDAFD-B3A6-45BA-9E9E-311DC27F45F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5BCDAFD-B3A6-45BA-9E9E-311DC27F45F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74D36FA6-7D50-4923-BCC9-6D5D8806C873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74D36FA6-7D50-4923-BCC9-6D5D8806C873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74D36FA6-7D50-4923-BCC9-6D5D8806C873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74D36FA6-7D50-4923-BCC9-6D5D8806C873}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

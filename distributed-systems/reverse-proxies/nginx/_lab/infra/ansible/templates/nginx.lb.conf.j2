@@ -1,0 +1,44 @@
+worker_processes 4;
+pid /run/nginx.pid;
+
+events {
+    worker_connections 4096;
+}
+
+http {
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    gzip on;
+    gzip_disable "msie6";
+
+    upstream web_app {
+        server 10.0.1.1:8081 weight=2;
+        server 10.0.1.2:8081;
+    }
+
+    upstream web_api {
+        server 10.0.1.1:8080 weight=4;
+        server 10.0.1.2:8080;
+    }
+
+    server {
+        listen 80;
+        server_name frontend.drim.city;
+
+        location / {
+            proxy_pass http://web_app/;
+        }
+
+        location /api/ {
+            proxy_pass http://web_api/;
+            
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+        }
+    }
+}
