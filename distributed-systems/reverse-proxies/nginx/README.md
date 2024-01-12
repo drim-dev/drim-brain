@@ -436,5 +436,7 @@ A worker never blocks on network traffic, waiting for the client to respond. Whe
 * Health checks - https://docs.nginx.com/nginx/admin-guide/load-balancer/http-health-check/
 * Architecture - https://www.nginx.com/blog/inside-nginx-how-we-designed-for-performance-scale/
 * Performance - https://aosabook.org/en/v2/nginx.html
+* Cloudflare ditched NGINX - https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet
+* Reactor pattern - https://subscription.packtpub.com/book/programming/9781783287314/1/ch01lvl1sec09/the-reactor-pattern
 
 #nginx
