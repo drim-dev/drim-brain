@@ -39,15 +39,15 @@
   - name: Stop service
     ansible.builtin.command: docker compose -f "{{ docker_compose_dir }}/docker-compose.yml" down
 
-  - name: Install docker compose config
-    template:
-      src: templates/docker-compose.web-app.yml.j2
-      dest: "{{ docker_compose_dir }}/docker-compose.yml"
-
   # - name: Install docker compose config
   #   template:
-  #     src: templates/docker-compose.web-api-and-web-app.yml.j2
+  #     src: templates/docker-compose.web-app.yml.j2
   #     dest: "{{ docker_compose_dir }}/docker-compose.yml"
+
+  - name: Install docker compose config
+    template:
+      src: templates/docker-compose.web-api-and-web-app.yml.j2
+      dest: "{{ docker_compose_dir }}/docker-compose.yml"
 
   - name: Run service
     ansible.builtin.command: docker compose -f "{{ docker_compose_dir }}/docker-compose.yml" up -d
@@ -67,15 +67,15 @@
   - name: Stop service
     ansible.builtin.command: docker compose -f "{{ docker_compose_dir }}/docker-compose.yml" down
 
-  - name: Install docker compose config
-    template:
-      src: templates/docker-compose.web-api.yml.j2
-      dest: "{{ docker_compose_dir }}/docker-compose.yml"
-
   # - name: Install docker compose config
   #   template:
-  #     src: templates/docker-compose.web-api-and-web-app.yml.j2
+  #     src: templates/docker-compose.web-api.yml.j2
   #     dest: "{{ docker_compose_dir }}/docker-compose.yml"
+
+  - name: Install docker compose config
+    template:
+      src: templates/docker-compose.web-api-and-web-app.yml.j2
+      dest: "{{ docker_compose_dir }}/docker-compose.yml"
 
   - name: Run service
     ansible.builtin.command: docker compose -f "{{ docker_compose_dir }}/docker-compose.yml" up -d
@@ -103,15 +103,15 @@
   #     src: templates/index.html.j2
   #     dest: /www/data/index.html
 
-  # - name: Install system nginx config
-  #   template:
-  #     src: templates/nginx.static.conf.j2
-  #     dest: /etc/nginx/nginx.conf
-
   - name: Install system nginx config
     template:
-      src: templates/nginx.proxy.conf.j2
+      src: templates/nginx.lb.conf.j2
       dest: /etc/nginx/nginx.conf
+
+  # - name: Install system nginx config
+  #   template:
+  #     src: templates/nginx.proxy.conf.j2
+  #     dest: /etc/nginx/nginx.conf
 
   - name: Reload nginx
     service:

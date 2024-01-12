@@ -21,6 +21,7 @@ http {
     }
 
     upstream web_api {
+        ip_hash;
         server 10.0.1.1:8080 weight=4;
         server 10.0.1.2:8080;
     }

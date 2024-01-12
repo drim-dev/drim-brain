@@ -140,6 +140,28 @@ http {
 }
 ```
 
+## Static Content Serving
+
+The `root` directive specifies the root directory that will be used to search for a file. To obtain the path of a requested file, NGINX appends the request URI to the path specified by the root directive. The directive can be placed on any level within the `http {}`, `server {}`, or `location {}` contexts. In the example below, the root directive is defined for a virtual server. It applies to all location {} blocks where the root directive is not included to explicitly redefine the root:
+
+```nginx
+server {
+    root /www/data;
+
+    location / {
+    }
+
+    location /images/ {
+    }
+
+    location ~ \.(mp3|mp4) {
+        root /www/media;
+    }
+}
+```
+
+Here, NGINX searches for a URI that starts with `/images/` in the `/www/data/images/` directory in the file system. But if the URI ends with the `.mp3` or `.mp4` extension, NGINX instead searches for the file in the `/www/media/` directory because it is defined in the matching `location` block.
+
 If a request ends with a slash, NGINX treats it as a request for a directory and tries to find an index file in the directory. The `index` directive defines the index file’s name (the default value is `index.html`). To continue with the example, if the request URI is `/images/some/path/`, NGINX delivers the file `/www/data/images/some/path/index.html` if it exists. If it does not, NGINX returns HTTP code `404 (Not Found)` by default.
 
 You can list more than one filename in the `index` directive. NGINX searches for files in the specified order and returns the first one it finds.
@@ -183,28 +205,6 @@ location @backend {
     proxy_pass http://backend.example.com;
 }
 ```
-
-## Static Content Serving
-
-The `root` directive specifies the root directory that will be used to search for a file. To obtain the path of a requested file, NGINX appends the request URI to the path specified by the root directive. The directive can be placed on any level within the `http {}`, `server {}`, or `location {}` contexts. In the example below, the root directive is defined for a virtual server. It applies to all location {} blocks where the root directive is not included to explicitly redefine the root:
-
-```nginx
-server {
-    root /www/data;
-
-    location / {
-    }
-
-    location /images/ {
-    }
-
-    location ~ \.(mp3|mp4) {
-        root /www/media;
-    }
-}
-```
-
-Here, NGINX searches for a URI that starts with `/images/` in the `/www/data/images/` directory in the file system. But if the URI ends with the `.mp3` or `.mp4` extension, NGINX instead searches for the file in the `/www/media/` directory because it is defined in the matching `location` block.
 
 ## Load Balancing
 
