@@ -1,0 +1,7 @@
+CREATE TABLE "cars" (
+    "id" INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    "name" VARCHAR(64) NOT NULL,
+    "color" VARCHAR(64) NOT NULL,
+    "year" INT NOT NULL,
+    "mileage" INT NOT NULL
+);
