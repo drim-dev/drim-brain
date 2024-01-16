@@ -1,0 +1,13 @@
+version: "3.8"
+
+name: "postgres-json-lab"
+
+services:
+
+  postgres:
+    image: postgres:16.1
+    environment:
+    - POSTGRES_USER=test_user
+    - POSTGRES_PASSWORD=123456789
+    volumes:
+    - ./sql:/sql
