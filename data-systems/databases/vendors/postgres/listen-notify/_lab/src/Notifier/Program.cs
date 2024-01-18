@@ -21,13 +21,13 @@ app.MapPost("/notify", async Task<Ok> ([FromBody] CarModel car, CancellationToke
         await cmd.ExecuteNonQueryAsync(cancellationToken);
     }
 
-    await using (var cmd = new NpgsqlCommand())
-    {
-        cmd.CommandText = $"NOTIFY cars_channel, '{JsonSerializer.Serialize(car)}';";
-        cmd.CommandType = CommandType.Text;
-        cmd.Connection = connection;
-        await cmd.ExecuteNonQueryAsync(cancellationToken);
-    }
+    // await using (var cmd = new NpgsqlCommand())
+    // {
+    //     cmd.CommandText = $"NOTIFY cars_channel, '{JsonSerializer.Serialize(car)}';";
+    //     cmd.CommandType = CommandType.Text;
+    //     cmd.Connection = connection;
+    //     await cmd.ExecuteNonQueryAsync(cancellationToken);
+    // }
 
     return TypedResults.Ok();
 });
