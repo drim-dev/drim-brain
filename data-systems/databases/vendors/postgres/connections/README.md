@@ -8,11 +8,11 @@ To configure PostgreSQL to listen on a specific IP address, you need to modify t
 
 Locate directory `/var/lib/postgresql/{version}/main`. Create or edit `postgresql.auto.conf` file in a text editor with administrative privileges. This file overrides parameters in `postgresql.conf` file.
 
-3. __Create or find `listen_addresses` section__:
+2. __Create or find `listen_addresses` section__:
 
 Look for the `listen_addresses` parameter in the file. It may be commented out (with a `#` at the beginning of the line). If it's commented, uncomment the line.
 
-4. __Configure IP address__:
+3. __Configure IP address__:
 
 Set the `listen_addresses` parameter to the IP address you want PostgreSQL to listen on. If you want it to listen on all available IP addresses, set it to `'*'`.
 
@@ -28,11 +28,11 @@ or for all addresses:
 listen_addresses = '*'      # Listen on all available IP addresses
 ```
 
-5. __Save and close file__:
+4. __Save and close file__:
 
 Save the changes and close the `postgresql.auto.conf` file.
 
-6. __Restart PostgreSQL__:
+5. __Restart PostgreSQL__:
 
 After making these changes, you need to restart the PostgreSQL server for the new configuration to take effect.
 On Linux, you can use:
