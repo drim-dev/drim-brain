@@ -4,13 +4,9 @@
 
 To configure PostgreSQL to listen on a specific IP address, you need to modify the `postgresql.conf` file. Follow these steps:
 
-1. __Locate PostgreSQL configuration file__:
+1. __Create or edit `postgresql.auto.conf`__:
 
-The `postgresql.conf` file is usually located in the PostgreSQL data directory. Common paths include `/etc/postgresql/{version}/main/` on Linux or `C:\Program Files\PostgreSQL\{version}\data` on Windows.
-
-2. __Create or edit `postgresql.auto.conf`__:
-
-Create or edit `postgresql.auto.conf` file in a text editor with administrative privileges. This file overrides parameters in `postgresql.conf` file.
+Locate directory `/var/lib/postgresql/{version}/main`. Create or edit `postgresql.auto.conf` file in a text editor with administrative privileges. This file overrides parameters in `postgresql.conf` file.
 
 3. __Create or find `listen_addresses` section__:
 
@@ -118,7 +114,7 @@ External connection pool tools include pgBouncer, pgpool-II, Yandex Odyssey.
 
 #### pgBouncer
 
-pgBouncer is a lightweight connection pooler for PostgreSQL databases. It is designed to improve scalability and resource utilization in situations where a large number of clients need to connect to a PostgreSQL database. The main purpose of pgBouncer is to efficiently manage database connections, reducing the overhead associated with establishing new connections for each client.
+pgBouncer is a lightweight connection pooler for PostgreSQL databases. It is designed to improve scalability and resource utilization in situations where a large number of clients need to connect to a PostgreSQL database. The main purpose of pgBouncer is to manage database connections efficiently, reducing the overhead associated with establishing new connections for each client.
 
 pgBouncer modes:
 
