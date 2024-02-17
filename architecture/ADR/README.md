@@ -1,6 +1,6 @@
-- [Architecture Decision Records](#architecture-decision-records)
-  - [ADR typically includes the following information:](#adr-typically-includes-the-following-information)
-  - [Links](#links)
+* [Architecture Decision Records](#architecture-decision-records)
+  * [ADR typically includes the following information](#adr-typically-includes-the-following-information)
+  * [Links](#links)
 
 # Architecture Decision Records
 
@@ -9,15 +9,15 @@ software system. ADRs are used to document the context, options considered, and 
 serve as a valuable resource for both current and future development teams to understand the reasoning behind certain design
 choices.
 
-## ADR typically includes the following information:
+## ADR typically includes the following information
 
-* **Title** - A concise description of the decision.
-* **Status** - Indicates the current status of the decision, such as proposed, accepted, rejected, etc.
-* **Context** - The factors and conditions influencing the decision.
-* **Decision** - The chosen option or solution.
-* **Consequences** - The potential impact and implications of the decision.
-* **Compliance** - How the architecture decision will be measured and governed from a compliance perspective.
-* **Notes** - This section includes various metadata about the ADR (Author, Approval Date, Modified By, etc.)
+* __Title__ - A concise description of the decision.
+* __Status__ - Indicates the current status of the decision, such as proposed, accepted, rejected, etc.
+* __Context__ - The factors and conditions influencing the decision.
+* __Decision__ - The chosen option or solution.
+* __Consequences__ - The potential impact and implications of the decision.
+* __Compliance__ - How the architecture decision will be measured and governed from a compliance perspective.
+* __Notes__ - This section includes various metadata about the ADR (Author, Approval Date, Modified By, etc.)
 
 ## Links
 

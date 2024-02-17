@@ -1,5 +1,6 @@
-- [Fitness Function](#fitness-function)
-  - [NetArchTest](#netarchtest)
+* [Fitness Function](#fitness-function)
+  * [NetArchTest](#netarchtest)
+* [Links](#links)
 
 # Fitness Function
 
@@ -10,13 +11,14 @@ Fitness functions are commonly associated with the concept of evolutionary archi
 Fitness functions are often used in CI/CD pipelines to automate the evaluation of architectural qualities during the development process. This helps ensure that architectural goals are continuously met as the software evolves.
 
 Fitness functions can assert different aspects of the software system architecture:
-- Cohesion
-- Coupling
-- Maintainability
-- Response Times
-- Throughput
-- Scalability
-- Resilience
+
+* Cohesion
+* Coupling
+* Maintainability
+* Response Times
+* Throughput
+* Scalability
+* Resilience
 
 ## NetArchTest
 
@@ -24,6 +26,6 @@ Fitness functions can assert different aspects of the software system architectu
 
 # Links
 
-- Fitness Functions - https://betterprogramming.pub/the-up-and-running-guide-to-architectural-fitness-functions-1621ebe46ea
-- Fitness Functions - https://www.thoughtworks.com/insights/articles/fitness-function-driven-development
-- NetArchTest - https://github.com/BenMorris/NetArchTest
+* Fitness Functions - https://betterprogramming.pub/the-up-and-running-guide-to-architectural-fitness-functions-1621ebe46ea
+* Fitness Functions - https://www.thoughtworks.com/insights/articles/fitness-function-driven-development
+* NetArchTest - https://github.com/BenMorris/NetArchTest

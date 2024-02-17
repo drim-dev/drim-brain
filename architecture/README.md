@@ -1,12 +1,12 @@
-- [Architecture](#architecture)
-  - [What is architecture?](#what-is-architecture)
-  - [Architecture Definition](#architecture-definition)
-  - [Expectations of Architect](#expectations-of-architect)
-  - [Application Architecture Goals](#application-architecture-goals)
-- [Architecture vs. Design](#architecture-vs-design)
-- [Laws of Software Architecture](#laws-of-software-architecture)
-  - [First Law](#first-law)
-  - [Second Law](#second-law)
+* [Architecture](#architecture)
+  * [What is architecture?](#what-is-architecture)
+  * [Architecture Definition](#architecture-definition)
+  * [Expectations of Architect](#expectations-of-architect)
+  * [Application Architecture Goals](#application-architecture-goals)
+* [Architecture vs. Design](#architecture-vs-design)
+* [Laws of Software Architecture](#laws-of-software-architecture)
+  * [First Law](#first-law)
+  * [Second Law](#second-law)
 
 # Architecture
 
@@ -19,6 +19,7 @@ Architecture Definition
 ## Architecture Definition
 
 Software architecture consists of:
+
 * Structure
 * Architecture characteristics
   * Availability, Reliability, Testability, Scalability, Security, Agility, Fault tolerance, Elasticity, Recoverability, Performace, Deployability, Learnability
@@ -29,6 +30,7 @@ Software architecture consists of:
 ## Expectations of Architect
 
 There are core expectations placed on a software architect, irrespective of any given role, title, or job description:
+
 * Make architecture decisions
 * Continually analyze the architecture
 * Keep current with the latest trends
@@ -39,26 +41,27 @@ There are core expectations placed on a software architect, irrespective of any 
 * Understand and navigate politics
 
 ## Application Architecture Goals
-- Managing complexity (reducing accidental complexity)
-- Application maintainability
-- Accidental complexity vs evolvability
-- Knowledge communication
-- Managing obsolescence
-- Reusability
-- Development speed up
+
+* Managing complexity (reducing accidental complexity)
+* Application maintainability
+* Accidental complexity vs evolvability
+* Knowledge communication
+* Managing obsolescence
+* Reusability
+* Development speed up
 
 # Architecture vs. Design
 
-Architecture is the **logical** implementation of the system.
+Architecture is the __logical__ implementation of the system.
 
-Design is the **physical** implementation of the system.
+Design is the __physical__ implementation of the system.
 
 # Laws of Software Architecture
 
 ## First Law
 
-**Everything in software architecture is a trade-off.**
+__Everything in software architecture is a trade-off.__
 
 ## Second Law
 
-***Why* is more important than *how*.**
+___Why_ is more important than _how_.__
