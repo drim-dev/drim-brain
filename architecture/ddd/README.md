@@ -1,6 +1,6 @@
-* [1. Domain-Driven Design](#1-domain-driven-design)
+* [Domain-Driven Design](#domain-driven-design)
 
-# 1. Domain-Driven Design
+# Domain-Driven Design
 
 * Bounded contexts
 * Aggregates
