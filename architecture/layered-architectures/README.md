@@ -1,18 +1,18 @@
-* [1. Traditional Architectures](#1-traditional-architectures)
-  * [1.1. Layered  Architecture](#11-layered--architecture)
-    * [1.1.1. Pros](#111-pros)
-  * [1.2. Onion Architecture](#12-onion-architecture)
-    * [1.2.1. Statements](#121-statements)
-  * [1.3. Hexagonal Architecture](#13-hexagonal-architecture)
-  * [1.4. Clean Architecture](#14-clean-architecture)
+* [Traditional Architectures](#traditional-architectures)
+  * [Layered  Architecture](#layered--architecture)
+    * [Pros](#pros)
+  * [Onion Architecture](#onion-architecture)
+    * [Statements](#statements)
+  * [Hexagonal Architecture](#hexagonal-architecture)
+  * [Clean Architecture](#clean-architecture)
 
-# 1. Traditional Architectures
+# Traditional Architectures
 
-## 1.1. Layered  Architecture
+## Layered  Architecture
 
 ![Layered  Architecture](_images/layered-architecture.png)
 
-### 1.1.1. Pros
+### Pros
 
 * Separation of concerns
 * Abstraction and encapsulation
@@ -20,7 +20,7 @@
 * Single responsibility
 * Layer independence
 
-## 1.2. Onion Architecture
+## Onion Architecture
 
 Link: https://bit.ly/3WmVjCd
 
@@ -31,7 +31,7 @@ Link: https://bit.ly/3WmVjCd
 * __Infrastructure.__ This layer is responsible for interacting with external resources and frameworks, such as databases, file systems, or web services
 * __User Interface.__ This layer is responsible for presenting information to users and capturing their input. It includes user interfaces, such as web interfaces, desktop applications, or mobile apps
 
-### 1.2.1. Statements
+### Statements
 
 * The domain model is the truth of the organization
 * The application is built around an independent object model
@@ -41,7 +41,7 @@ Link: https://bit.ly/3WmVjCd
 * All application core code can be compiled and run separately from the infrastructure
 * Testability
 
-## 1.3. Hexagonal Architecture
+## Hexagonal Architecture
 
 Link: https://bit.ly/3ofxoIp
 
@@ -52,7 +52,7 @@ Link: https://bit.ly/3ofxoIp
 * __Ports.__ Ports define the interfaces through which the core interacts with the outside world. They are the entry and exit points for data and control flow
 * __Adapters.__ Adapters implement the ports and connect the core with the external world. They are responsible for translating and transforming data between the core and the external systems, such as databases, user interfaces, or third-party services
 
-## 1.4. Clean Architecture
+## Clean Architecture
 
 Link: https://bit.ly/3BNEqqS
 
