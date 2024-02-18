@@ -22,7 +22,7 @@ Fitness functions can assert different aspects of the software system architectu
 
 ## NetArchTest
 
-![NetArchTest Source Examples](images/net-arch-test.png)
+![NetArchTest Source Examples](_images/net-arch-test.png)
 
 # Links
 

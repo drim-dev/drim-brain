@@ -15,7 +15,7 @@ The basic idea behind Screaming Architecture is to create an architecture that c
 
 Link: https://bit.ly/3BNpDMU
 
-<img alt="Vertical Slices" src="_images/vertical-slices.png" />
+![Vertical Slices](_images/vertical-slices.png)
 
 ### Statements
 

@@ -10,7 +10,7 @@
 
 ## 1.1. Layered  Architecture
 
-<img alt="Layered  Architecture" src="_images/layered-architecture.png" width="70%" />
+![Layered  Architecture](_images/layered-architecture.png)
 
 ### 1.1.1. Pros
 
@@ -24,7 +24,7 @@
 
 Link: https://bit.ly/3WmVjCd
 
-<img alt="Onion Architecture" src="_images/onion-architecture.png" width="50%"/>
+![Onion Architecture](_images/onion-architecture.png)
 
 * __Domain Model + Domain Services.__ This layer contains the core business logic and domain models. It represents the heart of the application and should be independent of any specific technology or infrastructure concerns
 * __Application Services.__ The application layer sits outside the domain layer and contains the application-specific logic. It orchestrates the interaction between the domain layer and the infrastructure layer, handling use cases and exposing services
@@ -45,7 +45,7 @@ Link: https://bit.ly/3WmVjCd
 
 Link: https://bit.ly/3ofxoIp
 
-<img alt="Hexagonal Architecture" src="_images/hexagonal-architecture.png" width="100%"/>
+![Hexagonal Architecture](_images/hexagonal-architecture.png)
 
 * __Domain Model + Domain Services.__ This layer contains the core business logic and domain models. It represents the heart of the application and should be independent of any specific technology or infrastructure concerns
 * __Application Services.__ The application layer sits outside the domain layer and contains the application-specific logic. It orchestrates the interaction between the domain layer and the infrastructure layer, handling use cases and exposing services
@@ -56,6 +56,6 @@ Link: https://bit.ly/3ofxoIp
 
 Link: https://bit.ly/3BNEqqS
 
-<img alt="Clean Architecture" src="_images/clean-architecture.jpg" width="100%"/>
+![Clean Architecture](_images/clean-architecture.jpg)
 
-<img alt="All of them the same thing" src="_images/the-same-thing.png" width="70%" />
+![All of them the same thing](_images/the-same-thing.png)

@@ -34,7 +34,7 @@ __Coupling:__
 * Low coupling means that modules are relatively independent of each other, and changes in one module are less likely to affect others.
 * It is generally desirable to have low coupling between modules as it promotes better modularity, reusability, and easier maintenance of the code
 
-![Cohesion + Coupling](images/cohesion-plus-coupling.png)
+![Cohesion + Coupling](_images/cohesion-plus-coupling.png)
 
 ## Levels of Cohesion
 

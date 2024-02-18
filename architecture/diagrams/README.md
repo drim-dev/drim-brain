@@ -16,19 +16,19 @@
 
 Describes the high-level view of the system, showing how it interacts with external entities such as users, systems, or external services.
 
-![Context Diagram (C1)](images/c1-context-diagram.png)
+![Context Diagram (C1)](_images/c1-context-diagram.png)
 
 ### Container Diagram (C2)
 
 Focuses on the containers within the system, representing the applications or services and their dependencies. It provides a high-level view of the software architecture.
 
-![Container Diagram (C2)](images/c2-container-diagram.png)
+![Container Diagram (C2)](_images/c2-container-diagram.png)
 
 ### Component Diagram (C3)
 
 Dives deeper into the internal components or classes of a container, illustrating the key components and their interactions.
 
-![Component Diagram (C3)](images/c3-component-diagram.png)
+![Component Diagram (C3)](_images/c3-component-diagram.png)
 
 ### Code Diagram (C4)
 
