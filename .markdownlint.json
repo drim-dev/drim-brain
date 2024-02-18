@@ -1,0 +1,19 @@
+{
+    "MD004":  {
+        "style": "asterisk"
+    },
+    "MD013": false,
+    "MD022": true,
+    "MD033": {
+        "allowed_elements": []
+    },
+    "MD034": false,
+    "MD041": false,
+    "MD047": true,
+    "MD049": {
+        "style": "underscore"
+    },
+    "MD050": {
+        "style": "underscore"
+    }
+}
