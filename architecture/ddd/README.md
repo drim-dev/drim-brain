@@ -9,4 +9,4 @@
 * Value objects
 * Domain events
 
-**IMO, canonical DDD implementation in most cases leads to overly-engineered applications, though parts of it are useful.**
+__IMO, canonical DDD implementation in most cases leads to overly-engineered applications, though parts of it are useful.__

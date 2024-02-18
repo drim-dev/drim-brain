@@ -10,7 +10,7 @@
 
 ## C4 Model
 
-**C4 model** is a framework for visualizing the architecture of a software system. It was created by Simon Brown and is designed to be a simple way to communicate and document software architecture. The "C4" stands for "Context, Containers, Components, and Code" which represent different levels of abstraction in the architecture.
+__C4 model__ is a framework for visualizing the architecture of a software system. It was created by Simon Brown and is designed to be a simple way to communicate and document software architecture. The "C4" stands for "Context, Containers, Components, and Code" which represent different levels of abstraction in the architecture.
 
 ### Context Diagram (C1)
 

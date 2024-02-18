@@ -4,7 +4,7 @@
 
 # Fitness Function
 
-**Architecture fitness function** is a specific, measurable, and quantifiable criterion used to evaluate the performance or suitability of a system architecture. It can cover various aspects such as performance, reliability, scalability, maintainability, and more.
+__Architecture fitness function__ is a specific, measurable, and quantifiable criterion used to evaluate the performance or suitability of a system architecture. It can cover various aspects such as performance, reliability, scalability, maintainability, and more.
 
 Fitness functions are commonly associated with the concept of evolutionary architecture, where the design of a system is expected to evolve over time to meet changing requirements.
 
