@@ -1,9 +1,5 @@
 * [Modularity](#modularity)
 * [Cohesion and Coupling](#cohesion-and-coupling)
-  * [Levels of Cohesion](#levels-of-cohesion)
-  * [Cohesion Metrics](#cohesion-metrics)
-  * [Levels of Coupling](#levels-of-coupling)
-  * [Coupling Metrics](#coupling-metrics)
 * [Links](#links)
 
 # Modularity
@@ -27,59 +23,16 @@ __Cohesion:__
 * Cohesion refers to the degree to which the elements within a module or component are related to each other.
 * High cohesion implies that the elements within a module are closely related in terms of functionality, and they work together to achieve a common goal.
 * It is generally desirable to have high cohesion within a module because it leads to more maintainable, modular, and understandable code.
+* Read more: [cohesion/README.md](cohesion/README.md)
 
 __Coupling:__
 
 * Coupling, on the other hand, refers to the degree of dependence between different modules or components in a system.
 * Low coupling means that modules are relatively independent of each other, and changes in one module are less likely to affect others.
 * It is generally desirable to have low coupling between modules as it promotes better modularity, reusability, and easier maintenance of the code
+* Read more: [coupling/README.md](coupling/README.md)
 
 ![Cohesion + Coupling](_images/cohesion-plus-coupling.png)
-
-## Levels of Cohesion
-
-__(From best to worst)!__
-
-* __Functional cohesion__ - It is considered to be the highest degree of cohesion, and it is highly expected. Elements of module in functional cohesion are grouped because they all contribute to a single well-defined function. It can also be reused.
-* __Sequential cohesion__ - When elements of module are grouped because the output of one element serves as input to another and so on.
-* __Communicational cohesion__ - When elements of module are grouped together, which are executed sequentially and work on same data. Grouped because of common I/O source.
-* __Procedural cohesion__ - Grouped to ensure order of use. Grouped together, which are executed sequentially in order to perform a task.
-* __Temporal cohesion__ - Grouped by time of use.
-* __Logical cohesion__ - Grouped by function but not related. Logically categorized elements are put together.
-* __Coincidental cohesion__ - Grouped by chance. It is unplanned and random cohesion, which might be the result of breaking the program into smaller modules for the sake of modularization
-
-## Cohesion Metrics
-
-* Lack of Cohesion in Methods (LCOM)
-* Cohesion Among Methods in a Class (CAM)
-* Responsibility Driven Design Metrics
-* Cyclomatic Complexity
-* Semantic Cohesion
-* Component Dependency Metrics
-* Coupling Metrics
-
-## Levels of Coupling
-
-__(From best to worst)!__
-
-* __Data coupling__ - When two modules interact with each other by means of passing data (as parameter). Data is passed between components.
-* __Stamp coupling__ - When multiple modules share common data structure and work on different parts of it.
-* __Control coupling__ - If one module decides the function of the other module. Data passed affects control flow. Passing a boolean of flag.
-* __Common coupling__ - Shared data. When multiple modules have read and write access to some global data.
-* __Content coupling__ - When a module can directly access or modify or refer to the content of another module. One module changes internal data of another.
-
-## Coupling Metrics
-
-1. Afferent Coupling (Ca):
-   * Afferent coupling measures the number of classes or modules that depend on a particular class or module.
-   * It indicates how many other modules are using or depending on the module in question.
-   * High afferent coupling may indicate that a module has many incoming dependencies, which can make it more
-challenging to maintain or modify without affecting other parts of the system.
-2. Efferent Coupling (Ce):
-   * Efferent coupling measures the number of classes or modules that a particular class or module depends on. It indicates how many other modules the module in question is using or depending on.
-   * High efferent coupling may suggest that a module has many outgoing dependencies, which can affect its independence and reusability.
-3. Connascence:
-   * Two components are connascent if a change in one would require the other to be modified in order to maintain the overall correctness of the system.
 
 # Links
 
