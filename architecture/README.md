@@ -7,6 +7,9 @@
 * [Laws of Software Architecture](#laws-of-software-architecture)
   * [First Law](#first-law)
   * [Second Law](#second-law)
+* [Architecture Quantum](#architecture-quantum)
+  * [Independently deployable](#independently-deployable)
+  * [High Functional Cohesion](#high-functional-cohesion)
 
 # Architecture
 
@@ -68,14 +71,16 @@ ___Why_ is more important than _how_.__
 
 # Architecture Quantum
 
-__Architecture quantum__ is an __independently deployable__ artifact with __high functional cohesion, low static coupling__, and some form of __dynamic coupling__. #TODO Add Links
+__Architecture quantum__ is an __independently deployable__ artifact with __high functional cohesion, low static coupling__, and some form of [__dynamic coupling__](modularity/coupling/README.md#dynamic-coupling).
 
 _Architecture quantum is an independent part of the system that can evolve independently of other parts._
 
-# Independently deployable
+Examples are here: [styles/README.md](styles/README.md)
+
+## Independently deployable
 
 Independently deployable implies several different aspects of an architecture quantum—each quantum represents a separate deployable unit within a particular architecture. Thus, a __monolithic architecture__ — one that is deployed as a single unit—is, by definition, a __single architecture quantum__. Within a distributed architecture such as microservices, developers tend toward the ability to deploy services independently, often in a highly automated way. Thus, from an independently deployable standpoint, __a service within a microservices architecture represents an architecture quantum__.
 
-# High Functional Cohesion
+## High Functional Cohesion
 
 High functional cohesion refers structurally to the proximity of related elements: classes, components, services, and so on. Throughout history, computer scientists defined a variety of types of cohesion, scoped in this case to the generic __module__, which may be represented as __classes__ or __components__, depending on the platform. From a domain standpoint, the technical definition of high functional cohesion overlaps with the goals of the __bounded context__ in domain-driven design: behavior and data that implement a particular domain workflow.
