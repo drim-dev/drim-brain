@@ -48,7 +48,7 @@ The TLS handshake process establishes a secure connection between the client and
 
 ![TLS handshake](_images/handshake.png)
 
-TLS 1.3 uses Diffie-Hellman key exchange algorithm to create a shared secret. Previous version could also use RSA, but it was excluded because id had not provided a __perfect forward secrecy__.
+TLS 1.3 uses Diffie-Hellman key exchange algorithm to create a shared secret. Previous versions could also use RSA, but it was excluded because it had not provided a __perfect forward secrecy__.
 
 ![TLS handshake secret](_images/handshake-secret.png)
 
