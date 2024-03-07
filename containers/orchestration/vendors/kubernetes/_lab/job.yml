@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: example-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: example-job
+        image: busybox
+        command: ["echo", "Hello from the Kubernetes Job"]
+      restartPolicy: OnFailure
+  backoffLimit: 4

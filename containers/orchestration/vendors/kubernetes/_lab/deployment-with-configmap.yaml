@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: example-configmap
+data:
+  appSettings.json: |
+    {
+      "ConnectionString": "prod_connection_string"
+    }
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: aspnet-app
+  template:
+    metadata:
+      labels:
+        app: aspnet-app
+    spec:
+      containers:
+      - name: aspnet-app
+        image: nginx:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: config-volume
+          mountPath: /config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: example-configmap

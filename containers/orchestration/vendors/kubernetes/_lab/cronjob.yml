@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: example-cronjob
+spec:
+  schedule: "*/1 * * * *"   # Cron expression for running every minute
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: example-container
+            image: busybox
+            command: ["echo", "Hello from the Kubernetes CronJob"]
+          restartPolicy: OnFailure
+      backoffLimit: 4

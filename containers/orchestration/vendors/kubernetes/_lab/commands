@@ -1,0 +1,17 @@
+kubectl apply -f pod.yml
+kubectl get pods
+kubectl logs nginx
+kubectl exec -it nginx -- bash
+kubectl delete -f pod.yml
+
+kubectl apply -f replicaset.yml
+kubectl get pods
+kubectl get replicasets
+
+kubectl apply -f deployment.yml
+kubectl get deployments
+kubectl get replicasets
+kubectl rollout undo deployment/nginx
+
+kubectl apply -f service.yml
+kubectl describe service nginx
