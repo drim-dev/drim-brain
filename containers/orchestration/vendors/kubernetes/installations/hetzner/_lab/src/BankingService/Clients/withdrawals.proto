@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "BlockchainService.Client";
+
+package withdrawals;
+
+service Withdrawals {
+    rpc Withdraw(WithdrawRequest) returns (WithdrawReply);
+}
+
+message WithdrawRequest {
+    string currency = 1;
+    double amount = 2;
+    string crypto_address = 3;
+}
+
+message WithdrawReply {
+    string tx_id = 1;
+}

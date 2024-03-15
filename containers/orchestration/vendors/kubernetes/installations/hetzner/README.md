@@ -1,4 +1,4 @@
-# Kubernetes Installation in Hetzner
+# Kubernetes in Hetzner
 
 ## Links
 

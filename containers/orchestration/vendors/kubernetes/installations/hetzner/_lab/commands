@@ -1,0 +1,3 @@
+curl -v -X POST -H "Content-Type: application/json" -d '{"UserId": 10, "AccountNumber": "abc123", "Currency": "BTC", "Amount": 12, "CryptoAddress": "xyz123"}' http://api-gateway/withdrawals
+
+docker build -t drimdev/api-gateway:v1 -f ApiGateway/Dockerfile .
