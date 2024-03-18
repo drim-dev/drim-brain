@@ -1,3 +1,11 @@
-curl -v -X POST -H "Content-Type: application/json" -d '{"UserId": 10, "AccountNumber": "abc123", "Currency": "BTC", "Amount": 12, "CryptoAddress": "xyz123"}' http://api-gateway/withdrawals
+curl -v -H "Content-Type: application/json" -d '{"UserId": 10, "AccountNumber": "abc123", "Currency": "BTC", "Amount": 12, "CryptoAddress": "xyz123"}' http://api-gateway/withdrawals
+
+curl -v -H "Content-Type: application/json" -d '{"UserId": 10, "AccountNumber": "abc123", "Currency": "BTC", "Amount": 12, "CryptoAddress": "xyz123"}' https://kubernetes.drim.city/api/withdrawals
 
 docker build -t drimdev/api-gateway:v1 -f ApiGateway/Dockerfile .
+
+curl -v -H "Content-Type: application/json" -d '{"IsLive": false}' http://api-gateway/status/live
+
+curl -v -H "Content-Type: application/json" -d '{"IsReady": false}' http://api-gateway/status/ready
+
+curl -v -H "Content-Type: application/json" -d '{"IsReady": true}' http://10.42.0.25/status/ready

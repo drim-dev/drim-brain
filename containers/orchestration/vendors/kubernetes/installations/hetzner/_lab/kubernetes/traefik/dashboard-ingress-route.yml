@@ -1,0 +1,12 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-dashboard
+spec:
+  routes:
+  - match: Host(`dashboard.kubernetes.drim.city`)
+    kind: Rule
+    services:
+    - name: api@internal
+      kind: TraefikService
+    # middlewares: Add auth middleware

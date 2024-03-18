@@ -1,0 +1,18 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: api-gateway
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`kubernetes.drim.city`) && PathPrefix(`/api`)
+      kind: Rule
+      services:
+        - name: api-gateway
+          port: 80
+      middlewares:
+        - name: strip-prefix-api
+  tls:
+    secretName: kubernetes-drim-city

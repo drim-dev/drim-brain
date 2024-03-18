@@ -1,10 +1,24 @@
 using System.Reflection;
 using ApiGateway.Clients;
+using ApiGateway.Health;
 using ApiGateway.Metrics;
 using Common.Validation;
 using Common.Web.Endpoints;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+
+const string readyTag = "ready";
+const string liveTag = "live";
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHostedService<StartupHostedService>();
+
+builder.Services.AddSingleton<LivenessHealthCheck>();
+builder.Services.AddSingleton<ReadinessHealthCheck>();
+
+builder.Services.AddHealthChecks()
+    .AddCheck<LivenessHealthCheck>("liveness", tags: [liveTag])
+    .AddCheck<ReadinessHealthCheck>("readiness", tags: [readyTag]);
 
 builder.Services.AddMediatR(cfg => cfg
     .RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())
@@ -27,5 +41,15 @@ builder.Services.AddGrpcClient<BankingService.Client.Withdrawals.WithdrawalsClie
 var app = builder.Build();
 
 app.MapEndpoints();
+
+app
+    .UseHealthChecks("/health/live", new HealthCheckOptions
+    {
+        Predicate = (check) => check.Tags.Contains(liveTag),
+    })
+    .UseHealthChecks("/health/ready", new HealthCheckOptions
+    {
+        Predicate = (check) => check.Tags.Contains(readyTag),
+    });
 
 app.Run();
