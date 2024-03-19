@@ -10,3 +10,5 @@ spec:
     - name: api@internal
       kind: TraefikService
     # middlewares: Add auth middleware
+  tls:
+    secretName: kubernetes-drim-city

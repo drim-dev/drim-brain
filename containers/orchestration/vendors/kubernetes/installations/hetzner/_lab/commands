@@ -8,4 +8,7 @@ curl -v -H "Content-Type: application/json" -d '{"IsLive": false}' http://api-ga
 
 curl -v -H "Content-Type: application/json" -d '{"IsReady": false}' http://api-gateway/status/ready
 
-curl -v -H "Content-Type: application/json" -d '{"IsReady": true}' http://10.42.0.25/status/ready
+curl -v -H "Content-Type: application/json" -d '{"IsReady": true}' http://10.42.2.17/status/ready
+
+curl -v http://10.42.2.17/health/live
+curl -v http://10.42.2.17/health/ready
