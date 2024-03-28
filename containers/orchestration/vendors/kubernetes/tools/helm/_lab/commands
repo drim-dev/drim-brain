@@ -1,0 +1,31 @@
+kubectl create ns development
+
+helm install -n development crypto-bank --values ./environments/development/values.yml  ./charts/crypto-bank/
+
+curl -v -H "Content-Type: application/json" -d '{"UserId": 10, "AccountNumber": "abc123", "Currency": "BTC", "Amount": 12, "CryptoAddress": "xyz123"}' https://dev.kubernetes.drim.city/api/withdrawals
+
+helm upgrade -n development crypto-bank --values ./environments/development/values.yml  ./charts/crypto-bank/
+
+helm rollback -n development crypto-bank 1
+
+helm list -n development
+
+helm uninstall -n development crypto-bank
+
+kubectl create ns redis
+
+helm install -n redis redis oci://registry-1.docker.io/bitnamicharts/redis
+
+helm upgrade -n redis redis oci://registry-1.docker.io/bitnamicharts/redis --values ./redis/values.yml
+
+helm uninstall -n redis redis
+
+kubectl -n redis delete pvc redis-data-redis-master-0 redis-data-redis-replicas-0 redis-data-redis-replicas-1 redis-data-redis-replicas-2
+
+terraform init
+
+terraform apply
+
+kubectl -n redis get pvc
+
+terraform destroy

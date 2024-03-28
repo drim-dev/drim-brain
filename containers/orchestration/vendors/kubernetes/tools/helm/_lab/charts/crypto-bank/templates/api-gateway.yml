@@ -1,0 +1,109 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: api-gateway
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ .Values.domain }}`) && PathPrefix(`/api`)
+      kind: Rule
+      services:
+        - name: api-gateway
+          port: 80
+      middlewares:
+        - name: strip-prefix-api
+  tls:
+    secretName: {{ .Values.tls.secretName }}
+
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-prefix-api
+spec:
+  stripPrefix:
+    prefixes:
+    - /api
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-gateway
+spec:
+  selector:
+    app: api-gateway
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: api-gateway
+data:
+  appsettings.json: |- 
+    {
+      "Clients": {
+        "BankingService": "http://banking-service",
+      }
+    }
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+spec:
+  replicas: {{ .Values.services.apiGateway.replicas }}
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+      - name: api-gateway
+        image: {{ .Values.services.apiGateway.image }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          {{- include "conf.resources" .Values.services.apiGateway.resources }}
+        livenessProbe:
+          httpGet:
+            path: /health/live
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health/ready
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        volumeMounts:
+        - mountPath: /app/extraSettings
+          name: extra-settings
+        env:
+        - name: ASPNETCORE_URLS
+          value: http://+:80
+      volumes:
+      - name: extra-settings
+        projected:
+            sources:
+            - configMap:
+                name: api-gateway
+                items:
+                - key: appsettings.json
+                  path: appsettings.json

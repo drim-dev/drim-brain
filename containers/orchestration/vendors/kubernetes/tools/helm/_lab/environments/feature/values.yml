@@ -1,0 +1,51 @@
+domain: feature.kubernetes.drim.city
+
+tls:
+  secretName: feature-kubernetes-drim-city-cert
+
+services:
+  webApp:
+    image: nginx
+    replicas: 1
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "250m"
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
+  apiGateway:
+    image: drimdev/api-gateway:feature
+    replicas: 1
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "250m"
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
+  bankingService:
+    image: drimdev/banking-service:feature
+    replicas: 1
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "250m"
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
+  blockchainService:
+    image: drimdev/blockchain-service:feature
+    replicas: 1
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "250m"
+      limits:
+        memory: "512Mi"
+        cpu: "500m"
+
+infra:
+  postgresql:
+    storage:
+      size: 5Gi

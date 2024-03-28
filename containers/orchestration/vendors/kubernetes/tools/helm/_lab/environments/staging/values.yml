@@ -1,0 +1,51 @@
+domain: staging.kubernetes.drim.city
+
+tls:
+  secretName: staging-kubernetes-drim-city-cert
+
+services:
+  webApp:
+    image: nginx
+    replicas: 3
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "500m"
+      limits:
+        memory: "1Gi"
+        cpu: "1000m"
+  apiGateway:
+    image: drimdev/api-gateway:v2
+    replicas: 3
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "500m"
+      limits:
+        memory: "1Gi"
+        cpu: "1000m"
+  bankingService:
+    image: drimdev/banking-service:v2
+    replicas: 3
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "500m"
+      limits:
+        memory: "1Gi"
+        cpu: "1000m"
+  blockchainService:
+    image: drimdev/blockchain-service:v2
+    replicas: 3
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "500m"
+      limits:
+        memory: "1Gi"
+        cpu: "1000m"
+
+infra:
+  postgresql:
+    storage:
+      size: 20Gi

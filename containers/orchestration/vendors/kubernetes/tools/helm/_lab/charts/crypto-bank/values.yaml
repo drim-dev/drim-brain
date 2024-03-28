@@ -1,0 +1,55 @@
+# Default values for crypto-bank.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+domain:
+
+tls:
+  secretName:
+
+services:
+  webApp:
+    image:
+    replicas: 3
+    resources:
+      requests:
+        memory:
+        cpu:
+      limits:
+        memory:
+        cpu:
+  apiGateway:
+    image:
+    replicas: 3
+    resources:
+      requests:
+        memory:
+        cpu:
+      limits:
+        memory:
+        cpu:
+  bankingService:
+    image:
+    replicas: 3
+    resources:
+      requests:
+        memory:
+        cpu:
+      limits:
+        memory:
+        cpu:
+  blockchainService:
+    image:
+    replicas: 3
+    resources:
+      requests:
+        memory:
+        cpu:
+      limits:
+        memory:
+        cpu:
+
+infra:
+  postgresql:
+    storage:
+      size:

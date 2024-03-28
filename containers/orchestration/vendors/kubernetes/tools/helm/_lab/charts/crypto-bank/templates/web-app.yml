@@ -1,0 +1,52 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: web-app
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`{{ .Values.domain }}`)
+      kind: Rule
+      services:
+        - name: web-app
+          port: 80
+  tls:
+    secretName: {{ .Values.tls.secretName }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-app
+spec:
+  selector:
+    app: web-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-app
+spec:
+  replicas: {{ .Values.services.webApp.replicas }}
+  selector:
+    matchLabels:
+      app: web-app
+  template:
+    metadata:
+      labels:
+        app: web-app
+    spec:
+      containers:
+      - name: web-app
+        image: {{ .Values.services.webApp.image }}
+        ports:
+        - containerPort: 80
+        resources:
+          {{- include "conf.resources" .Values.services.webApp.resources }}

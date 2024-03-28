@@ -1,0 +1,70 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: blockchain-service
+spec:
+  selector:
+    app: blockchain-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: blockchain-service
+data:
+  appsettings.json: |- 
+    {
+      "Kestrel": {
+        "Endpoints": {
+          "Http" : {
+            "Url" : "http://+:8080",
+            "Protocols": "Http1"
+          },
+          "gRPC": {
+            "Url": "http://+:80",
+            "Protocols": "Http2"
+          }
+        }
+      },
+    }
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blockchain-service
+spec:
+  replicas: {{ .Values.services.blockchainService.replicas }}
+  selector:
+    matchLabels:
+      app: blockchain-service
+  template:
+    metadata:
+      labels:
+        app: blockchain-service
+    spec:
+      containers:
+      - name: blockchain-service
+        image: {{ .Values.services.blockchainService.image }}
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+          {{- include "conf.resources" .Values.services.blockchainService.resources }}
+        volumeMounts:
+        - mountPath: /app/extraSettings
+          name: extra-settings
+      volumes:
+      - name: extra-settings
+        projected:
+            sources:
+            - configMap:
+                name: blockchain-service
+                items:
+                - key: appsettings.json
+                  path: appsettings.json
